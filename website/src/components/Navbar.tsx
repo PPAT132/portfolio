@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -27,85 +26,62 @@ const Navbar = ({ currentSection, setCurrentSection }: NavbarProps) => {
   };
 
   return (
-    <motion.nav 
-      className="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm border-b border-gray-800 z-50"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 w-full bg-gray-800/90 backdrop-blur-sm border-b border-gray-700 z-50">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <motion.div 
-            className="flex-shrink-0"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <Link 
+            to="/" 
+            className="text-xl font-bold text-blue-400 hover:text-blue-300 transition-colors"
+            onClick={() => handleNavClick('home')}
           >
-            <Link 
-              to="/" 
-              className="text-xl font-bold text-blue-400 hover:text-blue-300 transition-colors"
-              onClick={() => handleNavClick('home')}
-            >
-              Patrick Ma
-            </Link>
-          </motion.div>
+            Patrick Ma
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="flex items-baseline space-x-4">
               {navItems.map((item) => (
-                <motion.div
+                <Link
                   key={item.name}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  to={item.path}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    location.pathname === item.path
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-300 hover:text-blue-400 hover:bg-gray-700'
+                  }`}
+                  onClick={() => handleNavClick(item.section)}
                 >
-                  <Link
-                    to={item.path}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      location.pathname === item.path
-                        ? 'text-blue-400 bg-gray-800'
-                        : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
-                    }`}
-                    onClick={() => handleNavClick(item.section)}
-                  >
-                    {item.name}
-                  </Link>
-                </motion.div>
+                  {item.name}
+                </Link>
               ))}
             </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <motion.button
+            <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-blue-400 focus:outline-none"
-              whileTap={{ scale: 0.95 }}
+              className="text-gray-300 hover:text-blue-400 focus:outline-none p-2 rounded-lg hover:bg-gray-700 transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <motion.div 
-          className="md:hidden"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900 border-t border-gray-800">
+        <div className="md:hidden bg-gray-800 border-t border-gray-700">
+          <div className="px-4 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                className={`block px-3 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
                   location.pathname === item.path
-                    ? 'text-blue-400 bg-gray-800'
-                    : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-blue-400 hover:bg-gray-700'
                 }`}
                 onClick={() => handleNavClick(item.section)}
               >
@@ -113,9 +89,9 @@ const Navbar = ({ currentSection, setCurrentSection }: NavbarProps) => {
               </Link>
             ))}
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.nav>
+    </nav>
   );
 };
 

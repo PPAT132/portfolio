@@ -14,9 +14,9 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-900 text-gray-100">
+      <div className="min-h-screen bg-gray-900 text-gray-100 overflow-x-hidden">
         <Navbar currentSection={currentSection} setCurrentSection={setCurrentSection} />
-        <main className="pt-16">
+        <main className="pt-16 w-full">
           <Routes>
             <Route path="/" element={<Home setCurrentSection={setCurrentSection} />} />
             <Route path="/about" element={<About setCurrentSection={setCurrentSection} />} />
