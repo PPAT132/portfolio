@@ -1,4 +1,3 @@
-import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -9,20 +8,25 @@ interface NavbarProps {
 
 const Navbar = ({ currentSection, setCurrentSection }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
 
   const navItems = [
-    { name: 'Home', path: '/', section: 'home' },
-    { name: 'About', path: '/about', section: 'about' },
-    { name: 'Experience', path: '/experience', section: 'experience' },
-    { name: 'Projects', path: '/projects', section: 'projects' },
-    { name: 'Skills', path: '/skills', section: 'skills' },
-    { name: 'Contact', path: '/contact', section: 'contact' },
+    { name: 'Home', section: 'home' },
+    { name: 'About', section: 'about' },
+    { name: 'Experience', section: 'experience' },
+    { name: 'Projects', section: 'projects' },
+    { name: 'Contact', section: 'contact' },
+    { name: 'Skills', section: 'skills' },
   ];
 
   const handleNavClick = (section: string) => {
     setCurrentSection(section);
     setIsOpen(false);
+    
+    // Scroll to section
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -30,30 +34,28 @@ const Navbar = ({ currentSection, setCurrentSection }: NavbarProps) => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link 
-            to="/" 
+          <button
             className="text-xl font-bold text-blue-400 hover:text-blue-300 transition-colors"
             onClick={() => handleNavClick('home')}
           >
             Patrick Ma
-          </Link>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-baseline space-x-4">
               {navItems.map((item) => (
-                <Link
+                <button
                   key={item.name}
-                  to={item.path}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                    location.pathname === item.path
+                    currentSection === item.section
                       ? 'bg-blue-600 text-white'
                       : 'text-gray-300 hover:text-blue-400 hover:bg-gray-700'
                   }`}
                   onClick={() => handleNavClick(item.section)}
                 >
                   {item.name}
-                </Link>
+                </button>
               ))}
             </div>
           </div>
@@ -75,18 +77,17 @@ const Navbar = ({ currentSection, setCurrentSection }: NavbarProps) => {
         <div className="md:hidden bg-gray-800 border-t border-gray-700">
           <div className="px-4 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
-              <Link
+              <button
                 key={item.name}
-                to={item.path}
-                className={`block px-3 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
-                  location.pathname === item.path
+                className={`block w-full text-left px-3 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
+                  currentSection === item.section
                     ? 'bg-blue-600 text-white'
                     : 'text-gray-300 hover:text-blue-400 hover:bg-gray-700'
                 }`}
                 onClick={() => handleNavClick(item.section)}
               >
                 {item.name}
-              </Link>
+              </button>
             ))}
           </div>
         </div>

@@ -1,33 +1,18 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import About from './pages/About';
-import Experience from './pages/Experience';
-import Projects from './pages/Projects';
-import Skills from './pages/Skills';
-import Contact from './pages/Contact';
+import SideNavigation from './components/SideNavigation';
 import './App.css';
 
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
 
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-900 text-gray-100 overflow-x-hidden">
-        <Navbar currentSection={currentSection} setCurrentSection={setCurrentSection} />
-        <main className="pt-16 w-full">
-          <Routes>
-            <Route path="/" element={<Home setCurrentSection={setCurrentSection} />} />
-            <Route path="/about" element={<About setCurrentSection={setCurrentSection} />} />
-            <Route path="/experience" element={<Experience setCurrentSection={setCurrentSection} />} />
-            <Route path="/projects" element={<Projects setCurrentSection={setCurrentSection} />} />
-            <Route path="/skills" element={<Skills setCurrentSection={setCurrentSection} />} />
-            <Route path="/contact" element={<Contact setCurrentSection={setCurrentSection} />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <div className="min-h-screen bg-gray-900 text-gray-100 overflow-x-hidden">
+      <main className="w-full">
+        <Home setCurrentSection={setCurrentSection} />
+      </main>
+      <SideNavigation currentSection={currentSection} setCurrentSection={setCurrentSection} />
+    </div>
   );
 }
 
