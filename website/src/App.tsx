@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Home from './pages/Home';
 import SideNavigation from './components/SideNavigation';
-import './App.css';
 
 function App() {
   const [currentSection, setCurrentSection] = useState('home');

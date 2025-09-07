@@ -86,8 +86,7 @@ const Home = ({ setCurrentSection }: HomeProps) => {
       y: 0, 
       scale: 1,
       transition: {
-        duration: 0.8,
-        ease: "easeOut" as const
+        duration: 0.8
       }
     }
   };
@@ -108,8 +107,7 @@ const Home = ({ setCurrentSection }: HomeProps) => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut" as const
+        duration: 0.6
       }
     }
   };
@@ -243,8 +241,7 @@ const Home = ({ setCurrentSection }: HomeProps) => {
           className="max-w-4xl mx-auto"
           variants={sectionVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          animate="visible"
         >
           <motion.div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
