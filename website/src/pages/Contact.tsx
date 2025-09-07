@@ -5,7 +5,7 @@ interface ContactProps {
   setCurrentSection: (section: string) => void;
 }
 
-const Contact = ({ setCurrentSection }: ContactProps) => {
+const Contact = ({ setCurrentSection: _setCurrentSection }: ContactProps) => {
   const contactInfo = [
     {
       icon: Mail,

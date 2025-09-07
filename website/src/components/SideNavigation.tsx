@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface SideNavigationProps {
@@ -141,7 +141,7 @@ const SideNavigation = ({ currentSection, setCurrentSection }: SideNavigationPro
         }}
         onMouseLeave={() => {
           // Reset to default state - current section is largest
-          sections.forEach((s, i) => {
+          sections.forEach((s) => {
             const dotElement = document.getElementById(`nav-dot-${s.id}`);
             const labelElement = document.getElementById(`nav-label-${s.id}`);
             if (dotElement && labelElement) {
@@ -156,7 +156,7 @@ const SideNavigation = ({ currentSection, setCurrentSection }: SideNavigationPro
           });
         }}
       >
-        {sections.map((section, index) => (
+        {sections.map((section) => (
           <motion.button
             key={section.id}
             onClick={() => scrollToSection(section.id)}

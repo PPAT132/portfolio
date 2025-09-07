@@ -1,14 +1,14 @@
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, FileText, ArrowRight, Code, Briefcase, GraduationCap, BookOpen, MapPin, Calendar, ExternalLink } from 'lucide-react';
-import { useEffect, useState, useRef } from 'react';
+import { useState } from 'react';
 import profileImage from '../assets/images/My_Picture.jpg';
 
 interface HomeProps {
   setCurrentSection: (section: string) => void;
 }
 
-const Home = ({ setCurrentSection }: HomeProps) => {
-  const [aboutExpanded, setAboutExpanded] = useState(false);
+const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
+  const [_aboutExpanded, _setAboutExpanded] = useState(false);
   const [storyExpanded, setStoryExpanded] = useState(false);
   const [focusExpanded, setFocusExpanded] = useState(false);
   
@@ -24,10 +24,10 @@ const Home = ({ setCurrentSection }: HomeProps) => {
     { icon: Briefcase, label: 'Get In Touch', path: '/contact', bgColor: 'bg-indigo-600' },
   ];
 
-  const skills = [
-    'AI Fine-tuning', 'Model Optimization', 'AI Agents', 'Full-Stack Development',
-    'React', 'TypeScript', 'Python', 'C#', 'FastAPI', 'Docker'
-  ];
+  // const _skills = [
+  //   'AI Fine-tuning', 'Model Optimization', 'AI Agents', 'Full-Stack Development',
+  //   'React', 'TypeScript', 'Python', 'C#', 'FastAPI', 'Docker'
+  // ];
 
   const experiences = [
     {
