@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, FileText, ArrowRight, Code, Briefcase, GraduationCap, BookOpen, MapPin, Calendar, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, FileText, ArrowRight, Code, Briefcase, GraduationCap, BookOpen, MapPin, Calendar, ExternalLink, Download } from 'lucide-react';
 import { useState } from 'react';
 import profileImage from '../assets/images/My_Picture.jpg';
 
@@ -136,6 +136,20 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                 <p className="text-lg text-gray-100 leading-relaxed">
                   I'm a second-year CS student passionate about combining theory with practice. I believe mathematics provides the foundation for understanding, but I truly enjoy applying knowledge by building real projects. Right now, I'm especially interested in AI agents and fine-tuning models, while also sharpening my full-stack development skills.
                 </p>
+                
+                {/* Resume Download Button */}
+                <div className="flex justify-center">
+                  <motion.a
+                    href="/Patrick-Ma-Resume.pdf"
+                    download="Patrick-Ma-Resume.pdf"
+                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Download size={20} />
+                    Download Resume
+                  </motion.a>
+                </div>
               </div>
             </div>
 
