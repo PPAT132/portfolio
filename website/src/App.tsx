@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 overflow-x-hidden">
-      <main className="w-full">
+      <main className="w-full pr-0 lg:pr-64">
         <Home setCurrentSection={setCurrentSection} />
       </main>
       <SideNavigation currentSection={currentSection} setCurrentSection={setCurrentSection} />
