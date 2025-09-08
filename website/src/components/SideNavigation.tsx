@@ -73,11 +73,11 @@ const SideNavigation = ({ currentSection, setCurrentSection }: SideNavigationPro
   };
 
   return (
-    <div className="fixed right-0 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block">
+    <div className="fixed top-1/2 transform -translate-y-1/2 z-50 hidden lg:block navigator-responsive">
       <div 
         className="bg-transparent border border-transparent"
         style={{ 
-          width: '200px', 
+          width: '100px', 
           height: '400px',
           display: 'flex',
           flexDirection: 'column',

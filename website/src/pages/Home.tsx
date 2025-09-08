@@ -116,7 +116,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center px-4 py-8">
-        <div className="w-full max-w-7xl mx-auto">
+        <div className="w-full max-w-[1130px] mx-auto">
           {/* Main Content */}
           <div className="grid lg:grid-cols-5 gap-12 items-center">
             {/* Left Column - Text Content (3/5) */}
