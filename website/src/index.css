@@ -94,3 +94,27 @@ html, body {
   }
 }
 
+/* Mobile responsive styles for 1024px and below */
+@media (max-width: 1023px) {
+  .hero-text-container {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-text-container h1,
+  .hero-text-container h2,
+  .hero-text-container p {
+    text-align: center;
+  }
+  
+  .hero-image-container {
+    justify-content: center;
+  }
+  
+  /* Add right padding for mobile */
+  main {
+    padding-right: 2rem !important;
+  }
+}
+

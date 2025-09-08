@@ -120,7 +120,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
           {/* Main Content */}
           <div className="grid lg:grid-cols-5 gap-12 items-center">
             {/* Left Column - Text Content (3/5) */}
-            <div className="lg:col-span-3 max-w-[60ch] space-y-8">
+            <div className="lg:col-span-3 max-w-[60ch] space-y-8 hero-text-container">
               {/* Title */}
               <div>
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
@@ -140,7 +140,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
             </div>
 
             {/* Right Column - Photo with Floating Elements */}
-            <div className="relative flex justify-center lg:justify-start items-center">
+            <div className="relative flex justify-center lg:justify-start items-center hero-image-container">
               <div className="relative">
                 {/* Main Photo */}
                 <div className="w-80 h-80 rounded-full overflow-hidden bg-gradient-to-r from-blue-400 to-purple-500 p-1 shadow-lg">
