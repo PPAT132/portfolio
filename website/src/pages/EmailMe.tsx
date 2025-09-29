@@ -108,25 +108,25 @@ const EmailMe = () => {
 
       {/* Main Content */}
       <motion.div
-        className="max-w-2xl mx-auto px-4 py-12"
+        className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {/* Introduction */}
-        <motion.div variants={itemVariants} className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+        <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Get In Touch
           </h2>
-          <p className="text-gray-300 text-lg leading-relaxed">
+          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
             I'd love to hear from you! Whether you have a project in mind, want to collaborate, 
             or just want to say hello, feel free to send me a message.
           </p>
         </motion.div>
 
         {/* Contact Form */}
-        <motion.div variants={itemVariants} className="bg-gray-800 rounded-lg p-8 border border-gray-700">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <motion.div variants={itemVariants} className="bg-gray-800 rounded-lg p-4 sm:p-6 lg:p-8 border border-gray-700">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Name Field */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">

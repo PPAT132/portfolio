@@ -7,7 +7,7 @@ interface HomeProps {
   setCurrentSection: (section: string) => void;
 }
 
-const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
+const Home = ({ setCurrentSection }: HomeProps) => {
   const [_aboutExpanded, _setAboutExpanded] = useState(false);
   const [storyExpanded, setStoryExpanded] = useState(false);
   const [focusExpanded, setFocusExpanded] = useState(false);
