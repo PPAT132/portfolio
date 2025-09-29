@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #111827;
+  color: #f3f4f6;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Simple glass effect */
+.glass {
+  background: rgba(31, 41, 55, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+/* Simple button styles */
+.btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+
+.btn-secondary {
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  background: #3b82f6;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Floating animation for decorative circles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Staggered animation delays */
+.animate-float:nth-child(1) { animation-delay: 0s; }
+.animate-float:nth-child(2) { animation-delay: 0.5s; }
+.animate-float:nth-child(3) { animation-delay: 1s; }
+.animate-float:nth-child(4) { animation-delay: 1.5s; }
+.animate-float:nth-child(5) { animation-delay: 2s; }
+.animate-float:nth-child(6) { animation-delay: 2.5s; }
+
+/* Navigator responsive positioning */
+.navigator-responsive {
+  right: 1vw;
+}
+
+@media (min-width: 1320px) {
+  .navigator-responsive {
+    right: calc((100vw - 1130px) / 2 - 60px);
+  }
+}
+
+/* Mobile responsive styles for 1024px and below */
+@media (max-width: 1023px) {
+  .hero-text-container {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-text-container h1,
+  .hero-text-container h2,
+  .hero-text-container p {
+    text-align: center;
+  }
+  
+  .hero-image-container {
+    justify-content: center;
+  }
+  
+  /* Add right padding for mobile */
+  main {
+    padding-right: 2rem !important;
+  }
+}
+
