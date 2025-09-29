@@ -66,10 +66,13 @@ const SideNavigation = ({ currentSection, setCurrentSection }: SideNavigationPro
   }, [sections, setCurrentSection]);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    setCurrentSection(sectionId); // Update current section state
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return (

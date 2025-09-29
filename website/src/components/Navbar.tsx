@@ -22,6 +22,12 @@ const Navbar = ({ currentSection, setCurrentSection }: NavbarProps) => {
     setCurrentSection(section);
     setIsOpen(false);
     
+    // If we're on the email page, navigate to home first
+    if (window.location.pathname === '/email') {
+      window.location.href = `/#${section}`;
+      return;
+    }
+    
     // Scroll to section
     const element = document.getElementById(section);
     if (element) {

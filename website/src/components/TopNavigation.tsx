@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
 
 interface TopNavigationProps {
   currentSection: string;
@@ -6,6 +8,8 @@ interface TopNavigationProps {
 }
 
 const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
   const sections = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
@@ -15,10 +19,28 @@ const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps
   ];
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    setCurrentSection(sectionId); // Update current section state
+    setIsMenuOpen(false); // Close menu after navigation
+    
+    // If we're on the email page, navigate to home first
+    if (window.location.pathname === '/email') {
+      window.location.href = '/';
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 500);
+      return;
     }
+    
+    // On home page, scroll to section
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return (
@@ -30,8 +52,8 @@ const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps
             Patrick Ma
           </div>
           
-          {/* Navigation Links */}
-          <div className="flex items-center space-x-4">
+          {/* Desktop Navigation Links (hidden on small screens) */}
+          <div className="hidden md:flex items-center space-x-4">
             {sections.map((section) => (
               <motion.button
                 key={section.id}
@@ -48,7 +70,48 @@ const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps
               </motion.button>
             ))}
           </div>
+
+          {/* Mobile Hamburger Menu */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-300 hover:text-blue-400 focus:outline-none p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden border-t border-gray-700 mt-3"
+            >
+              <div className="py-3 space-y-1">
+                {sections.map((section) => (
+                  <motion.button
+                    key={section.id}
+                    onClick={() => scrollToSection(section.id)}
+                    className={`block w-full text-left px-3 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
+                      currentSection === section.id
+                        ? 'bg-blue-600 text-white'
+                        : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800/50'
+                    }`}
+                    whileHover={{ x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {section.label}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );
