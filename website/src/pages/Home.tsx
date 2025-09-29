@@ -75,7 +75,7 @@ const Home = ({ setCurrentSection }: HomeProps) => {
       subtitle: 'Microscopy Image Enhancement Models',
       description: 'Developed RCAN and U-Net CNN models for microscopy image super-resolution using PyTorch. Expanded dataset from 10,000 to 10 million samples through data augmentation techniques. Achieved 23% improvement in image resolution compared to original low-resolution images.',
       tech: ['PyTorch', 'CNN', 'U-Net', 'RCAN', 'Data Augmentation', 'Image Processing'],
-      link: '#'
+      link: null
     }
   ];
 
@@ -606,9 +606,11 @@ const Home = ({ setCurrentSection }: HomeProps) => {
                     <h3 className="text-xl font-semibold text-blue-400 mb-2">{project.title}</h3>
                     <p className="text-gray-400 text-sm mb-3">{project.subtitle}</p>
                   </div>
-                  <a href={project.link} className="text-gray-400 hover:text-blue-400 transition-colors">
-                    <ExternalLink size={20} />
-                  </a>
+                  {project.link && (
+                    <a href={project.link} className="text-gray-400 hover:text-blue-400 transition-colors">
+                      <ExternalLink size={20} />
+                    </a>
+                  )}
                 </div>
                 <p className="text-gray-300 leading-relaxed mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
