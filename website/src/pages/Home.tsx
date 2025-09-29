@@ -16,7 +16,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
     { icon: Github, label: 'GitHub', url: 'https://github.com/PPAT132', color: 'hover:text-gray-300', bgColor: 'bg-gray-800' },
     { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/maxiao-ma-2162752b3/', color: 'hover:text-blue-400', bgColor: 'bg-blue-600' },
     { icon: FileText, label: 'Résumé', url: '#', color: 'hover:text-green-400', bgColor: 'bg-green-600' },
-    { icon: Mail, label: 'Email', url: 'mailto:maxiaoma833@gmail.com', color: 'hover:text-red-400', bgColor: 'bg-red-600' },
+    { icon: Mail, label: 'Email', url: '/email', color: 'hover:text-red-400', bgColor: 'bg-red-600' },
   ];
 
   const actions = [
@@ -640,11 +640,13 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
 
           <div className="flex flex-wrap justify-center gap-6">
             <a
-              href="mailto:maxiaoma833@gmail.com"
+              href="/email"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105"
             >
               <Mail size={20} />
-              maxiaoma833@gmail.com
+              Send Me an Email
             </a>
             <a
               href="https://www.linkedin.com/in/maxiao-ma-2162752b3/"
