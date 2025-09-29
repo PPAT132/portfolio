@@ -28,7 +28,7 @@ const EmailMe = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/send-email', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
