@@ -17,9 +17,12 @@ app.use(cors({
   origin: [
     'http://localhost:5173', 
     'http://localhost:3000',
-    'http://192.168.0.18:3000',  // 您的本地IP地址
+    'http://192.168.0.18:3000',
     'http://127.0.0.1:3000',
-    'http://127.0.0.1:5173'
+    'http://127.0.0.1:5173',
+    'https://patrickmxma.com',
+    'https://www.patrickmxma.com',
+    'https://golden-unicorn-7ecff5.netlify.app'
   ],
   credentials: true
 }));
