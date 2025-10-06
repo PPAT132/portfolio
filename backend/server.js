@@ -9,6 +9,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Trust proxy for Railway deployment
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 
@@ -50,7 +53,14 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
-  }
+  },
+  // Add timeout and connection settings for Railway
+  connectionTimeout: 60000, // 60 seconds
+  greetingTimeout: 30000,   // 30 seconds
+  socketTimeout: 60000,     // 60 seconds
+  // Use secure connection
+  secure: true,
+  port: 465
 });
 
 // Simple input validation
