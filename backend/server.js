@@ -47,13 +47,23 @@ const limiter = rateLimit({
 
 app.use('/api/send-email', limiter);
 
-// Email configuration
+// Email configuration with explicit SMTP settings for Railway
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // true for 465, false for other ports
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
-  }
+  },
+  // Add connection timeout settings
+  connectionTimeout: 30000, // 30 seconds
+  greetingTimeout: 30000,   // 30 seconds
+  socketTimeout: 30000,     // 30 seconds
+  // Retry configuration
+  pool: true,
+  maxConnections: 1,
+  maxMessages: 3
 });
 
 // Simple input validation
