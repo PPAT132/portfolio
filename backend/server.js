@@ -47,16 +47,8 @@ const limiter = rateLimit({
 
 app.use('/api/send-email', limiter);
 
-// Email configuration - using Resend for better Railway compatibility
-const transporter = nodemailer.createTransport({
-  host: 'smtp.resend.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: 'resend',
-    pass: process.env.RESEND_API_KEY
-  }
-});
+// Email configuration - using Resend HTTP API for better Railway compatibility
+// No need for nodemailer transporter with Resend API
 
 // Simple input validation
 const emailValidation = [
@@ -81,7 +73,7 @@ const emailValidation = [
     .withMessage('Message is required')
 ];
 
-// Email sending endpoint
+// Email sending endpoint using Resend HTTP API
 app.post('/api/send-email', emailValidation, async (req, res) => {
   try {
     // Check validation results
@@ -96,45 +88,55 @@ app.post('/api/send-email', emailValidation, async (req, res) => {
 
     const { name, email, subject, message } = req.body;
 
-    // Email content
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: 'maxiaoma833@gmail.com', // Your email
-      subject: `Portfolio Contact: ${subject}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333; border-bottom: 2px solid #4F46E5; padding-bottom: 10px;">
-            New Contact Form Submission
-          </h2>
-          
-          <div style="background-color: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #4F46E5; margin-top: 0;">Contact Details</h3>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Subject:</strong> ${subject}</p>
+    // Send email using Resend HTTP API
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'onboarding@resend.dev',
+        to: ['maxiaoma833@gmail.com'],
+        subject: `Portfolio Contact: ${subject}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #333; border-bottom: 2px solid #4F46E5; padding-bottom: 10px;">
+              New Contact Form Submission
+            </h2>
+            
+            <div style="background-color: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="color: #4F46E5; margin-top: 0;">Contact Details</h3>
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Subject:</strong> ${subject}</p>
+            </div>
+            
+            <div style="background-color: #FFFFFF; padding: 20px; border: 1px solid #E5E7EB; border-radius: 8px;">
+              <h3 style="color: #4F46E5; margin-top: 0;">Message</h3>
+              <p style="line-height: 1.6; color: #374151;">${message.replace(/\n/g, '<br>')}</p>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background-color: #FEF3C7; border-radius: 8px; border-left: 4px solid #F59E0B;">
+              <p style="margin: 0; color: #92400E; font-size: 14px;">
+                <strong>Note:</strong> This message was sent from your portfolio website contact form.
+              </p>
+            </div>
           </div>
-          
-          <div style="background-color: #FFFFFF; padding: 20px; border: 1px solid #E5E7EB; border-radius: 8px;">
-            <h3 style="color: #4F46E5; margin-top: 0;">Message</h3>
-            <p style="line-height: 1.6; color: #374151;">${message.replace(/\n/g, '<br>')}</p>
-          </div>
-          
-          <div style="margin-top: 20px; padding: 15px; background-color: #FEF3C7; border-radius: 8px; border-left: 4px solid #F59E0B;">
-            <p style="margin: 0; color: #92400E; font-size: 14px;">
-              <strong>Note:</strong> This message was sent from your portfolio website contact form.
-            </p>
-          </div>
-        </div>
-      `,
-      replyTo: email
-    };
+        `,
+        reply_to: email
+      })
+    });
 
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
+    if (!response.ok) {
+      throw new Error(`Resend API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
     
-    // Log successful email (without sensitive data)
-    console.log(`Email sent successfully to ${email} from ${name} at ${new Date().toISOString()}`);
-    console.log(`Message ID: ${info.messageId}`);
+    // Log successful email
+    console.log(`Email sent successfully from ${name} (${email}) at ${new Date().toISOString()}`);
+    console.log(`Resend email ID: ${data.id}`);
 
     res.json({ 
       success: true, 
@@ -161,7 +163,7 @@ app.post('/api/send-email', emailValidation, async (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ 
+  res.status(200).json({ 
     status: 'OK', 
     message: 'Email service is running',
     timestamp: new Date().toISOString(),
@@ -169,10 +171,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Root endpoint for Railway health check
+// Add root endpoint for Railway health check
 app.get('/', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+  res.status(200).json({
+    status: 'OK',
     message: 'Backend service is running',
     timestamp: new Date().toISOString()
   });
@@ -199,7 +201,7 @@ app.get('/api/test-email-config', async (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Email server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/api/health`);
   console.log('Server started successfully, keeping process alive...');
