@@ -169,6 +169,15 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Root endpoint for Railway health check
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'Backend service is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Test email configuration endpoint
 app.get('/api/test-email-config', async (req, res) => {
   try {
