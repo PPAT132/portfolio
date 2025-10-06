@@ -53,14 +53,7 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
-  },
-  // Add timeout and connection settings for Railway
-  connectionTimeout: 60000, // 60 seconds
-  greetingTimeout: 30000,   // 30 seconds
-  socketTimeout: 60000,     // 60 seconds
-  // Use secure connection
-  secure: true,
-  port: 465
+  }
 });
 
 // Simple input validation
@@ -199,6 +192,11 @@ app.listen(PORT, () => {
   console.log(`Email server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/api/health`);
   console.log('Server started successfully, keeping process alive...');
+  console.log('Environment check:', {
+    EMAIL_USER: process.env.EMAIL_USER ? 'Set' : 'Not set',
+    EMAIL_PASS: process.env.EMAIL_PASS ? 'Set' : 'Not set',
+    PORT: process.env.PORT || 'Default 3001'
+  });
 });
 
 // Keep process alive
