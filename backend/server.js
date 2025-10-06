@@ -47,23 +47,15 @@ const limiter = rateLimit({
 
 app.use('/api/send-email', limiter);
 
-// Email configuration with explicit SMTP settings for Railway
+// Email configuration - using Resend for better Railway compatibility
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
+  host: 'smtp.resend.com',
   port: 587,
-  secure: false, // true for 465, false for other ports
+  secure: false,
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  // Add connection timeout settings
-  connectionTimeout: 30000, // 30 seconds
-  greetingTimeout: 30000,   // 30 seconds
-  socketTimeout: 30000,     // 30 seconds
-  // Retry configuration
-  pool: true,
-  maxConnections: 1,
-  maxMessages: 3
+    user: 'resend',
+    pass: process.env.RESEND_API_KEY
+  }
 });
 
 // Simple input validation
@@ -203,8 +195,7 @@ app.listen(PORT, () => {
   console.log(`Health check: http://localhost:${PORT}/api/health`);
   console.log('Server started successfully, keeping process alive...');
   console.log('Environment check:', {
-    EMAIL_USER: process.env.EMAIL_USER ? 'Set' : 'Not set',
-    EMAIL_PASS: process.env.EMAIL_PASS ? 'Set' : 'Not set',
+    RESEND_API_KEY: process.env.RESEND_API_KEY ? 'Set' : 'Not set',
     PORT: process.env.PORT || 'Default 3001'
   });
 });
