@@ -161,7 +161,7 @@ app.post('/api/send-email', emailValidation, async (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ 
+  res.status(200).json({ 
     status: 'OK', 
     message: 'Email service is running',
     timestamp: new Date().toISOString(),
@@ -171,7 +171,7 @@ app.get('/api/health', (req, res) => {
 
 // Root endpoint for Railway health check
 app.get('/', (req, res) => {
-  res.json({ 
+  res.status(200).json({ 
     status: 'OK', 
     message: 'Backend service is running',
     timestamp: new Date().toISOString()
