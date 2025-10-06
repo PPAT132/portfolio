@@ -199,7 +199,7 @@ app.get('/api/test-email-config', async (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Email server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/api/health`);
   console.log('Server started successfully, keeping process alive...');
@@ -212,10 +212,10 @@ app.listen(PORT, () => {
 // Keep process alive
 process.on('uncaughtException', (error) => {
   console.error('Uncaught Exception:', error);
-  process.exit(1);
+  // process.exit(1); // Commented out to prevent restart storms
 });
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-  process.exit(1);
+  // process.exit(1); // Commented out to prevent restart storms
 });
