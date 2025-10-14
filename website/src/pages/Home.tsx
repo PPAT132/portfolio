@@ -14,7 +14,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
   
   const links = [
     { icon: Github, label: 'GitHub', url: 'https://github.com/PPAT132', color: 'hover:text-gray-300', bgColor: 'bg-gray-800' },
-    { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/maxiao-ma-2162752b3/', color: 'hover:text-blue-400', bgColor: 'bg-blue-600' },
+    { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/patrick-ma-2162752b3/', color: 'hover:text-blue-400', bgColor: 'bg-blue-600' },
     { icon: FileText, label: 'Résumé', url: '#', color: 'hover:text-green-400', bgColor: 'bg-green-600' },
     { icon: Mail, label: 'Email', url: '/email', color: 'hover:text-red-400', bgColor: 'bg-red-600' },
   ];
