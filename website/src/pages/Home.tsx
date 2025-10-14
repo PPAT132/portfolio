@@ -134,7 +134,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
               {/* Introduction */}
               <div className="space-y-6">
                 <p className="text-lg text-gray-100 leading-relaxed">
-                  I'm a second-year CS student passionate about combining theory with practice. I believe mathematics provides the foundation for understanding, but I truly enjoy applying knowledge by building real projects. Right now, I'm especially interested in AI agents and fine-tuning models, while also sharpening my full-stack development skills.
+                  I'm a Waterloo CS student passionate about combining theory with practice. I believe mathematics provides the foundation for understanding, but I truly enjoy applying knowledge by building real projects. Right now, I'm especially interested in AI agents and fine-tuning models, while also sharpening my full-stack development skills.
                 </p>
                 
                 {/* Resume Download Button */}
