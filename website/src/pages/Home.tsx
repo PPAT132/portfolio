@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, FileText, ArrowRight, Code, Briefcase, GraduationCap, BookOpen, MapPin, Calendar, ExternalLink, Download } from 'lucide-react';
+import { motion, LayoutGroup, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, Mail, FileText, ArrowRight, Code, Briefcase, GraduationCap, BookOpen, MapPin, Calendar, ExternalLink, Download, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import profileImage from '../assets/images/My_Picture.jpg';
 
@@ -11,6 +11,15 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
   const [_aboutExpanded, _setAboutExpanded] = useState(false);
   const [storyExpanded, setStoryExpanded] = useState(false);
   const [focusExpanded, setFocusExpanded] = useState(false);
+  const [expandedProjectIndex, setExpandedProjectIndex] = useState<number | null>(null);
+  const [expandedExperienceIndex, setExpandedExperienceIndex] = useState<number | null>(null);
+
+  const toggleExperience = (index: number) => {
+    setExpandedExperienceIndex(prev => {
+      if (prev === index) return null;
+      return index;
+    });
+  };
   
   const links = [
     { icon: Github, label: 'GitHub', url: 'https://github.com/PPAT132', color: 'hover:text-gray-300', bgColor: 'bg-gray-800' },
@@ -35,8 +44,35 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
       position: 'Full-Stack Developer Intern',
       period: 'May–Aug 2025',
       location: 'North York, Canada',
-      description: 'Rebuilt PC and mobile frontends using Razor (ASP.NET MVC), delivering 8 key pages and 10+ supporting pages with improved responsiveness and user experience. Led SEO optimization with redesigned URL structures and metadata, increasing website search traffic click-through rate by 20%. Designed and implemented complete backend workflows with C# and SQL for vehicle data management, trim selection, and MSRP calculation. Built scheduled jobs with WebJob for automated maintenance tasks.',
-      tech: ['Razor', 'ASP.NET MVC', 'C#', 'SQL', 'WebJob', 'SEO']
+      description: 'Worked as a full-stack engineer on a production-scale automotive marketplace, contributing to both customer-facing features and backend systems supporting 100,000+ annual users.',
+      tech: ['Razor', 'ASP.NET MVC', 'C#', 'SQL', 'WebJob', 'SEO'],
+      details: [
+        {
+          section: 'Frontend & Application Features',
+          items: [
+            'Rebuilt and modernized 8 core business pages, including the homepage, buy/sell car flows, listing pages, user profile pages etc.',
+            'Implemented fully responsive designs with optimized layouts across desktop, tablet, and mobile devices.',
+            'Developed substantial frontend JavaScript logic for vehicle search and filtering, handling complex condition combinations and coordinating with backend APIs.',
+            'Implemented client-side features such as VIN number search, animated UI interactions, and dynamic API-driven content.'
+          ]
+        },
+        {
+          section: 'Backend & Data Systems',
+          items: [
+            'Developed and maintained backend services using ASP.NET Core MVC (C#) on Azure, supporting a high-traffic production environment.',
+            'Integrated large-scale third-party vehicle data APIs into internal systems, storing and managing vehicle information in Microsoft SQL Server.',
+            'Designed and maintained automated data ingestion pipelines using Azure WebJobs with daily and monthly update schedules, reducing redundant API calls and saving more than a thousand dollars per month in external API costs.',
+            'Optimized existing vehicle search and filtering queries in SQL Server and introduced lazy loading, significantly improving search responsiveness without fully rewriting legacy logic.'
+          ]
+        },
+        {
+          section: 'Routing, Reachability & Platform Quality',
+          items: [
+            'Redesigned application-level URL structures to improve page reachability and search-engine friendliness.',
+            'Implemented sitemap generation to improve crawlability and ensure consistent indexing of key platform pages.'
+          ]
+        }
+      ]
     },
     {
       company: 'NanoInsights',
@@ -48,34 +84,128 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
     }
   ];
 
+  const toggleProject = (index: number) => {
+    setExpandedProjectIndex(prev => {
+      // If clicking the same project, collapse it
+      if (prev === index) {
+        return null;
+      }
+      // Otherwise, expand the clicked project (automatically collapses any other)
+      return index;
+    });
+  };
+
   const projects = [
+    {
+      title: 'LACS Compiler',
+      subtitle: 'Scala-like to MIPS Assembly Compiler',
+      description: 'Developed a fully functional compiler that translates LACS, a Scala-like teaching language, into executable MIPS assembly. The project covers the full compilation pipeline, from frontend analysis to backend code generation and a complete runtime system. Although the language itself was predefined, the work required a deep understanding of language semantics and execution models.',
+      tech: ['Scala', 'MIPS Assembly', 'Compiler Construction'],
+      link: 'https://lacscompiler.netlify.app/',
+      whyItMatters: 'Demonstrates deep understanding of language semantics, memory models (stack/heap), and low-level execution details like closures and garbage collection.',
+      work: [
+        {
+          section: 'Compiler Frontend',
+          items: [
+            'Implemented a DFA-based maximal-munch scanner to tokenize source programs.',
+            'Implemented multiple parsing strategies, including CYK and an experimental Earley parser, gaining practical experience with grammar ambiguity and parser trade-offs.',
+            'Built a static type checker supporting functions, closures, and lexical scoping.',
+            'Through scanner and parser construction, developed a solid understanding of practical language design principles and how language choices impact implementability.'
+          ]
+        },
+        {
+          section: 'Backend & Compilation Pipeline',
+          items: [
+            'Implemented backend lowering and code generation passes to translate typed programs into low-level MIPS assembly.',
+            'Handled control flow, branching, and stack frame layout during code generation.',
+            'Explicitly distinguished and implemented normal function calls versus closure calls based on frontend semantic information.',
+            'Ensured that high-level language semantics were faithfully preserved in low-level generated code.'
+          ]
+        },
+        {
+          section: 'Runtime System',
+          items: [
+            'Designed and implemented an explicit stack and heap memory model.',
+            'Implemented closure representations using code pointers and environment objects (static links).',
+            'Built a semi-space copying garbage collector with precise root identification and pointer relocation.',
+            'Implemented tail-call optimization to eliminate unnecessary stack growth while preserving semantics.'
+          ]
+        }
+      ]
+    },
+    {
+      title: 'ASCII Game Engine',
+      subtitle: 'Reusable Game Engine Framework',
+      description: 'Designed and implemented a reusable C++ ASCII game engine following a clean MVC architecture. Built an extensible object-oriented framework using abstract interfaces, inheritance, and composition, with design patterns and RAII for safe memory management.',
+      tech: ['C++', 'Game Development', 'Design Patterns', 'RAII', 'MVC Architecture'],
+      link: null,
+      work: [
+        {
+          section: 'Engine Framework',
+          items: [
+            'Built an extensible object-oriented engine framework using abstract interfaces, inheritance, and composition.',
+            'Applied design patterns and RAII for safe memory management.',
+            'Designed a clean MVC architecture for separation of concerns.'
+          ]
+        },
+        {
+          section: 'Core Systems',
+          items: [
+            'Engineered a core entity and physics system supporting collision detection.',
+            'Implemented fixed-point sub-pixel movement for smooth gameplay.',
+            'Built a camera-based world view system.',
+            'Created infinite maps with procedural generation capabilities.'
+          ]
+        },
+        {
+          section: 'Validation & Extensibility',
+          items: [
+            'Validated engine functionality and extensibility by developing multiple demo games on top of the engine.',
+            'Implemented an independent game AI system on top of the engine for a Mario-like 2D platformer.',
+            'Enabled an autonomous agent to play the game end-to-end by perceiving game state and executing actions without human input.',
+            'Served as a practical validation of engine usability and extensibility.'
+          ]
+        }
+      ]
+    },
     {
       title: 'SEO Agent',
       subtitle: 'AI-Powered Repository Analyzer & VS Code Extension',
       description: 'An intelligent AI agent that analyzes repositories to identify SEO optimization opportunities. Built custom chunker and parser algorithms to reduce AI API costs while maintaining accuracy. Features repository traversal, issue pinpointing to exact files/lines, and automated fix suggestions.',
       tech: ['FastAPI', 'Docker', 'React/Vite', 'VS Code Extension APIs', 'Gemini API', 'Python'],
-      link: 'https://github.com/PPAT132/SEOAgent'
+      link: 'https://github.com/PPAT132/SEOAgent',
+      whyItMatters: 'Speeds up SEO hygiene for codebases that use templating (Razor/React).',
+      work: [
+        'Backend: FastAPI service with CORS configured for a Vite frontend; containerized with Docker for consistent local and CI runs.',
+        'Dev UX: shell script to build & launch services and probe a health endpoint for quick feedback.',
+        'Repo-aware processing and tool/function calling (crawl, patch, validate).'
+      ]
     },
     {
       title: 'iGEM Wiki',
       subtitle: 'Biology-Robotics Integration Project Website',
       description: 'Led a 4-member subteam to design and develop a comprehensive Wiki website showcasing achievements in the iGEM competition. Built with HTML, CSS, and JavaScript, featuring interactive animations and optimized navigation. As team leader, supervised 21-member interdisciplinary team and organized laboratory experiments.',
       tech: ['HTML', 'CSS', 'JavaScript', 'Team Leadership', 'Project Management'],
-      link: 'https://2023.igem.wiki/bfsu-icunited/index.html'
-    },
-    {
-      title: 'Tank Battles',
-      subtitle: 'Browser-Based Tank Combat Game',
-      description: 'A dynamic top-down tank battle game featuring enemy spawns, projectile combat, obstacle systems, sound effects, and scoring mechanics. Implements advanced game mechanics including timed spawns, cooldown systems, collision detection, and responsive UI elements.',
-      tech: ['JavaScript', 'p5.js', 'HTML/CSS', 'Game Development'],
-      link: 'https://github.com/PPAT132/Game-tank-battles'
+      link: 'https://2023.igem.wiki/bfsu-icunited/index.html',
+      whyItMatters: 'Showcases leadership skills and ability to coordinate interdisciplinary teams while delivering technical solutions.',
+      work: [
+        'Led 4-member subteam to design and develop comprehensive Wiki website.',
+        'Supervised 21-member interdisciplinary team and organized laboratory experiments.',
+        'Built interactive animations and optimized navigation for better user experience.'
+      ]
     },
     {
       title: 'Super-Resolution AI',
       subtitle: 'Microscopy Image Enhancement Models',
       description: 'Developed RCAN and U-Net CNN models for microscopy image super-resolution using PyTorch. Expanded dataset from 10,000 to 10 million samples through data augmentation techniques. Achieved 23% improvement in image resolution compared to original low-resolution images.',
       tech: ['PyTorch', 'CNN', 'U-Net', 'RCAN', 'Data Augmentation', 'Image Processing'],
-      link: null
+      link: null,
+      whyItMatters: 'Demonstrates expertise in deep learning, computer vision, and data augmentation techniques.',
+      work: [
+        'Developed RCAN and U-Net CNN models for microscopy image super-resolution.',
+        'Expanded dataset from 10,000 to 10 million samples through data augmentation.',
+        'Achieved 23% improvement in image resolution compared to original low-resolution images.'
+      ]
     }
   ];
 
@@ -275,7 +405,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                 <div>
                   <h4 className="font-semibold text-blue-400">University of Waterloo</h4>
                   <p className="text-gray-300">Bachelor of Computer Science (Co-op Program)</p>
-                  <p className="text-gray-400 text-sm">2024-2029 • Average: 91.2</p>
+                  <p className="text-gray-400 text-sm">2024-2029 • Average: 92</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-blue-400">Beijing Chenjinglun Middle School</h4>
@@ -504,87 +634,110 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded"></div>
           </motion.div>
 
-          <div className="space-y-6">
-            {experiences.map((exp, index) => (
-              <motion.div key={index} className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition-all duration-300">
-                {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-400 mb-1">{exp.position}</h3>
-                    <p className="text-gray-300 font-medium">{exp.company}</p>
-                  </div>
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mt-2 md:mt-0">
-                    <div className="flex items-center gap-1">
-                      <Calendar size={16} />
-                      <span>{exp.period}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <MapPin size={16} />
-                      <span>{exp.location}</span>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Description */}
-                <div className="space-y-2 text-gray-300 leading-relaxed mb-4">
-                  {exp.company === 'SparkLease' ? (
-                    <ul className="list-none space-y-2">
-                      <li className="pl-4 relative">
-                        <span className="text-blue-400 absolute left-0">•</span>
-                        <div className="pl-4">Rebuilt PC and mobile frontends using Razor (ASP.NET MVC), delivering 8 key pages and 10+ supporting pages.</div>
-                      </li>
-                      <li className="pl-4 relative">
-                        <span className="text-blue-400 absolute left-0">•</span>
-                        <div className="pl-4">Led SEO optimization with redesigned URL structures, increasing website search traffic click-through rate by 20%.</div>
-                      </li>
-                      <li className="pl-4 relative">
-                        <span className="text-blue-400 absolute left-0">•</span>
-                        <div className="pl-4">Designed and implemented backend workflows with C# and SQL for vehicle data management and MSRP calculation.</div>
-                      </li>
-                      <li className="pl-4 relative">
-                        <span className="text-blue-400 absolute left-0">•</span>
-                        <div className="pl-4">Built scheduled jobs with WebJob for automated maintenance tasks.</div>
-                      </li>
-                    </ul>
-                  ) : exp.company === 'NanoInsights' ? (
-                    <ul className="list-none space-y-2">
-                      <li className="pl-4 relative">
-                        <span className="text-purple-400 absolute left-0">•</span>
-                        <div className="pl-4">Developed GAN-based approaches for enhancing electron microscopy image resolution using super-resolution techniques.</div>
-                      </li>
-                      <li className="pl-4 relative">
-                        <span className="text-purple-400 absolute left-0">•</span>
-                        <div className="pl-4">Supervised CNN (DFGAN) model training and monitored performance metrics using TensorBoard.</div>
-                      </li>
-                      <li className="pl-4 relative">
-                        <span className="text-purple-400 absolute left-0">•</span>
-                        <div className="pl-4">Enhanced model outputs by fine-tuning convergence criteria, improving image resolution by 3% and PSNR by 5%.</div>
-                      </li>
-                      <li className="pl-4 relative">
-                        <span className="text-purple-400 absolute left-0">•</span>
-                        <div className="pl-4">Built data preprocessing pipeline with Python scripts for data loading and image segmentation.</div>
-                      </li>
-                      <li className="pl-4 relative">
-                        <span className="text-purple-400 absolute left-0">•</span>
-                        <div className="pl-4">Gained experience in developing large-scale DFGAN models with PyTorch and TensorFlow.</div>
-                      </li>
-                    </ul>
-                  ) : (
-                    <p>{exp.description}</p>
-                  )}
-                </div>
-                
-                {/* Tech stack */}
-                <div className="flex flex-wrap gap-2">
-                  {exp.tech.map((tech, techIndex) => (
-                    <span key={techIndex} className="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <LayoutGroup>
+            <div className={`space-y-6 ${expandedExperienceIndex !== null ? 'grid grid-cols-1 gap-6 space-y-0' : ''}`}>
+              {(() => {
+                const displayExperiences = [...experiences];
+                if (expandedExperienceIndex !== null && expandedExperienceIndex % 2 !== 0) {
+                  const temp = displayExperiences[expandedExperienceIndex];
+                  displayExperiences[expandedExperienceIndex] = displayExperiences[expandedExperienceIndex - 1];
+                  displayExperiences[expandedExperienceIndex - 1] = temp;
+                }
+
+                return displayExperiences.map((exp, displayIndex) => {
+                  const originalIndex = experiences.findIndex(e => e.company === exp.company);
+                  const isExpanded = expandedExperienceIndex === originalIndex;
+                  const hasDetails = 'details' in exp;
+
+                  return (
+                    <motion.div 
+                      layout
+                      key={exp.company}
+                      className={`bg-gray-800 rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition-all duration-300 ${
+                        isExpanded ? 'ring-2 ring-blue-500/50' : ''
+                      }`}
+                    >
+                      {/* Header */}
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <div>
+                          <h3 className="text-xl font-semibold text-blue-400 mb-1">{exp.position}</h3>
+                          <p className="text-gray-300 font-medium">{exp.company}</p>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-gray-400 mt-2 md:mt-0">
+                          <div className="flex items-center gap-1">
+                            <Calendar size={16} />
+                            <span>{exp.period}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin size={16} />
+                            <span>{exp.location}</span>
+                          </div>
+                          {hasDetails && (
+                            <button
+                              onClick={() => toggleExperience(originalIndex)}
+                              className="flex items-center gap-1 px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-gray-300 text-sm ml-2"
+                            >
+                              <span>{isExpanded ? 'Less' : 'More'}</span>
+                              <motion.div
+                                animate={{ rotate: isExpanded ? 180 : 0 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <ChevronDown size={16} />
+                              </motion.div>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Description */}
+                      <div className="space-y-2 text-gray-300 leading-relaxed mb-4">
+                        <p>{exp.description}</p>
+                      </div>
+
+                      {/* Expandable Details */}
+                      <AnimatePresence>
+                        {isExpanded && hasDetails && (
+                          <motion.div
+                            key="details"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pt-4 mt-4 border-t border-gray-700 grid md:grid-cols-3 gap-6">
+                              {(exp as any).details.map((section: any, idx: number) => (
+                                <div key={idx} className="space-y-2">
+                                  <h4 className="text-sm font-semibold text-blue-400 mb-2">{section.section}:</h4>
+                                  <ul className="space-y-2">
+                                    {section.items.map((item: string, itemIdx: number) => (
+                                      <li key={itemIdx} className="flex items-start gap-2 text-sm text-gray-300">
+                                        <span className="text-blue-400 mt-1 flex-shrink-0">•</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                      
+                      {/* Tech stack */}
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {exp.tech.map((tech, techIndex) => (
+                          <span key={techIndex} className="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  );
+                });
+              })()}
+            </div>
+          </LayoutGroup>
         </div>
       </section>
 
@@ -598,31 +751,131 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded"></div>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <motion.div key={index} className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition-colors">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-400 mb-2">{project.title}</h3>
-                    <p className="text-gray-400 text-sm mb-3">{project.subtitle}</p>
-                  </div>
-                  {project.link && (
-                    <a href={project.link} className="text-gray-400 hover:text-blue-400 transition-colors">
-                      <ExternalLink size={20} />
-                    </a>
-                  )}
-                </div>
-                <p className="text-gray-300 leading-relaxed mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span key={techIndex} className="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <LayoutGroup>
+            <div className="grid md:grid-cols-2 gap-8">
+              {(() => {
+                // Create a copy of projects to potentially reorder
+                const displayProjects = [...projects];
+                
+                // If an odd-indexed project (right side) is expanded, swap it with the previous one
+                // so it starts on the left (and fills the row nicely)
+                if (expandedProjectIndex !== null && expandedProjectIndex % 2 !== 0) {
+                  const temp = displayProjects[expandedProjectIndex];
+                  displayProjects[expandedProjectIndex] = displayProjects[expandedProjectIndex - 1];
+                  displayProjects[expandedProjectIndex - 1] = temp;
+                }
+
+                return displayProjects.map((project, displayIndex) => {
+                  // We need to find the original index to track state correctly
+                  const originalIndex = projects.findIndex(p => p.title === project.title);
+                  const isExpanded = expandedProjectIndex === originalIndex;
+                  const hasDetailedWork = project.work && typeof project.work[0] === 'object' && 'section' in project.work[0];
+
+                  return (
+                    <motion.div 
+                      layout
+                      key={project.title} // Use title as key since index changes
+                      className={`bg-gray-800 rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition-colors ${
+                        isExpanded && hasDetailedWork ? 'md:col-span-2' : ''
+                      }`}
+                    >
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-xl font-semibold text-blue-400 mb-2">{project.title}</h3>
+                        <p className="text-gray-400 text-sm mb-3">{project.subtitle}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {project.link && (
+                          <a 
+                            href={project.link} 
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-400 hover:text-blue-400 transition-colors"
+                          >
+                            <ExternalLink size={20} />
+                          </a>
+                        )}
+                        {hasDetailedWork && (
+                          <button
+                            onClick={() => toggleProject(originalIndex)}
+                            className="flex items-center gap-1 px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-gray-300 text-sm"
+                          >
+                            <span>{isExpanded ? 'Less' : 'More'}</span>
+                            <motion.div
+                              animate={{ rotate: isExpanded ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <ChevronDown size={16} />
+                            </motion.div>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed mb-4">{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech, techIndex) => (
+                        <span key={techIndex} className="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  
+                  {/* Expandable Details */}
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        key="details"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-4 space-y-4 border-t border-gray-700">
+                          {/* My Work */}
+                          {project.work && project.work.length > 0 && (
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-100 mb-4">My work:</h4>
+                              {typeof project.work[0] === 'object' && 'section' in project.work[0] ? (
+                                // Detailed format with sections (3-column layout)
+                                <div className="grid md:grid-cols-3 gap-6">
+                                  {(project.work as Array<{section: string, items: string[]}>).map((section, sectionIdx) => (
+                                    <div key={sectionIdx} className="space-y-2">
+                                      <h5 className="text-sm font-semibold text-blue-400 mb-2">{section.section}:</h5>
+                                      <ul className="space-y-2">
+                                        {section.items.map((item, itemIdx) => (
+                                          <li key={itemIdx} className="flex items-start gap-2 text-sm text-gray-300">
+                                            <span className="text-blue-400 mt-1 flex-shrink-0">•</span>
+                                            <span>{item}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : (
+                                // Simple format (for other projects)
+                                <ul className="space-y-1">
+                                  {(project.work as string[]).map((work, idx) => (
+                                    <li key={idx} className="flex items-start gap-2 text-sm text-gray-300">
+                                      <span className="text-blue-400 mt-1">•</span>
+                                      <span>{work}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+                );
+              });
+            })()}
+            </div>
+          </LayoutGroup>
         </div>
       </section>
 
