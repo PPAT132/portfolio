@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Code, Globe, Gamepad2 } from 'lucide-react';
+import { Github, ExternalLink, Code, Globe, Gamepad2, Cpu } from 'lucide-react';
 
 interface ProjectsProps {
   setCurrentSection: (section: string) => void;
@@ -7,6 +7,27 @@ interface ProjectsProps {
 
 const Projects = ({ setCurrentSection }: ProjectsProps) => {
   const projects = [
+    {
+      title: 'LACS Compiler',
+      subtitle: 'Scala-like to MIPS Assembly Compiler',
+      period: 'Sep 2025 – Dec 2025',
+      description: 'Developed a fully functional compiler that translates LACS, a Scala-like teaching language, into executable MIPS assembly. The project covers the full compilation pipeline, from frontend analysis to backend code generation and a complete runtime system.',
+      whyItMatters: 'Demonstrates deep understanding of language semantics, memory models (stack/heap), and low-level execution details like closures and garbage collection.',
+      work: [
+        'Compiler Frontend: Implemented DFA-based scanner, CYK parser, and static type checker supporting closures and lexical scoping.',
+        'Backend: Implemented lowering to MIPS assembly, handling control flow, stack frames, and distinguishing normal vs. closure calls.',
+        'Runtime System: Built an explicit stack/heap model, closure representation (environment objects), and a semi-space copying garbage collector.',
+        'Optimization: Implemented tail-call optimization to eliminate unnecessary stack growth.'
+      ],
+      stack: ['Scala', 'MIPS Assembly', 'Compiler Construction', 'Garbage Collection'],
+      links: {
+        code: '#', // Placeholder
+        demo: 'https://lacscompiler.netlify.app/',
+        setup: '#'
+      },
+      icon: Cpu,
+      color: 'from-orange-500 to-red-500'
+    },
     {
       title: 'SEO Agent',
       subtitle: 'AI-Powered Website Optimizer (VS Code Extension)',
