@@ -46,6 +46,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
       location: 'North York, Canada',
       description: 'Worked as a full-stack engineer on a production-scale automotive marketplace, contributing to both customer-facing features and backend systems supporting 100,000+ annual users.',
       tech: ['Razor', 'ASP.NET MVC', 'C#', 'SQL', 'WebJob', 'SEO'],
+      website:'https://www.sparklease.com/',
       details: [
         {
           section: 'Frontend & Application Features',
@@ -81,6 +82,15 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
       location: 'Beijing',
       description: 'Built and trained GAN-style super-resolution models in PyTorch/TensorFlow for electron microscopy, created automated preprocessing pipeline.',
       tech: ['PyTorch', 'TensorFlow', 'GAN', 'Python']
+    },
+    {
+      company: 'WAT.ai (PianoFi)',
+      position: 'Project Group Core Member',
+      period: 'Sep 2025 – Present',
+      location: 'Waterloo, Canada',
+      description: 'Core member of the PianoFi project team under WAT.ai. Developing an AI system to transcribe audio into highly playable, practical sheet music. Initially focused on AI Agent workflows, now transitioning to training proprietary models for superior performance and accuracy.',
+      tech: ['AI Agents', 'Model Training', 'Music Transcription', 'Python', 'Deep Learning'],
+      website: 'https://www.pianofi.ca/'
     }
   ];
 
@@ -137,7 +147,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
       title: 'ASCII Game Engine',
       subtitle: 'Reusable Game Engine Framework',
       description: 'Designed and implemented a reusable C++ ASCII game engine following a clean MVC architecture. Built an extensible object-oriented framework using abstract interfaces, inheritance, and composition, with design patterns and RAII for safe memory management.',
-      tech: ['C++', 'Game Development', 'Design Patterns', 'RAII', 'MVC Architecture'],
+      tech: ['C++', 'Game Engine Construction', 'Design Patterns', 'RAII', 'MVC Architecture'],
       link: null,
       work: [
         {
@@ -661,7 +671,19 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                         <div>
                           <h3 className="text-xl font-semibold text-blue-400 mb-1">{exp.position}</h3>
-                          <p className="text-gray-300 font-medium">{exp.company}</p>
+                          <div className="flex items-center gap-2">
+                            <p className="text-gray-300 font-medium">{exp.company}</p>
+                            {(exp as any).website && (
+                              <a 
+                                href={(exp as any).website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-blue-400 transition-colors"
+                              >
+                                <ExternalLink size={16} />
+                              </a>
+                            )}
+                          </div>
                         </div>
                         <div className="flex items-center gap-4 text-sm text-gray-400 mt-2 md:mt-0">
                           <div className="flex items-center gap-1">
