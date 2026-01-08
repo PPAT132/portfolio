@@ -654,7 +654,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                   displayExperiences[expandedExperienceIndex - 1] = temp;
                 }
 
-                return displayExperiences.map((exp, displayIndex) => {
+                return displayExperiences.map((exp) => {
                   const originalIndex = experiences.findIndex(e => e.company === exp.company);
                   const isExpanded = expandedExperienceIndex === originalIndex;
                   const hasDetails = 'details' in exp;
@@ -787,7 +787,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                   displayProjects[expandedProjectIndex - 1] = temp;
                 }
 
-                return displayProjects.map((project, displayIndex) => {
+                return displayProjects.map((project) => {
                   // We need to find the original index to track state correctly
                   const originalIndex = projects.findIndex(p => p.title === project.title);
                   const isExpanded = expandedProjectIndex === originalIndex;
