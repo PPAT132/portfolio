@@ -7,6 +7,6 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    hmr: false  // 禁用热重载
+    hmr: true  // 禁用热重载
   }
 })

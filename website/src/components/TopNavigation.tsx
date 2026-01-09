@@ -11,11 +11,11 @@ const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const sections = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'home', label: 'HOME' },
+    { id: 'about', label: 'ABOUT' },
+    { id: 'experience', label: 'EXPERIENCE' },
+    { id: 'projects', label: 'PROJECTS' },
+    { id: 'contact', label: 'CONTACT' },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -44,12 +44,12 @@ const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-md border-b border-gray-700 lg:hidden">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b-2 border-white lg:hidden">
       <div className="max-w-7xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo/Name */}
-          <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Patrick Ma
+          <div className="text-xl font-bold text-white font-mono tracking-tighter uppercase border-2 border-white px-2 py-1 bg-black shadow-neo-sm">
+            Patrick_Ma
           </div>
           
           {/* Desktop Navigation Links (hidden on small screens) */}
@@ -58,10 +58,10 @@ const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps
               <motion.button
                 key={section.id}
                 onClick={() => scrollToSection(section.id)}
-                className={`text-sm font-medium transition-colors duration-300 px-2 py-1 rounded ${
+                className={`text-sm font-bold font-mono uppercase tracking-wider px-3 py-1 border-2 transition-all duration-200 ${
                   currentSection === section.id
-                    ? 'text-blue-400 bg-blue-500/20'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                    ? 'text-black bg-cyber-blue border-cyber-blue shadow-neo-sm'
+                    : 'text-gray-300 border-transparent hover:border-white hover:text-white'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -75,7 +75,7 @@ const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-300 hover:text-blue-400 focus:outline-none p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+              className="text-white hover:text-cyber-blue focus:outline-none p-2 border-2 border-transparent hover:border-white transition-colors"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -89,21 +89,21 @@ const TopNavigation = ({ currentSection, setCurrentSection }: TopNavigationProps
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden border-t border-gray-700 mt-3"
+              transition={{ duration: 0.2 }}
+              className="md:hidden overflow-hidden border-t-2 border-gray-800 mt-3 bg-black"
             >
-              <div className="py-3 space-y-1">
+              <div className="py-3 space-y-2">
                 {sections.map((section) => (
                   <motion.button
                     key={section.id}
                     onClick={() => scrollToSection(section.id)}
-                    className={`block w-full text-left px-3 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
+                    className={`block w-full text-left px-4 py-3 text-sm font-bold font-mono uppercase tracking-wider border-l-4 transition-all duration-200 ${
                       currentSection === section.id
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800/50'
+                        ? 'bg-cyber-blue text-black border-white'
+                        : 'text-gray-300 border-transparent hover:bg-gray-900 hover:text-cyber-blue hover:border-cyber-blue'
                     }`}
                     whileHover={{ x: 5 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     {section.label}
                   </motion.button>

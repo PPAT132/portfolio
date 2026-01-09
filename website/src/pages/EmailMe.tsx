@@ -86,21 +86,21 @@ const EmailMe = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
+    <div className="min-h-screen bg-cyber-black text-white font-mono bg-grid">
       {/* Header */}
-      <div className="bg-gray-800 border-b border-gray-700 px-4 py-4">
+      <div className="bg-black border-b-2 border-white px-4 py-4">
         <div className="max-w-4xl mx-auto flex items-center gap-4">
           <button
             onClick={() => window.close()}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 border-2 border-white hover:bg-white hover:text-black transition-colors uppercase font-bold text-sm tracking-wide"
           >
             <ArrowLeft size={20} />
             Back
           </button>
           <div className="flex items-center gap-3">
-            <Mail className="text-blue-400" size={24} />
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              Email Me
+            <Mail className="text-cyber-blue" size={24} />
+            <h1 className="text-2xl font-bold uppercase tracking-tighter">
+              Email_Me
             </h1>
           </div>
         </div>
@@ -115,21 +115,21 @@ const EmailMe = () => {
       >
         {/* Introduction */}
         <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Get In Touch
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 bg-cyber-blue text-black inline-block px-2 border-2 border-white shadow-neo-sm">
+            INITIALIZE_COMMS
           </h2>
-          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+          <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-sans mt-4">
             I'd love to hear from you! Whether you have a project in mind, want to collaborate, 
             or just want to say hello, feel free to send me a message.
           </p>
         </motion.div>
 
         {/* Contact Form */}
-        <motion.div variants={itemVariants} className="bg-gray-800 rounded-lg p-4 sm:p-6 lg:p-8 border border-gray-700">
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+        <motion.div variants={itemVariants} className="bg-black border-2 border-white p-4 sm:p-6 lg:p-8 shadow-neo">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name Field */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="name" className="block text-sm font-bold text-cyber-blue mb-2 uppercase tracking-wider">
                 Your Name *
               </label>
               <input
@@ -139,14 +139,14 @@ const EmailMe = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-blue focus:ring-0 transition-colors font-sans"
                 placeholder="Enter your full name"
               />
             </div>
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-bold text-cyber-green mb-2 uppercase tracking-wider">
                 Your Email *
               </label>
               <input
@@ -156,14 +156,14 @@ const EmailMe = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-green focus:ring-0 transition-colors font-sans"
                 placeholder="Enter your email address"
               />
             </div>
 
             {/* Subject Field */}
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="subject" className="block text-sm font-bold text-cyber-purple mb-2 uppercase tracking-wider">
                 Subject *
               </label>
               <input
@@ -173,14 +173,14 @@ const EmailMe = () => {
                 value={formData.subject}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-purple focus:ring-0 transition-colors font-sans"
                 placeholder="What's this about?"
               />
             </div>
 
             {/* Message Field */}
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="message" className="block text-sm font-bold text-cyber-yellow mb-2 uppercase tracking-wider">
                 Message *
               </label>
               <textarea
@@ -190,7 +190,7 @@ const EmailMe = () => {
                 onChange={handleInputChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none"
+                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-yellow focus:ring-0 transition-colors resize-none font-sans"
                 placeholder="Tell me about your project, idea, or just say hello..."
               />
             </div>
@@ -199,19 +199,19 @@ const EmailMe = () => {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed"
-              whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+              className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-cyber-blue border-2 border-white disabled:bg-gray-800 disabled:border-gray-600 disabled:text-gray-500 text-black font-bold uppercase tracking-widest transition-all duration-300 hover:bg-white shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:cursor-not-allowed"
+              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
             >
               {isSubmitting ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Sending...
+                  <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                  TRANSMITTING...
                 </>
               ) : (
                 <>
                   <Send size={20} />
-                  Send Message
+                  SEND MESSAGE
                 </>
               )}
             </motion.button>
@@ -222,11 +222,11 @@ const EmailMe = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-4 bg-green-900/20 border border-green-500/30 rounded-lg flex items-center gap-3"
+              className="mt-6 p-4 bg-gray-900 border-2 border-cyber-green flex items-center gap-3"
             >
-              <CheckCircle className="text-green-400" size={20} />
-              <span className="text-green-400 font-medium">
-                Message sent successfully! I'll get back to you soon.
+              <CheckCircle className="text-cyber-green" size={24} />
+              <span className="text-cyber-green font-bold font-mono">
+                SUCCESS: MESSAGE TRANSMITTED.
               </span>
             </motion.div>
           )}
@@ -235,11 +235,11 @@ const EmailMe = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg flex items-center gap-3"
+              className="mt-6 p-4 bg-gray-900 border-2 border-red-500 flex items-center gap-3"
             >
-              <XCircle className="text-red-400" size={20} />
-              <span className="text-red-400 font-medium">
-                {errorMessage || 'Failed to send message. Please try again or contact me directly at maxiaoma833@gmail.com'}
+              <XCircle className="text-red-500" size={24} />
+              <span className="text-red-500 font-bold font-mono">
+                ERROR: {errorMessage || 'TRANSMISSION FAILED.'}
               </span>
             </motion.div>
           )}
@@ -248,13 +248,13 @@ const EmailMe = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-4 bg-orange-900/20 border border-orange-500/30 rounded-lg flex items-center gap-3"
+              className="mt-6 p-4 bg-gray-900 border-2 border-cyber-yellow flex items-center gap-3"
             >
-              <XCircle className="text-orange-400" size={20} />
-              <div className="text-orange-400">
-                <div className="font-medium">Too Many Requests ⏰</div>
-                <div className="text-sm mt-1">
-                  {errorMessage || 'You are sending emails too frequently. Please wait 15 minutes before trying again. For urgent matters, contact me directly at maxiaoma833@gmail.com'}
+              <XCircle className="text-cyber-yellow" size={24} />
+              <div className="text-cyber-yellow font-mono">
+                <div className="font-bold">ERROR 429: RATE LIMITED</div>
+                <div className="text-xs mt-1">
+                  {errorMessage || 'PLEASE WAIT BEFORE RETRYING.'}
                 </div>
               </div>
             </motion.div>
@@ -263,14 +263,14 @@ const EmailMe = () => {
 
         {/* Additional Info */}
         <motion.div variants={itemVariants} className="mt-12 text-center">
-          <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-100 mb-3">Quick Response</h3>
-            <p className="text-gray-300 leading-relaxed">
-              I typically respond to messages within 24 hours. If you have an urgent inquiry, 
-              feel free to reach out to me directly at{' '}
+          <div className="bg-black border-2 border-gray-700 p-6 inline-block">
+            <h3 className="text-sm font-bold text-white mb-2 uppercase tracking-wider">Quick Response Protocol</h3>
+            <p className="text-gray-400 font-sans text-sm">
+              I typically respond within 24 hours. Urgent? Contact direct:
+              <br/>
               <a 
                 href="mailto:maxiaoma833@gmail.com" 
-                className="text-blue-400 hover:text-blue-300 transition-colors"
+                className="text-cyber-blue hover:bg-cyber-blue hover:text-black transition-colors inline-block mt-2 font-mono border-b border-cyber-blue"
               >
                 maxiaoma833@gmail.com
               </a>

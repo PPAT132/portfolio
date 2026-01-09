@@ -13,9 +13,10 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: #111827;
+  background-color: #050505; /* Cyber Black */
   color: #f3f4f6;
   width: 100%;
+  font-family: 'Courier New', Courier, monospace; /* Default to mono for that tech feel */
 }
 
 #root {
@@ -24,64 +25,83 @@ html, body {
   padding: 0;
 }
 
-/* Simple glass effect */
-.glass {
-  background: rgba(31, 41, 55, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(75, 85, 99, 0.3);
+/* Cyber Grid Background */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 }
 
-/* Simple button styles */
-.btn-primary {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s;
+/* Glitch Effect Classes (Optional usage) */
+.glitch-text {
+  position: relative;
 }
 
-.btn-primary:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.btn-secondary {
-  border: 2px solid #3b82f6;
-  color: #3b82f6;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s;
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
 }
 
-.btn-secondary:hover {
-  background: #3b82f6;
-  color: white;
-  transform: scale(1.05);
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 #00fff9;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
 }
 
-/* Floating animation for decorative circles */
+@keyframes glitch-anim {
+  0% { clip: rect(32px, 9999px, 12px, 0); }
+  5% { clip: rect(65px, 9999px, 88px, 0); }
+  10% { clip: rect(12px, 9999px, 92px, 0); }
+  15% { clip: rect(98px, 9999px, 43px, 0); }
+  20% { clip: rect(15px, 9999px, 2px, 0); }
+  100% { clip: rect(54px, 9999px, 76px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(12px, 9999px, 32px, 0); }
+  5% { clip: rect(88px, 9999px, 65px, 0); }
+  10% { clip: rect(92px, 9999px, 12px, 0); }
+  15% { clip: rect(43px, 9999px, 98px, 0); }
+  20% { clip: rect(2px, 9999px, 15px, 0); }
+  100% { clip: rect(76px, 9999px, 54px, 0); }
+}
+
+/* Brutalist Button Base */
+.btn-brutal {
+  @apply font-mono font-bold uppercase tracking-wider transition-all duration-200 border-2 border-white bg-cyber-black text-white hover:-translate-y-1 hover:shadow-neo;
+}
+
+.btn-brutal-primary {
+  @apply border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-cyber-black hover:shadow-neo-blue;
+}
+
+.btn-brutal-secondary {
+  @apply border-cyber-purple text-cyber-purple hover:bg-cyber-purple hover:text-white hover:shadow-neo-purple;
+}
+
+/* Floating animation for decorative elements - keeps existing logic but sharper */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
-
-/* Staggered animation delays */
-.animate-float:nth-child(1) { animation-delay: 0s; }
-.animate-float:nth-child(2) { animation-delay: 0.5s; }
-.animate-float:nth-child(3) { animation-delay: 1s; }
-.animate-float:nth-child(4) { animation-delay: 1.5s; }
-.animate-float:nth-child(5) { animation-delay: 2s; }
-.animate-float:nth-child(6) { animation-delay: 2.5s; }
 
 /* Navigator responsive positioning */
 .navigator-responsive {
@@ -94,7 +114,7 @@ html, body {
   }
 }
 
-/* Mobile responsive styles for 1024px and below */
+/* Mobile responsive styles */
 @media (max-width: 1023px) {
   .hero-text-container {
     text-align: center;
@@ -112,9 +132,7 @@ html, body {
     justify-content: center;
   }
   
-  /* Add right padding for mobile */
   main {
     padding-right: 2rem !important;
   }
 }
-

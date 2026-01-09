@@ -24,7 +24,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-900 text-gray-100 overflow-x-hidden overflow-y-auto">
+      <div className="min-h-screen bg-cyber-black text-white overflow-x-hidden overflow-y-auto bg-grid font-mono">
         <Routes>
           <Route path="/email" element={<EmailMe />} />
           <Route path="/*" element={
