@@ -223,13 +223,13 @@ const SideNavigation = ({ currentSection, setCurrentSection }: SideNavigationPro
               
               {/* Connecting Line (decoration) - Only visible for current */}
               {/* Positioned relative to the dot (which is approx 20px from right) */}
-              <div className={`absolute right-[18px] h-[2px] bg-cyber-blue transition-all duration-300 ${isCurrent ? 'w-8 opacity-100' : 'w-0 opacity-0'}`}></div>
+              <div className={`absolute right-[18px] h-[2px] bg-cyber-blue transition-all duration-300 ${isCurrent ? 'w-12 opacity-100' : 'w-0 opacity-0'}`}></div>
               
               {/* Label - Always visible now, scales with mouse */}
               {/* Positioned further left from the line */}
               <div
                 id={`nav-label-${section.id}`}
-                className={`absolute right-[50px] top-1/2 transform -translate-y-1/2 px-3 py-1 bg-black border border-white text-white whitespace-nowrap transition-all duration-200 shadow-neo-sm ${
+                className={`absolute right-[34px] top-1/2 transform -translate-y-1/2 px-3 py-1 bg-black border border-white text-white whitespace-nowrap transition-all duration-200 shadow-neo-sm ${
                   isCurrent ? 'z-10' : 'z-0'
                 }`}
                 style={{

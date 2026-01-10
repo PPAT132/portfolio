@@ -762,7 +762,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
 
       {/* Projects Section */}
       <section id="projects" className="py-20 px-4 border-t-2 border-white bg-cyber-black">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-[1100px] mx-auto">
           <motion.div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-4 text-white uppercase tracking-tighter">
               Project_Database
