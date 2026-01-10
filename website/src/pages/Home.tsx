@@ -784,7 +784,19 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                 return displayProjects.map((project) => {
                   const originalIndex = projects.findIndex(p => p.title === project.title);
                   const isExpanded = expandedProjectIndex === originalIndex;
-                  const hasDetailedWork = project.work && typeof project.work[0] === 'object' && 'section' in project.work[0];
+                  const workAny = (project as any).work as unknown;
+                  const whyItMatters = (project as any).whyItMatters as unknown;
+                  const hasWhyItMatters = typeof whyItMatters === 'string' && whyItMatters.trim().length > 0;
+
+                  const hasWork = Array.isArray(workAny) && workAny.length > 0;
+                  const hasDetailedWork =
+                    hasWork &&
+                    typeof workAny[0] === 'object' &&
+                    workAny[0] !== null &&
+                    'section' in (workAny[0] as Record<string, unknown>);
+
+                  // Allow expand if there is content to show
+                  const canExpand = hasWhyItMatters || hasWork;
 
                   return (
                     <motion.div 
@@ -815,7 +827,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                               <ExternalLink size={18} />
                             </a>
                           )}
-                          {hasDetailedWork && (
+                          {canExpand && (
                             <button
                               onClick={() => toggleProject(originalIndex)}
                               className={`flex items-center justify-center w-8 h-8 border transition-all ${
@@ -844,58 +856,74 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                           </span>
                         ))}
                       </div>
-                    </div>
-                  
-                  {/* Expandable Details */}
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        key="details"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden bg-black border-t border-cyber-purple"
-                      >
-                        <div className="p-6">
-                          {/* My Work */}
-                          {project.work && project.work.length > 0 && (
-                            <div>
-                              <h4 className="text-xs font-bold text-cyber-purple mb-6 uppercase tracking-widest border-b border-gray-800 pb-2 inline-block">/// Development_Log</h4>
-                              {typeof project.work[0] === 'object' && 'section' in project.work[0] ? (
-                                // Detailed format
-                                <div className="grid md:grid-cols-3 gap-8">
-                                  {(project.work as Array<{section: string, items: string[]}>).map((section, sectionIdx) => (
-                                    <div key={sectionIdx} className="space-y-4">
-                                      <h5 className="text-sm font-bold text-white border-l-4 border-cyber-purple pl-3">{section.section}</h5>
-                                      <ul className="space-y-3">
-                                        {section.items.map((item, itemIdx) => (
-                                          <li key={itemIdx} className="flex items-start gap-3 text-sm text-gray-400 font-sans">
-                                            <span className="text-cyber-purple mt-1 flex-shrink-0 text-xs">■</span>
-                                            <span>{item}</span>
-                                          </li>
-                                        ))}
-                                      </ul>
+
+                      {/* Expandable Details - Inside p-6 container to follow text flow */}
+                      <AnimatePresence>
+                        {isExpanded && canExpand && (
+                          <motion.div
+                            key="details"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="overflow-hidden mt-6 pt-6 border-t border-cyber-purple bg-black/50 -mx-6 px-6 -mb-6 pb-6"
+                          >
+                             {/* Why it matters */}
+                             {hasWhyItMatters && (
+                                <div className="mb-8">
+                                  <h4 className="text-xs font-bold text-cyber-purple mb-3 uppercase tracking-widest border-b border-gray-800 pb-2 inline-block">
+                                    /// Why_it_matters
+                                  </h4>
+                                  <p className="text-sm text-gray-300 font-sans leading-relaxed border-l-2 border-gray-800 pl-4">
+                                    {whyItMatters as string}
+                                  </p>
+                                </div>
+                              )}
+
+                              {/* My Work */}
+                              {hasWork ? (
+                                <div>
+                                  <h4 className="text-xs font-bold text-cyber-purple mb-6 uppercase tracking-widest border-b border-gray-800 pb-2 inline-block">/// Development_Log</h4>
+                                  {hasDetailedWork ? (
+                                    // Detailed format
+                                    <div className="grid md:grid-cols-3 gap-8">
+                                      {(workAny as Array<{ section: string; items: string[] }>).map((section, sectionIdx) => (
+                                        <div key={sectionIdx} className="space-y-4">
+                                          <h5 className="text-sm font-bold text-white border-l-4 border-cyber-purple pl-3">{section.section}</h5>
+                                          <ul className="space-y-3">
+                                            {section.items.map((item, itemIdx) => (
+                                              <li key={itemIdx} className="flex items-start gap-3 text-sm text-gray-400 font-sans">
+                                                <span className="text-cyber-purple mt-1 flex-shrink-0 text-xs">■</span>
+                                                <span>{item}</span>
+                                              </li>
+                                            ))}
+                                          </ul>
+                                        </div>
+                                      ))}
                                     </div>
-                                  ))}
+                                  ) : (
+                                    // Simple format
+                                    <ul className="space-y-2">
+                                      {(workAny as string[]).map((work, idx) => (
+                                        <li key={idx} className="flex items-start gap-2 text-sm text-gray-400 font-sans">
+                                          <span className="text-cyber-purple mt-1">■</span>
+                                          <span>{work}</span>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
                                 </div>
                               ) : (
-                                // Simple format
-                                <ul className="space-y-2">
-                                  {(project.work as string[]).map((work, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-sm text-gray-400 font-sans">
-                                      <span className="text-cyber-purple mt-1">■</span>
-                                      <span>{work}</span>
-                                    </li>
-                                  ))}
-                                </ul>
+                                <p className="text-sm text-gray-400 font-sans">
+                                  Details coming soon. If you want, send me 3–6 bullet points for this project and I’ll plug them in.
+                                </p>
                               )}
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  
+                  {/* (Old Expandable Details removed) */}
                 </motion.div>
                 );
               });
