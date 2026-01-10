@@ -295,7 +295,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
               <div className="relative">
                 {/* Main Photo */}
                 <div className="w-80 h-80 border-4 border-white bg-cyber-gray p-0 shadow-neo-purple relative z-10">
-                  <div className="w-full h-full overflow-hidden grayscale hover:grayscale-0 transition-all duration-500">
+                  <div className="w-full h-full overflow-hidden transition-all duration-500">
                     <img 
                       src={profileImage} 
                       alt="Patrick Maxiao Ma" 
