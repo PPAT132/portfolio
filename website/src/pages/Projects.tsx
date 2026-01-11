@@ -12,7 +12,6 @@ const Projects = ({ setCurrentSection }: ProjectsProps) => {
       subtitle: 'Scala-like to MIPS Assembly Compiler',
       period: 'Sep 2025 – Dec 2025',
       description: 'Developed a fully functional compiler that translates LACS, a Scala-like teaching language, into executable MIPS assembly. The project covers the full compilation pipeline, from frontend analysis to backend code generation and a complete runtime system.',
-      whyItMatters: 'Demonstrates deep understanding of language semantics, memory models (stack/heap), and low-level execution details like closures and garbage collection.',
       work: [
         'Compiler Frontend: Implemented DFA-based scanner, CYK parser, and static type checker supporting closures and lexical scoping.',
         'Backend: Implemented lowering to MIPS assembly, handling control flow, stack frames, and distinguishing normal vs. closure calls.',
@@ -33,7 +32,6 @@ const Projects = ({ setCurrentSection }: ProjectsProps) => {
       subtitle: 'AI-Powered Website Optimizer (VS Code Extension)',
       period: '2025–Present',
       description: 'A repository-aware tool that runs audits, pinpoints issues to exact files/lines, previews HTML/CSS/metadata patches, and applies verified fixes with review gates and rollback.',
-      whyItMatters: 'Speeds up SEO hygiene for codebases that use templating (Razor/React).',
       work: [
         'Backend: FastAPI service with CORS configured for a Vite frontend; containerized with Docker for consistent local and CI runs.',
         'Dev UX: shell script to build & launch services and probe a health endpoint for quick feedback.',
@@ -53,7 +51,6 @@ const Projects = ({ setCurrentSection }: ProjectsProps) => {
       subtitle: 'Browser Game (p5.js)',
       period: '2024',
       description: 'A top-down tank game with enemy spawns, bullets, obstacles, sounds, scoring, and a start screen.',
-      whyItMatters: 'Implements timed spawns, cooldowns, collision checks, and UI elements (start button, audio).',
       work: [
         'Game mechanics: Timers, spawn logic, collision, input, and state management.',
         'Interactive UI: Start button, audio controls, scoring system.',
@@ -73,7 +70,6 @@ const Projects = ({ setCurrentSection }: ProjectsProps) => {
       subtitle: 'Personal Website',
       period: '2025',
       description: 'A living space for experience, projects, and contact. Repo scaffold exists and is under active development.',
-      whyItMatters: 'React-based personal site; content-first, fast, and minimal.',
       work: [
         'Modern React with TypeScript and Vite for fast development.',
         'Responsive design with Tailwind CSS for mobile and desktop.',
@@ -152,13 +148,6 @@ const Projects = ({ setCurrentSection }: ProjectsProps) => {
 
               {/* Description */}
               <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
-
-              {/* Why it matters */}
-              <div className="bg-gray-700 rounded p-3 mb-4">
-                <p className="text-sm text-gray-300">
-                  <span className="text-blue-400 font-medium">Why it matters:</span> {project.whyItMatters}
-                </p>
-              </div>
 
               {/* My Work */}
               <div className="mb-4">

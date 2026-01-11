@@ -93,7 +93,7 @@ const SideNavigation = ({ currentSection, setCurrentSection }: SideNavigationPro
       <div 
         className="bg-transparent border border-transparent"
         style={{ 
-          width: '200px', // Increased width to catch mouse movements on labels
+          width: '160px', // Reduced width to prevent overlap with project cards
           height: '400px',
           display: 'flex',
           flexDirection: 'column',

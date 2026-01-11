@@ -107,7 +107,6 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
       description: 'Developed a fully functional compiler that translates LACS, a Scala-like teaching language, into executable MIPS assembly. The project covers the full compilation pipeline, from frontend analysis to backend code generation and a complete runtime system. Although the language itself was predefined, the work required a deep understanding of language semantics and execution models.',
       tech: ['Scala', 'MIPS Assembly', 'Compiler Construction'],
       link: 'https://lacscompiler.netlify.app/',
-      whyItMatters: 'Demonstrates deep understanding of language semantics, memory models (stack/heap), and low-level execution details like closures and garbage collection.',
       work: [
         {
           section: 'Compiler Frontend',
@@ -179,12 +178,12 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
       description: 'An intelligent AI agent that analyzes repositories to identify SEO optimization opportunities. Built custom chunker and parser algorithms to reduce AI API costs while maintaining accuracy. Features repository traversal, issue pinpointing to exact files/lines, and automated fix suggestions.',
       tech: ['FastAPI', 'Docker', 'React/Vite', 'VS Code Extension APIs', 'Gemini API', 'Python'],
       link: 'https://github.com/PPAT132/SEOAgent',
-      whyItMatters: 'Speeds up SEO hygiene for codebases that use templating (Razor/React).',
       work: [
         'Backend: FastAPI service with CORS configured for a Vite frontend; containerized with Docker for consistent local and CI runs.',
         'Dev UX: shell script to build & launch services and probe a health endpoint for quick feedback.',
         'Repo-aware processing and tool/function calling (crawl, patch, validate).'
-      ]
+      ],
+      expandable: false
     },
     {
       title: 'iGEM Wiki',
@@ -192,12 +191,12 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
       description: 'Led a 4-member subteam to design and develop a comprehensive Wiki website showcasing achievements in the iGEM competition. Built with HTML, CSS, and JavaScript, featuring interactive animations and optimized navigation. As team leader, supervised 21-member interdisciplinary team and organized laboratory experiments.',
       tech: ['HTML', 'CSS', 'JavaScript', 'Team Leadership', 'Project Management'],
       link: 'https://2023.igem.wiki/bfsu-icunited/index.html',
-      whyItMatters: 'Showcases leadership skills and ability to coordinate interdisciplinary teams while delivering technical solutions.',
       work: [
         'Led 4-member subteam to design and develop comprehensive Wiki website.',
         'Supervised 21-member interdisciplinary team and organized laboratory experiments.',
         'Built interactive animations and optimized navigation for better user experience.'
-      ]
+      ],
+      expandable: false
     },
     {
       title: 'Super-Resolution AI',
@@ -205,12 +204,12 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
       description: 'Developed RCAN and U-Net CNN models for microscopy image super-resolution using PyTorch. Expanded dataset from 10,000 to 10 million samples through data augmentation techniques. Achieved 23% improvement in image resolution compared to original low-resolution images.',
       tech: ['PyTorch', 'CNN', 'U-Net', 'RCAN', 'Data Augmentation', 'Image Processing'],
       link: null,
-      whyItMatters: 'Demonstrates expertise in deep learning, computer vision, and data augmentation techniques.',
       work: [
         'Developed RCAN and U-Net CNN models for microscopy image super-resolution.',
         'Expanded dataset from 10,000 to 10 million samples through data augmentation.',
         'Achieved 23% improvement in image resolution compared to original low-resolution images.'
-      ]
+      ],
+      expandable: false
     }
   ];
 
@@ -535,7 +534,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
               
               <div className="p-6 bg-gray-900/30">
                 <p className="text-gray-300 leading-relaxed font-sans">
-                  I am a second-year Computer Science student at the University of Waterloo. I value strong theoretical foundations in mathematics, while also thriving in high-pressure, hands-on environments shaped by my background in physics competitions. My approach is to master the fundamentals of computer science and let AI handle what it does best—its vast knowledge and rapid implementation.
+                  I am a Computer Science student at the University of Waterloo. I value strong theoretical foundations in mathematics, while also thriving in high-pressure, hands-on environments shaped by my background in physics competitions. My approach is to master the fundamentals of computer science and let AI handle what it does best—its vast knowledge and rapid implementation.
                 </p>
               </div>
               
@@ -598,7 +597,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                 <div>
                   <h4 className="font-bold text-cyber-purple mb-4 uppercase text-sm tracking-wider">[ AI / ML ]</h4>
                   <div className="flex flex-wrap gap-3">
-                    {['PyTorch', 'TensorFlow', 'CNN', 'GAN', 'Fine-tuning', 'Model Training'].map(skill => (
+                    {['PyTorch', 'TensorFlow', 'CNN', 'RL', 'Fine-tuning', 'Model Training'].map(skill => (
                       <span key={skill} className="px-3 py-1 border border-gray-600 bg-transparent text-xs text-gray-300 font-mono hover:bg-cyber-purple hover:text-black hover:border-cyber-purple transition-colors cursor-default">
                         {skill}
                       </span>
@@ -610,7 +609,7 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                 <div>
                   <h4 className="font-bold text-cyber-yellow mb-4 uppercase text-sm tracking-wider">[ Tools / APIs ]</h4>
                   <div className="flex flex-wrap gap-3">
-                    {['OpenAI API', 'Google AI API', 'VSCE', 'AI Agents', 'Automation'].map(skill => (
+                    {['OpenAI API', 'Gemini API', 'VSCE', 'AI Agents', 'Automation'].map(skill => (
                       <span key={skill} className="px-3 py-1 border border-gray-600 bg-transparent text-xs text-gray-300 font-mono hover:bg-cyber-yellow hover:text-black hover:border-cyber-yellow transition-colors cursor-default">
                         {skill}
                       </span>
@@ -785,8 +784,6 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                   const originalIndex = projects.findIndex(p => p.title === project.title);
                   const isExpanded = expandedProjectIndex === originalIndex;
                   const workAny = (project as any).work as unknown;
-                  const whyItMatters = (project as any).whyItMatters as unknown;
-                  const hasWhyItMatters = typeof whyItMatters === 'string' && whyItMatters.trim().length > 0;
 
                   const hasWork = Array.isArray(workAny) && workAny.length > 0;
                   const hasDetailedWork =
@@ -795,8 +792,11 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                     workAny[0] !== null &&
                     'section' in (workAny[0] as Record<string, unknown>);
 
-                  // Allow expand if there is content to show
-                  const canExpand = hasWhyItMatters || hasWork;
+                  // Check if project explicitly disables expansion
+                  const expandable = (project as any).expandable !== false;
+                  
+                  // Allow expand if there is content to show and expansion is enabled
+                  const canExpand = expandable && hasWork;
 
                   return (
                     <motion.div 
@@ -868,18 +868,6 @@ const Home = ({ setCurrentSection: _setCurrentSection }: HomeProps) => {
                             transition={{ duration: 0.3, ease: "easeInOut" }}
                             className="overflow-hidden mt-6 pt-6 border-t border-cyber-purple bg-black/50 -mx-6 px-6 -mb-6 pb-6"
                           >
-                             {/* Why it matters */}
-                             {hasWhyItMatters && (
-                                <div className="mb-8">
-                                  <h4 className="text-xs font-bold text-cyber-purple mb-3 uppercase tracking-widest border-b border-gray-800 pb-2 inline-block">
-                                    /// Why_it_matters
-                                  </h4>
-                                  <p className="text-sm text-gray-300 font-sans leading-relaxed border-l-2 border-gray-800 pl-4">
-                                    {whyItMatters as string}
-                                  </p>
-                                </div>
-                              )}
-
                               {/* My Work */}
                               {hasWork ? (
                                 <div>
