@@ -1,19 +1,20 @@
-# Portfolio Project
+# Patrick Maxiao Ma — Portfolio
 
-Welcome to my portfolio project! This is where I'll showcase my work and skills.
+Personal portfolio for Patrick Maxiao Ma. The repository contains a static
+React application in [`website/`](website/) and is deployed on Netlify.
 
-## Getting Started
+The site uses Netlify Forms for contact submissions, so it does not require a
+separate API server.
 
-This project is currently under development.
+## Local development
 
-## Features
+```bash
+nvm use
+cd website
+npm install
+npm run dev
+```
 
-- Coming soon...
-
-## Technologies
-
-- To be determined
-
-## License
-
-MIT
+See [`website/README.md`](website/README.md) for the frontend architecture and
+content customization guide. See
+[`DEPLOYMENT_GUIDE.md`](DEPLOYMENT_GUIDE.md) for deployment and form setup.

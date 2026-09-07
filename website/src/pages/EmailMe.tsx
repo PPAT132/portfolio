@@ -1,6 +1,15 @@
 import { motion } from 'framer-motion';
 import { Mail, Send, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import { buttonStyles } from '../components/ui/Button';
+import { Card } from '../components/ui/Card';
+import {
+  containerVariants,
+  itemVariants,
+  statusMessageVariants,
+} from '../lib/motion';
 
 const EmailMe = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +18,9 @@ const EmailMe = () => {
     subject: 'Contact from Portfolio Website',
     message: ''
   });
+  const [botField, setBotField] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'rate-limited'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -28,12 +38,16 @@ const EmailMe = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/send-email`, {
+      const response = await fetch('/__forms.html', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(formData),
+        body: new URLSearchParams({
+          'form-name': 'contact',
+          'bot-field': botField,
+          ...formData,
+        }).toString(),
       });
 
       if (response.ok) {
@@ -44,16 +58,10 @@ const EmailMe = () => {
           subject: 'Contact from Portfolio Website',
           message: ''
         });
-      } else if (response.status === 429) {
-        // Rate limiting error
-        const errorData = await response.json();
-        setSubmitStatus('rate-limited');
-        setErrorMessage(errorData.message || 'Too many requests, please try again later');
+        setBotField('');
       } else {
-        // Other errors
-        const errorData = await response.json().catch(() => ({}));
         setSubmitStatus('error');
-        setErrorMessage(errorData.message || 'Failed to send message, please try again');
+        setErrorMessage('Failed to send message, please try again');
       }
     } catch (error) {
       console.error('Error sending email:', error);
@@ -64,39 +72,19 @@ const EmailMe = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6
-      }
-    }
-  };
-
   return (
     <div className="min-h-screen bg-cyber-black text-white font-mono bg-grid">
       {/* Header */}
       <div className="bg-black border-b-2 border-white px-4 py-4">
         <div className="max-w-4xl mx-auto flex items-center gap-4">
-          <button
-            onClick={() => window.close()}
+          <Link
+            to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'auto' })}
             className="flex items-center gap-2 px-4 py-2 border-2 border-white hover:bg-white hover:text-black transition-colors uppercase font-bold text-sm tracking-wide"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft aria-hidden="true" size={20} />
             Back
-          </button>
+          </Link>
           <div className="flex items-center gap-3">
             <Mail className="text-cyber-blue" size={24} />
             <h1 className="text-2xl font-bold uppercase tracking-tighter">
@@ -125,8 +113,30 @@ const EmailMe = () => {
         </motion.div>
 
         {/* Contact Form */}
-        <motion.div variants={itemVariants} className="bg-black border-2 border-white p-4 sm:p-6 lg:p-8 shadow-neo">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <motion.div variants={itemVariants}>
+          <Card surface={false} className="bg-black p-4 sm:p-6 lg:p-8">
+            <form
+            name="contact"
+            method="POST"
+            action="/__forms.html"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
+            className="space-y-6"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p className="hidden" aria-hidden="true">
+              <label>
+                Don't fill this out if you're human:
+                <input
+                  name="bot-field"
+                  value={botField}
+                  onChange={(event) => setBotField(event.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </label>
+            </p>
             {/* Name Field */}
             <div>
               <label htmlFor="name" className="block text-sm font-bold text-cyber-blue mb-2 uppercase tracking-wider">
@@ -139,7 +149,7 @@ const EmailMe = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-blue focus:ring-0 transition-colors font-sans"
+                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-blue focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyber-blue transition-colors font-sans"
                 placeholder="Enter your full name"
               />
             </div>
@@ -156,7 +166,7 @@ const EmailMe = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-green focus:ring-0 transition-colors font-sans"
+                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-green focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyber-green transition-colors font-sans"
                 placeholder="Enter your email address"
               />
             </div>
@@ -173,7 +183,7 @@ const EmailMe = () => {
                 value={formData.subject}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-purple focus:ring-0 transition-colors font-sans"
+                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-purple focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyber-purple transition-colors font-sans"
                 placeholder="What's this about?"
               />
             </div>
@@ -190,7 +200,7 @@ const EmailMe = () => {
                 onChange={handleInputChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-yellow focus:ring-0 transition-colors resize-none font-sans"
+                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-yellow focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyber-yellow transition-colors resize-none font-sans"
                 placeholder="Tell me about your project, idea, or just say hello..."
               />
             </div>
@@ -199,7 +209,12 @@ const EmailMe = () => {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-cyber-blue border-2 border-white disabled:bg-gray-800 disabled:border-gray-600 disabled:text-gray-500 text-black font-bold uppercase tracking-widest transition-all duration-300 hover:bg-white shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:cursor-not-allowed"
+              className={buttonStyles({
+                variant: 'primary',
+                size: 'lg',
+                className:
+                  'w-full gap-3 tracking-widest duration-300 disabled:border-gray-600 disabled:bg-gray-800 disabled:text-gray-500 disabled:opacity-100 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-none',
+              })}
               whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
               whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
             >
@@ -215,16 +230,19 @@ const EmailMe = () => {
                 </>
               )}
             </motion.button>
-          </form>
+            </form>
 
           {/* Status Messages */}
           {submitStatus === 'success' && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              role="status"
+              aria-live="polite"
+              initial="hidden"
+              animate="visible"
+              variants={statusMessageVariants}
               className="mt-6 p-4 bg-gray-900 border-2 border-cyber-green flex items-center gap-3"
             >
-              <CheckCircle className="text-cyber-green" size={24} />
+              <CheckCircle aria-hidden="true" className="text-cyber-green" size={24} />
               <span className="text-cyber-green font-bold font-mono">
                 SUCCESS: MESSAGE TRANSMITTED.
               </span>
@@ -233,32 +251,21 @@ const EmailMe = () => {
 
           {submitStatus === 'error' && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              role="alert"
+              aria-live="assertive"
+              initial="hidden"
+              animate="visible"
+              variants={statusMessageVariants}
               className="mt-6 p-4 bg-gray-900 border-2 border-red-500 flex items-center gap-3"
             >
-              <XCircle className="text-red-500" size={24} />
+              <XCircle aria-hidden="true" className="text-red-500" size={24} />
               <span className="text-red-500 font-bold font-mono">
                 ERROR: {errorMessage || 'TRANSMISSION FAILED.'}
               </span>
             </motion.div>
           )}
 
-          {submitStatus === 'rate-limited' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-4 bg-gray-900 border-2 border-cyber-yellow flex items-center gap-3"
-            >
-              <XCircle className="text-cyber-yellow" size={24} />
-              <div className="text-cyber-yellow font-mono">
-                <div className="font-bold">ERROR 429: RATE LIMITED</div>
-                <div className="text-xs mt-1">
-                  {errorMessage || 'PLEASE WAIT BEFORE RETRYING.'}
-                </div>
-              </div>
-            </motion.div>
-          )}
+          </Card>
         </motion.div>
 
         {/* Additional Info */}

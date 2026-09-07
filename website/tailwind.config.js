@@ -7,16 +7,30 @@ export default {
   theme: {
     extend: {
       colors: {
+        background: 'rgb(var(--color-background) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        border: 'rgb(var(--color-border) / <alpha-value>)',
+        accent: {
+          DEFAULT: 'rgb(var(--color-accent-cyan) / <alpha-value>)',
+          cyan: 'rgb(var(--color-accent-cyan) / <alpha-value>)',
+          purple: 'rgb(var(--color-accent-purple) / <alpha-value>)',
+          green: 'rgb(var(--color-accent-green) / <alpha-value>)',
+          pink: 'rgb(var(--color-accent-pink) / <alpha-value>)',
+          yellow: 'rgb(var(--color-accent-yellow) / <alpha-value>)',
+        },
+        error: 'rgb(var(--color-error) / <alpha-value>)',
         cyber: {
-          black: '#050505',
-          dark: '#0a0a0a',
-          gray: '#1a1a1a',
-          white: '#ffffff',
-          blue: '#00f3ff', // Neon Cyan
-          purple: '#bc13fe', // Neon Purple
-          green: '#00ff41', // Matrix Green
-          pink: '#ff00ff', // Magenta
-          yellow: '#fcee0a', // Cyber Yellow
+          black: 'rgb(var(--color-background) / <alpha-value>)',
+          dark: 'rgb(var(--color-surface) / <alpha-value>)',
+          gray: 'rgb(26 26 26 / <alpha-value>)',
+          white: 'rgb(var(--color-foreground) / <alpha-value>)',
+          blue: 'rgb(var(--color-accent-cyan) / <alpha-value>)',
+          purple: 'rgb(var(--color-accent-purple) / <alpha-value>)',
+          green: 'rgb(var(--color-accent-green) / <alpha-value>)',
+          pink: 'rgb(var(--color-accent-pink) / <alpha-value>)',
+          yellow: 'rgb(var(--color-accent-yellow) / <alpha-value>)',
         }
       },
       fontFamily: {
