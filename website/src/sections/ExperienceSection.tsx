@@ -2,9 +2,8 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { Calendar, ChevronDown, ExternalLink, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
-import { Button } from '../components/ui/Button';
+import { buttonStyles } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
-import { MetaChip } from '../components/ui/InsetTile';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { Tag } from '../components/ui/Tag';
 import { experiences } from '../content/portfolio';
@@ -20,11 +19,14 @@ export const ExperienceSection = () => {
   return (
     <section
       id="experience"
-      className="relative border-t-2 border-border bg-grid px-4 py-20"
+      className="py-20 px-4 border-t-2 border-white bg-grid relative"
     >
-      <div className="mx-auto max-w-4xl">
-        <motion.div className="relative z-10 mb-16 text-center">
-          <SectionHeading variant="boxed" className="mb-4 -rotate-1">
+      <div className="max-w-4xl mx-auto">
+        <motion.div className="text-center mb-16 relative z-10">
+          <SectionHeading
+            variant="boxed"
+            className="inline-block text-4xl md:text-6xl mb-4 text-white bg-cyber-black px-4 border-cyber-blue shadow-neo-blue transform -rotate-1"
+          >
             Experience_Log
           </SectionHeading>
         </motion.div>
@@ -37,15 +39,23 @@ export const ExperienceSection = () => {
 
               return (
                 <motion.div layout key={experience.company}>
-                  <Card variant={isExpanded ? 'experienceActive' : 'experience'}>
+                  <Card
+                    elevated={false}
+                    surface={false}
+                    className={`bg-cyber-black border-gray-600 hover:border-white transition-all duration-300 ${
+                      isExpanded
+                        ? 'border-cyber-blue shadow-neo-blue'
+                        : 'hover:shadow-neo'
+                    }`}
+                  >
                     <div className="p-6">
-                      <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-4">
                         <div>
-                          <h3 className="mb-1 text-xl font-bold uppercase tracking-wide text-accent-cyan">
+                          <h3 className="text-xl font-bold text-cyber-blue mb-1 uppercase tracking-wide">
                             {experience.position}
                           </h3>
                           <div className="flex items-center gap-2">
-                            <p className="text-lg font-bold text-foreground">
+                            <p className="text-white font-bold text-lg">
                               {experience.company}
                             </p>
                             {experience.website && (
@@ -54,46 +64,57 @@ export const ExperienceSection = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={`Visit ${experience.company} website`}
-                                className="text-faint transition-colors hover:text-foreground"
+                                className="text-gray-500 hover:text-white transition-colors"
                               >
                                 <ExternalLink aria-hidden="true" size={14} />
                               </a>
                             )}
                           </div>
                         </div>
-                        <div className="flex flex-col items-end gap-1 font-mono text-xs text-muted">
-                          <MetaChip>
+                        <div className="flex flex-col items-end gap-1 text-xs font-mono text-gray-400">
+                          <div className="flex items-center gap-2 bg-gray-900 px-2 py-1 border border-gray-700">
                             <Calendar aria-hidden="true" size={12} />
                             <span>{experience.period}</span>
-                          </MetaChip>
-                          <MetaChip>
+                          </div>
+                          <div className="flex items-center gap-2 bg-gray-900 px-2 py-1 border border-gray-700">
                             <MapPin aria-hidden="true" size={12} />
                             <span>{experience.location}</span>
-                          </MetaChip>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="mb-6 border-l-2 border-line pl-4 font-sans text-sm leading-relaxed text-body">
+                      <div className="space-y-2 text-gray-300 leading-relaxed mb-6 font-sans text-sm border-l-2 border-gray-700 pl-4">
                         <p>{experience.description}</p>
                       </div>
 
-                      <div className="mt-4 flex items-end justify-between">
+                      <div className="flex items-end justify-between mt-4">
                         <div className="flex flex-wrap gap-2">
                           {experience.tech.map((tech) => (
-                            <Tag key={tech} variant="chip">
+                            <Tag
+                              key={tech}
+                              accent="cyan"
+                              className="px-2 py-0.5 bg-gray-900 border-gray-700 text-[10px] text-gray-400 font-normal"
+                            >
                               {tech}
                             </Tag>
                           ))}
                         </div>
 
                         {details && (
-                          <Button
-                            variant={isExpanded ? 'primary' : 'outline'}
-                            size="sm"
+                          <button
+                            type="button"
                             onClick={() => toggleExperience(index)}
                             aria-expanded={isExpanded}
                             aria-label={`${isExpanded ? 'Close' : 'Show'} ${experience.company} experience details`}
-                            className="min-h-0 px-3 py-1 shadow-none"
+                            className={buttonStyles({
+                              variant: isExpanded ? 'primary' : 'outline',
+                              size: 'sm',
+                              className: `min-h-0 px-3 py-1 ${
+                                isExpanded
+                                  ? 'bg-cyber-blue text-black border-cyber-blue'
+                                  : 'bg-transparent text-white border-white hover:bg-white hover:text-black'
+                              }`,
+                            })}
                           >
                             <span>{isExpanded ? 'CLOSE' : 'DETAILS'}</span>
                             <ChevronDown
@@ -103,7 +124,7 @@ export const ExperienceSection = () => {
                                 isExpanded ? 'rotate-180' : ''
                               }`}
                             />
-                          </Button>
+                          </button>
                         )}
                       </div>
                     </div>
@@ -116,21 +137,21 @@ export const ExperienceSection = () => {
                           animate="expanded"
                           exit="collapsed"
                           variants={panelVariants}
-                          className="overflow-hidden border-t-2 border-dashed border-line bg-panel"
+                          className="overflow-hidden bg-gray-900 border-t-2 border-dashed border-gray-700"
                         >
-                          <div className="grid gap-8 p-6 md:grid-cols-3">
+                          <div className="p-6 grid md:grid-cols-3 gap-8">
                             {details.map((detail) => (
                               <div key={detail.section} className="space-y-3">
-                                <h4 className="border-b border-line pb-2 text-xs font-bold uppercase tracking-widest text-accent-cyan">
+                                <h4 className="text-xs font-bold text-cyber-blue uppercase tracking-widest border-b border-gray-700 pb-2">
                                   {detail.section}
                                 </h4>
                                 <ul className="space-y-2">
                                   {detail.items.map((item) => (
                                     <li
                                       key={item}
-                                      className="flex items-start gap-2 font-sans text-xs leading-relaxed text-body"
+                                      className="flex items-start gap-2 text-xs text-gray-300 font-sans leading-relaxed"
                                     >
-                                      <span className="mt-1 shrink-0 text-accent-cyan">
+                                      <span className="text-cyber-blue mt-1 flex-shrink-0">
                                         »
                                       </span>
                                       <span>{item}</span>

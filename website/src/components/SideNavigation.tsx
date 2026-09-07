@@ -48,7 +48,7 @@ const SideNavigation = ({
       className="fixed top-1/2 right-8 z-50 hidden -translate-y-1/2 lg:block navigator-responsive"
     >
       <div
-        className="flex h-[400px] w-[200px] flex-col items-end justify-center gap-10 border border-transparent bg-transparent pr-3"
+        className="flex h-[400px] w-40 flex-col items-end justify-center gap-10 border border-transparent bg-transparent pr-3"
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {sections.map((section, index) => {
@@ -75,7 +75,7 @@ const SideNavigation = ({
                 className={`mr-0.5 border-2 ${
                   isCurrent
                     ? 'bg-cyber-blue border-cyber-blue w-4 h-4 shadow-[0_0_10px_rgba(0,243,255,0.5)]'
-                    : 'h-3 w-3 border-line-soft bg-transparent'
+                    : 'h-3 w-3 border-gray-600 bg-transparent'
                 }`}
                 animate={{
                   rotate: isCurrent ? 45 : 0,

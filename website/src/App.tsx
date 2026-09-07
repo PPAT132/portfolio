@@ -50,7 +50,7 @@ function App() {
                     currentSection={currentSection}
                     onNavigate={navigateToSection}
                   />
-                  <main className="w-full px-4 sm:px-6 lg:pl-16 lg:pr-56 pt-16 lg:pt-0">
+                  <main className="w-full px-4 sm:px-6 lg:pl-16 lg:pr-64 pt-16 lg:pt-0">
                     <Home />
                   </main>
                   <SideNavigation

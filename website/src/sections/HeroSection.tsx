@@ -44,7 +44,7 @@ export const HeroSection = () => (
           </div>
 
           <div className="space-y-6">
-            <p className="text-lg text-body leading-relaxed font-sans border-l-4 border-accent-purple pl-4">
+            <p className="text-lg text-gray-300 leading-relaxed font-sans border-l-4 border-cyber-purple pl-4">
               I'm a Waterloo CS student passionate about combining theory with
               practice. I believe mathematics provides the foundation for
               understanding, but I truly enjoy applying knowledge by building
@@ -60,7 +60,8 @@ export const HeroSection = () => (
                 aria-label="Download Patrick Ma résumé"
                 className={buttonStyles({
                   variant: 'outline',
-                  className: 'normal-case',
+                  className:
+                    'flex items-center gap-2 px-6 py-3 bg-cyber-black border-white text-white normal-case hover:bg-white hover:text-cyber-black shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none',
                 })}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

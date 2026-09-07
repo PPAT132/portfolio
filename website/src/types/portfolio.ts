@@ -83,5 +83,6 @@ export const isSectionedProjectWork = (
 export interface SkillGroup {
   label: string;
   accent: Accent;
+  hoverClasses: string;
   skills: readonly string[];
 }
