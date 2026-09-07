@@ -23,12 +23,12 @@ const TopNavigation = ({
   return (
     <nav
       aria-label="Primary navigation"
-      className="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b-2 border-white lg:hidden"
+      className="fixed left-0 right-0 top-0 z-50 border-b-2 border-border bg-background lg:hidden"
     >
       <div className="max-w-7xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo/Name */}
-          <div className="text-xl font-bold text-white font-mono tracking-tighter uppercase border-2 border-white px-2 py-1 bg-black shadow-neo-sm">
+          <div className="border-2 border-border bg-background px-2 py-1 font-mono text-xl font-bold uppercase tracking-tighter text-foreground shadow-neo-sm">
             Patrick_Ma
           </div>
           
@@ -44,8 +44,8 @@ const TopNavigation = ({
                 }
                 className={`text-sm font-bold font-mono uppercase tracking-wider px-3 py-1 border-2 transition-all duration-200 ${
                   currentSection === section.id
-                    ? 'text-black bg-cyber-blue border-cyber-blue shadow-neo-sm'
-                    : 'text-gray-300 border-transparent hover:border-white hover:text-white'
+                    ? 'border-accent-cyan bg-accent-cyan text-background shadow-neo-sm'
+                    : 'border-transparent text-body hover:border-border hover:text-foreground'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -65,7 +65,7 @@ const TopNavigation = ({
               aria-label={
                 isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'
               }
-              className="text-white hover:text-cyber-blue p-2 border-2 border-transparent hover:border-white transition-colors"
+              className="border-2 border-transparent p-2 text-foreground transition-colors hover:border-border hover:text-accent-cyan"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -81,7 +81,7 @@ const TopNavigation = ({
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden overflow-hidden border-t-2 border-gray-800 mt-3 bg-black"
+              className="mt-3 overflow-hidden border-t-2 border-panel-strong bg-background md:hidden"
             >
               <div className="py-3 space-y-2">
                 {sections.map((section) => (
@@ -94,8 +94,8 @@ const TopNavigation = ({
                     }
                     className={`block w-full text-left px-4 py-3 text-sm font-bold font-mono uppercase tracking-wider border-l-4 transition-all duration-200 ${
                       currentSection === section.id
-                        ? 'bg-cyber-blue text-black border-white'
-                        : 'text-gray-300 border-transparent hover:bg-gray-900 hover:text-cyber-blue hover:border-cyber-blue'
+                        ? 'border-border bg-accent-cyan text-background'
+                        : 'border-transparent text-body hover:border-accent-cyan hover:bg-panel hover:text-accent-cyan'
                     }`}
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.98 }}

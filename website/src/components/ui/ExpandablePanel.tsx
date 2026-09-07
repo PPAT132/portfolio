@@ -4,7 +4,7 @@ import { useId, useState, type HTMLAttributes, type ReactNode } from 'react';
 
 import { cn } from '../../lib/cn';
 import { panelVariants } from '../../lib/motion';
-import { Card } from './Card';
+import { Card, type CardVariant } from './Card';
 
 export interface ExpandablePanelProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -15,7 +15,9 @@ export interface ExpandablePanelProps
   onOpenChange?: (open: boolean) => void;
   collapsedLabel?: string;
   expandedLabel?: string;
+  variant?: CardVariant;
   headerTone?: 'surface' | 'background';
+  contentTone?: 'default' | 'inset';
   buttonClassName?: string;
   previewClassName?: string;
   contentClassName?: string;
@@ -29,7 +31,9 @@ export const ExpandablePanel = ({
   onOpenChange,
   collapsedLabel,
   expandedLabel,
+  variant = 'flat',
   headerTone = 'surface',
+  contentTone = 'default',
   buttonClassName,
   previewClassName,
   className,
@@ -51,18 +55,13 @@ export const ExpandablePanel = ({
   };
 
   return (
-    <Card
-      elevated={false}
-      surface={false}
-      className={cn('overflow-hidden', className)}
-      {...props}
-    >
+    <Card variant={variant} className={cn('overflow-hidden', className)} {...props}>
       <button
         type="button"
         aria-controls={contentId}
         aria-expanded={isOpen}
         className={cn(
-          'flex w-full items-center justify-between gap-4 px-4 py-3 text-left font-mono font-bold uppercase tracking-wider text-foreground transition-colors hover:bg-cyber-gray focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent-cyan',
+          'flex w-full items-center justify-between gap-4 px-4 py-3 text-left font-mono font-bold uppercase tracking-wider text-foreground transition-colors hover:bg-inset focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent-cyan',
           headerTone === 'surface' ? 'bg-surface' : 'bg-background',
           buttonClassName,
         )}
@@ -104,7 +103,10 @@ export const ExpandablePanel = ({
           >
             <div
               className={cn(
-                'border-t-2 border-border p-4 text-muted',
+                'border-t-2 p-4',
+                contentTone === 'inset'
+                  ? 'border-line bg-panel text-body'
+                  : 'border-border text-muted',
                 contentClassName,
               )}
             >

@@ -22,18 +22,14 @@ export const floatingLinks = [
     icon: Github,
     label: 'GitHub',
     url: 'https://github.com/PPAT132',
-    color: 'hover:text-cyber-gray',
-    bgColor: 'bg-cyber-gray',
-    borderColor: 'border-white',
+    accent: 'neutral',
   },
   {
     kind: 'external',
     icon: Linkedin,
     label: 'LinkedIn',
     url: 'https://www.linkedin.com/in/patrick-ma-2162752b3/',
-    color: 'hover:text-cyber-blue',
-    bgColor: 'bg-cyber-blue',
-    borderColor: 'border-white',
+    accent: 'cyan',
   },
   {
     kind: 'download',
@@ -41,18 +37,14 @@ export const floatingLinks = [
     label: 'Résumé',
     url: '/Patrick-Ma-Resume.pdf',
     downloadName: 'Patrick-Ma-Resume.pdf',
-    color: 'hover:text-cyber-green',
-    bgColor: 'bg-cyber-green',
-    borderColor: 'border-white',
+    accent: 'green',
   },
   {
     kind: 'internal',
     icon: Mail,
     label: 'Email',
     url: '/email',
-    color: 'hover:text-cyber-pink',
-    bgColor: 'bg-cyber-pink',
-    borderColor: 'border-white',
+    accent: 'pink',
   },
 ] satisfies readonly FloatingSocialLink[];
 
@@ -61,15 +53,13 @@ export const actions = [
     icon: Code,
     label: 'View My Work',
     targetId: 'projects',
-    bgColor: 'bg-cyber-purple',
-    shadow: 'shadow-neo-purple',
+    accent: 'purple',
   },
   {
     icon: Briefcase,
     label: 'Get In Touch',
     targetId: 'contact',
-    bgColor: 'bg-cyber-blue',
-    shadow: 'shadow-neo-blue',
+    accent: 'cyan',
   },
 ] satisfies readonly Action[];
 
@@ -291,8 +281,6 @@ export const skillGroups = [
   {
     label: '[ Languages ]',
     accent: 'cyan',
-    hoverClasses:
-      'hover:bg-cyber-blue hover:text-black hover:border-cyber-blue',
     skills: [
       'Python',
       'Java',
@@ -308,15 +296,11 @@ export const skillGroups = [
   {
     label: '[ Web_Stack ]',
     accent: 'green',
-    hoverClasses:
-      'hover:bg-cyber-green hover:text-black hover:border-cyber-green',
     skills: ['Razor', 'React', 'Node.js', 'SQL', '.NET', 'FastAPI', 'Docker'],
   },
   {
     label: '[ AI / ML ]',
     accent: 'purple',
-    hoverClasses:
-      'hover:bg-cyber-purple hover:text-black hover:border-cyber-purple',
     skills: [
       'PyTorch',
       'TensorFlow',
@@ -329,8 +313,6 @@ export const skillGroups = [
   {
     label: '[ Tools / APIs ]',
     accent: 'yellow',
-    hoverClasses:
-      'hover:bg-cyber-yellow hover:text-black hover:border-cyber-yellow',
     skills: [
       'OpenAI API',
       'Google AI API',

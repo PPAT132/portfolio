@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 
 export type Accent = 'cyan' | 'purple' | 'green' | 'pink' | 'yellow';
+export type Tone = Accent | 'neutral';
 
 interface LinkBase {
   icon: LucideIcon;
@@ -27,17 +28,14 @@ export type SocialLink =
   | DownloadSocialLink;
 
 export type FloatingSocialLink = SocialLink & {
-  color: string;
-  bgColor: string;
-  borderColor: string;
+  accent: Tone;
 };
 
 export interface Action {
   icon: LucideIcon;
   label: string;
   targetId: 'projects' | 'contact';
-  bgColor: string;
-  shadow: string;
+  accent: Accent;
 }
 
 export interface DetailSection {
@@ -83,6 +81,5 @@ export const isSectionedProjectWork = (
 export interface SkillGroup {
   label: string;
   accent: Accent;
-  hoverClasses: string;
   skills: readonly string[];
 }

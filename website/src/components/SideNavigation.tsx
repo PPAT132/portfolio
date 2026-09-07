@@ -74,8 +74,8 @@ const SideNavigation = ({
                 aria-hidden="true"
                 className={`mr-0.5 border-2 ${
                   isCurrent
-                    ? 'bg-cyber-blue border-cyber-blue w-4 h-4 shadow-[0_0_10px_rgba(0,243,255,0.5)]'
-                    : 'h-3 w-3 border-gray-600 bg-transparent'
+                    ? 'h-4 w-4 border-accent-cyan bg-accent-cyan shadow-[0_0_10px_rgb(var(--color-accent-cyan)/0.5)]'
+                    : 'h-3 w-3 border-line-soft bg-transparent'
                 }`}
                 animate={{
                   rotate: isCurrent ? 45 : 0,
@@ -87,14 +87,14 @@ const SideNavigation = ({
 
               <div
                 aria-hidden="true"
-                className={`absolute right-[18px] h-0.5 bg-cyber-blue transition-all duration-300 ${
+                className={`absolute right-[18px] h-0.5 bg-accent-cyan transition-all duration-300 ${
                   isCurrent ? 'w-12 opacity-100' : 'w-0 opacity-0'
                 }`}
               />
 
               <div className="absolute right-[34px] top-1/2 -translate-y-1/2">
                 <motion.div
-                  className={`whitespace-nowrap border border-white bg-black px-3 py-1 text-white shadow-neo-sm ${
+                  className={`whitespace-nowrap border border-border bg-background px-3 py-1 text-foreground shadow-neo-sm ${
                     isCurrent ? 'z-10' : 'z-0'
                   }`}
                   animate={animation}

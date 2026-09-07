@@ -6,9 +6,16 @@
   :root {
     --color-background: 5 5 5;
     --color-surface: 10 10 10;
+    --color-inset: 26 26 26;
+    --color-panel: 17 24 39;
+    --color-panel-strong: 31 41 55;
     --color-foreground: 255 255 255;
+    --color-body: 209 213 219;
     --color-muted: 156 163 175;
+    --color-faint: 107 114 128;
     --color-border: 255 255 255;
+    --color-line: 55 65 81;
+    --color-line-soft: 75 85 99;
     --color-accent-cyan: 0 243 255;
     --color-accent-purple: 188 19 254;
     --color-accent-green: 0 255 65;
@@ -59,15 +66,23 @@
 
 @layer components {
   .btn-brutal {
-    @apply border-2 border-white bg-cyber-black font-mono font-bold uppercase tracking-wider text-white transition-all duration-200 hover:-translate-y-1 hover:shadow-neo;
+    @apply border-2 border-border bg-background font-mono font-bold uppercase tracking-wider text-foreground transition-all duration-200 hover:-translate-y-1 hover:shadow-neo;
   }
 
   .btn-brutal-primary {
-    @apply border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-cyber-black hover:shadow-neo-blue;
+    @apply border-accent-cyan text-accent-cyan hover:bg-accent-cyan hover:text-background hover:shadow-neo-cyan;
   }
 
   .btn-brutal-secondary {
-    @apply border-cyber-purple text-cyber-purple hover:bg-cyber-purple hover:text-white hover:shadow-neo-purple;
+    @apply border-accent-purple text-accent-purple hover:bg-accent-purple hover:text-foreground hover:shadow-neo-purple;
+  }
+
+  .form-label {
+    @apply mb-2 block text-sm font-bold uppercase tracking-wider;
+  }
+
+  .form-input {
+    @apply w-full border-2 border-line-soft bg-panel px-4 py-3 font-sans text-foreground placeholder:text-faint transition-colors focus:outline-none focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 }
 
@@ -96,14 +111,14 @@
   .glitch-text::before {
     left: 2px;
     clip: rect(44px, 450px, 56px, 0);
-    text-shadow: -1px 0 #ff00c1;
+    text-shadow: -1px 0 rgb(var(--color-accent-pink));
     animation: glitch-anim 5s infinite linear alternate-reverse;
   }
 
   .glitch-text::after {
     left: -2px;
     clip: rect(44px, 450px, 56px, 0);
-    text-shadow: -1px 0 #00fff9;
+    text-shadow: -1px 0 rgb(var(--color-accent-cyan));
     animation: glitch-anim2 5s infinite linear alternate-reverse;
   }
 

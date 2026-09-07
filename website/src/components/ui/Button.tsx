@@ -13,11 +13,11 @@ interface ButtonStyleOptions {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    'border-white bg-accent-cyan text-background shadow-neo-sm hover:bg-foreground hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none',
+    'border-border bg-accent-cyan text-background shadow-neo-sm hover:bg-foreground hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none',
   secondary:
     'border-accent-purple bg-background text-accent-purple hover:-translate-y-1 hover:bg-accent-purple hover:text-foreground hover:shadow-neo-purple',
   outline:
-    'border-border bg-background text-foreground hover:-translate-y-1 hover:bg-foreground hover:text-background hover:shadow-neo',
+    'border-border bg-background text-foreground shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-foreground hover:text-background hover:shadow-none',
   ghost:
     'border-transparent bg-transparent text-foreground hover:border-border hover:bg-surface',
 };
@@ -36,7 +36,7 @@ export const buttonStyles = ({
   className,
 }: ButtonStyleOptions = {}): string =>
   cn(
-    'inline-flex items-center justify-center gap-2 border-2 font-mono font-bold uppercase tracking-wider transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-cyan disabled:cursor-not-allowed disabled:opacity-50',
+    'inline-flex items-center justify-center gap-2 border-2 font-mono font-bold uppercase tracking-wider transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-cyan disabled:cursor-not-allowed disabled:border-line disabled:bg-panel-strong disabled:text-muted disabled:opacity-100',
     variantStyles[variant],
     sizeStyles[size],
     className,

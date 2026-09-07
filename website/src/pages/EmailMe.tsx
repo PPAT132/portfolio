@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import { buttonStyles } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
+import { SectionHeading } from '../components/ui/SectionHeading';
+import { cn } from '../lib/cn';
 import {
   containerVariants,
   itemVariants,
@@ -73,20 +75,23 @@ const EmailMe = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cyber-black text-white font-mono bg-grid">
-      {/* Header */}
-      <div className="bg-black border-b-2 border-white px-4 py-4">
-        <div className="max-w-4xl mx-auto flex items-center gap-4">
+    <div className="min-h-screen bg-background bg-grid font-mono text-foreground">
+      <div className="border-b-2 border-border bg-background px-4 py-4">
+        <div className="mx-auto flex max-w-4xl items-center gap-4">
           <Link
             to="/"
             onClick={() => window.scrollTo({ top: 0, behavior: 'auto' })}
-            className="flex items-center gap-2 px-4 py-2 border-2 border-white hover:bg-white hover:text-black transition-colors uppercase font-bold text-sm tracking-wide"
+            className={buttonStyles({
+              variant: 'outline',
+              size: 'sm',
+              className: 'shadow-none hover:translate-x-0 hover:translate-y-0 hover:shadow-none',
+            })}
           >
             <ArrowLeft aria-hidden="true" size={20} />
             Back
           </Link>
           <div className="flex items-center gap-3">
-            <Mail className="text-cyber-blue" size={24} />
+            <Mail className="text-accent-cyan" size={24} />
             <h1 className="text-2xl font-bold uppercase tracking-tighter">
               Email_Me
             </h1>
@@ -103,10 +108,10 @@ const EmailMe = () => {
       >
         {/* Introduction */}
         <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 bg-cyber-blue text-black inline-block px-2 border-2 border-white shadow-neo-sm">
+          <SectionHeading variant="boxed" className="mb-4 inline-block">
             INITIALIZE_COMMS
-          </h2>
-          <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-sans mt-4">
+          </SectionHeading>
+          <p className="mt-4 font-sans text-base leading-relaxed text-body sm:text-lg">
             I'd love to hear from you! Whether you have a project in mind, want to collaborate, 
             or just want to say hello, feel free to send me a message.
           </p>
@@ -114,7 +119,7 @@ const EmailMe = () => {
 
         {/* Contact Form */}
         <motion.div variants={itemVariants}>
-          <Card surface={false} className="bg-black p-4 sm:p-6 lg:p-8">
+          <Card variant="flat" className="p-4 sm:p-6 lg:p-8">
             <form
             name="contact"
             method="POST"
@@ -139,7 +144,7 @@ const EmailMe = () => {
             </p>
             {/* Name Field */}
             <div>
-              <label htmlFor="name" className="block text-sm font-bold text-cyber-blue mb-2 uppercase tracking-wider">
+              <label htmlFor="name" className="form-label text-accent-cyan">
                 Your Name *
               </label>
               <input
@@ -149,14 +154,14 @@ const EmailMe = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-blue focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyber-blue transition-colors font-sans"
+                className="form-input focus:border-accent-cyan focus-visible:outline-accent-cyan"
                 placeholder="Enter your full name"
               />
             </div>
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-bold text-cyber-green mb-2 uppercase tracking-wider">
+              <label htmlFor="email" className="form-label text-accent-green">
                 Your Email *
               </label>
               <input
@@ -166,14 +171,14 @@ const EmailMe = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-green focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyber-green transition-colors font-sans"
+                className="form-input focus:border-accent-green focus-visible:outline-accent-green"
                 placeholder="Enter your email address"
               />
             </div>
 
             {/* Subject Field */}
             <div>
-              <label htmlFor="subject" className="block text-sm font-bold text-cyber-purple mb-2 uppercase tracking-wider">
+              <label htmlFor="subject" className="form-label text-accent-purple">
                 Subject *
               </label>
               <input
@@ -183,14 +188,14 @@ const EmailMe = () => {
                 value={formData.subject}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-purple focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyber-purple transition-colors font-sans"
+                className="form-input focus:border-accent-purple focus-visible:outline-accent-purple"
                 placeholder="What's this about?"
               />
             </div>
 
             {/* Message Field */}
             <div>
-              <label htmlFor="message" className="block text-sm font-bold text-cyber-yellow mb-2 uppercase tracking-wider">
+              <label htmlFor="message" className="form-label text-accent-yellow">
                 Message *
               </label>
               <textarea
@@ -200,7 +205,7 @@ const EmailMe = () => {
                 onChange={handleInputChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-yellow focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyber-yellow transition-colors resize-none font-sans"
+                className="form-input resize-none focus:border-accent-yellow focus-visible:outline-accent-yellow"
                 placeholder="Tell me about your project, idea, or just say hello..."
               />
             </div>
@@ -212,15 +217,17 @@ const EmailMe = () => {
               className={buttonStyles({
                 variant: 'primary',
                 size: 'lg',
-                className:
-                  'w-full gap-3 tracking-widest duration-300 disabled:border-gray-600 disabled:bg-gray-800 disabled:text-gray-500 disabled:opacity-100 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-none',
+                className: cn(
+                  'w-full gap-3 tracking-widest duration-300',
+                  'disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-none',
+                ),
               })}
               whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
               whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
             >
               {isSubmitting ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-background border-t-transparent"></div>
                   TRANSMITTING...
                 </>
               ) : (
@@ -240,10 +247,10 @@ const EmailMe = () => {
               initial="hidden"
               animate="visible"
               variants={statusMessageVariants}
-              className="mt-6 p-4 bg-gray-900 border-2 border-cyber-green flex items-center gap-3"
+              className="mt-6 flex items-center gap-3 border-2 border-accent-green bg-panel p-4"
             >
-              <CheckCircle aria-hidden="true" className="text-cyber-green" size={24} />
-              <span className="text-cyber-green font-bold font-mono">
+              <CheckCircle aria-hidden="true" className="text-accent-green" size={24} />
+              <span className="font-mono font-bold text-accent-green">
                 SUCCESS: MESSAGE TRANSMITTED.
               </span>
             </motion.div>
@@ -256,10 +263,10 @@ const EmailMe = () => {
               initial="hidden"
               animate="visible"
               variants={statusMessageVariants}
-              className="mt-6 p-4 bg-gray-900 border-2 border-red-500 flex items-center gap-3"
+              className="mt-6 flex items-center gap-3 border-2 border-error bg-panel p-4"
             >
-              <XCircle aria-hidden="true" className="text-red-500" size={24} />
-              <span className="text-red-500 font-bold font-mono">
+              <XCircle aria-hidden="true" className="text-error" size={24} />
+              <span className="font-mono font-bold text-error">
                 ERROR: {errorMessage || 'TRANSMISSION FAILED.'}
               </span>
             </motion.div>
@@ -270,14 +277,14 @@ const EmailMe = () => {
 
         {/* Additional Info */}
         <motion.div variants={itemVariants} className="mt-12 text-center">
-          <div className="bg-black border-2 border-gray-700 p-6 inline-block">
-            <h3 className="text-sm font-bold text-white mb-2 uppercase tracking-wider">Quick Response Protocol</h3>
-            <p className="text-gray-400 font-sans text-sm">
+          <div className="inline-block border-2 border-line bg-background p-6">
+            <h3 className="mb-2 text-sm font-bold uppercase tracking-wider text-foreground">Quick Response Protocol</h3>
+            <p className="font-sans text-sm text-muted">
               I typically respond within 24 hours. Urgent? Contact direct:
               <br/>
               <a 
                 href="mailto:maxiaoma833@gmail.com" 
-                className="text-cyber-blue hover:bg-cyber-blue hover:text-black transition-colors inline-block mt-2 font-mono border-b border-cyber-blue"
+                className="mt-2 inline-block border-b border-accent-cyan font-mono text-accent-cyan transition-colors hover:bg-accent-cyan hover:text-background"
               >
                 maxiaoma833@gmail.com
               </a>

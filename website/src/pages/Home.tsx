@@ -5,7 +5,7 @@ import { HeroSection } from '../sections/HeroSection';
 import { ProjectsSection } from '../sections/ProjectsSection';
 
 const Home = () => (
-  <div className="min-h-screen bg-cyber-black text-white bg-grid font-mono">
+  <div className="min-h-screen bg-background bg-grid font-mono text-foreground">
     <HeroSection />
     <AboutSection />
     <ExperienceSection />

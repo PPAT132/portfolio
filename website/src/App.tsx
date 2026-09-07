@@ -39,7 +39,7 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <Router>
-        <div className="min-h-screen bg-cyber-black text-white overflow-x-hidden overflow-y-auto bg-grid font-mono">
+        <div className="min-h-screen overflow-x-hidden overflow-y-auto bg-background bg-grid font-mono text-foreground">
           <Routes>
             <Route path="/email" element={<EmailMe />} />
             <Route

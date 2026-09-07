@@ -4,6 +4,8 @@ import { Download } from 'lucide-react';
 import profileImage from '../assets/images/My_Picture.jpg';
 import { buttonStyles } from '../components/ui/Button';
 import { actions, floatingLinks } from '../content/portfolio';
+import { accentBg, accentShadow, toneFill, toneHoverText } from '../lib/accent';
+import { cn } from '../lib/cn';
 
 const floatingLinkPositions = [
   'left-[calc(50%+95px)] top-[calc(50%+95px)] sm:left-[calc(50%+134px)] sm:top-[calc(50%+134px)]',
@@ -23,28 +25,28 @@ const getScrollBehavior = (): ScrollBehavior =>
     : 'smooth';
 
 export const HeroSection = () => (
-  <section id="home" className="min-h-screen flex items-center px-4 py-8">
-    <div className="w-full max-w-[1130px] mx-auto">
-      <div className="grid lg:grid-cols-5 gap-12 items-center">
-        <div className="lg:col-span-3 max-w-[60ch] space-y-8 hero-text-container">
+  <section id="home" className="flex min-h-screen items-center px-4 py-8">
+    <div className="mx-auto w-full max-w-[1130px]">
+      <div className="grid items-center gap-12 lg:grid-cols-5">
+        <div className="hero-text-container max-w-[60ch] space-y-8 lg:col-span-3">
           <div>
-            <div className="inline-block border-2 border-white p-2 mb-4 bg-cyber-blue text-cyber-black font-bold text-sm tracking-widest uppercase shadow-neo-sm">
+            <div className="mb-4 inline-block border-2 border-border bg-accent-cyan p-2 font-bold uppercase tracking-widest text-background shadow-neo-sm">
               Full Stack / AI Engineer
             </div>
             <h1
-              className="text-5xl md:text-7xl font-bold mb-6 text-white glitch-text"
+              className="glitch-text mb-6 text-5xl font-bold text-foreground md:text-7xl"
               data-text="Patrick Maxiao Ma"
             >
               Patrick Maxiao Ma
             </h1>
-            <h2 className="text-xl md:text-2xl text-cyber-blue font-bold tracking-tight">
-              Waterloo CS Student <span className="text-white">·</span> Builder
-              of Ideas
+            <h2 className="text-xl font-bold tracking-tight text-accent-cyan md:text-2xl">
+              Waterloo CS Student <span className="text-foreground">·</span>{' '}
+              Builder of Ideas
             </h2>
           </div>
 
           <div className="space-y-6">
-            <p className="text-lg text-gray-300 leading-relaxed font-sans border-l-4 border-cyber-purple pl-4">
+            <p className="border-l-4 border-accent-purple pl-4 font-sans text-lg leading-relaxed text-body">
               I'm a Waterloo CS student passionate about combining theory with
               practice. I believe mathematics provides the foundation for
               understanding, but I truly enjoy applying knowledge by building
@@ -60,8 +62,7 @@ export const HeroSection = () => (
                 aria-label="Download Patrick Ma résumé"
                 className={buttonStyles({
                   variant: 'outline',
-                  className:
-                    'flex items-center gap-2 px-6 py-3 bg-cyber-black border-white text-white normal-case hover:bg-white hover:text-cyber-black shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none',
+                  className: 'normal-case',
                 })}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -73,56 +74,57 @@ export const HeroSection = () => (
           </div>
         </div>
 
-        <div className="relative flex justify-center lg:justify-start items-center hero-image-container">
+        <div className="hero-image-container relative flex items-center justify-center lg:justify-start">
           <div className="relative my-24 sm:my-32 lg:my-0">
-            <div className="w-60 h-60 sm:w-80 sm:h-80 border-4 border-white bg-cyber-gray p-0 shadow-neo-purple relative z-10">
-              <div className="w-full h-full overflow-hidden transition-all duration-500">
+            <div className="relative z-10 h-60 w-60 border-4 border-border bg-inset shadow-neo-purple sm:h-80 sm:w-80">
+              <div className="h-full w-full overflow-hidden transition-all duration-500">
                 <img
                   src={profileImage}
                   alt="Patrick Maxiao Ma"
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
             </div>
 
-            <div className="absolute -top-6 -right-6 w-16 h-16 border-4 border-cyber-blue animate-float z-0" />
-            <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-cyber-purple animate-float z-20 mix-blend-multiply opacity-80" />
-            <div className="absolute top-1/2 -right-12 w-10 h-10 bg-cyber-green rotate-45 animate-float z-0" />
-            <div className="absolute -top-12 left-1/2 w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-b-[35px] border-b-cyber-yellow animate-float" />
+            <div className="absolute -right-6 -top-6 z-0 h-16 w-16 animate-float border-4 border-accent-cyan" />
+            <div className="absolute -bottom-6 -left-6 z-20 h-20 w-20 animate-float bg-accent-purple mix-blend-multiply opacity-80" />
+            <div className="absolute -right-12 top-1/2 z-0 h-10 w-10 rotate-45 animate-float bg-accent-green" />
+            <div className="absolute -top-12 left-1/2 z-0 h-0 w-0 animate-float border-b-[35px] border-l-[20px] border-r-[20px] border-b-accent-yellow border-l-transparent border-r-transparent" />
 
-            {floatingLinks.map((link, index) => {
-              return (
-                <a
-                  key={link.label}
-                  href={link.url}
-                  target={link.kind === 'external' ? '_blank' : undefined}
-                  rel={
-                    link.kind === 'external'
-                      ? 'noopener noreferrer'
-                      : undefined
-                  }
-                  download={
-                    link.kind === 'download' ? link.downloadName : undefined
-                  }
-                  aria-label={link.label}
-                  className={`absolute ${floatingLinkPositions[index]} w-14 h-14 ${link.bgColor} ${link.color} border-2 ${link.borderColor} flex -translate-x-1/2 -translate-y-1/2 rotate-45 items-center justify-center transition-all duration-300 hover:scale-110 shadow-neo-sm z-30`}
-                >
-                  <div className="-rotate-45">
-                    <link.icon
-                      aria-hidden="true"
-                      size={20}
-                      className="text-white drop-shadow-sm"
-                    />
-                  </div>
-                </a>
-              );
-            })}
+            {floatingLinks.map((link, index) => (
+              <a
+                key={link.label}
+                href={link.url}
+                target={link.kind === 'external' ? '_blank' : undefined}
+                rel={
+                  link.kind === 'external' ? 'noopener noreferrer' : undefined
+                }
+                download={
+                  link.kind === 'download' ? link.downloadName : undefined
+                }
+                aria-label={link.label}
+                className={cn(
+                  'absolute z-30 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 rotate-45 items-center justify-center border-2 border-border shadow-neo-sm transition-all duration-300 hover:scale-110',
+                  floatingLinkPositions[index],
+                  toneFill[link.accent],
+                  toneHoverText[link.accent],
+                )}
+              >
+                <div className="-rotate-45">
+                  <link.icon
+                    aria-hidden="true"
+                    size={20}
+                    className="text-foreground drop-shadow-sm"
+                  />
+                </div>
+              </a>
+            ))}
 
             {actions.map((action, index) => {
               const isPrimary = action.label === 'View My Work';
               const buttonSize = isPrimary
-                ? 'w-24 h-24 sm:w-32 sm:h-32'
-                : 'w-20 h-20 sm:w-24 sm:h-24';
+                ? 'h-24 w-24 sm:h-32 sm:w-32'
+                : 'h-20 w-20 sm:h-24 sm:w-24';
               const iconSize = isPrimary ? 32 : 24;
               const textSize = isPrimary ? 'text-sm' : 'text-xs';
 
@@ -131,7 +133,13 @@ export const HeroSection = () => (
                   key={action.label}
                   type="button"
                   aria-label={`${action.label} section`}
-                  className={`absolute ${actionPositions[index]} ${buttonSize} ${action.bgColor} border-4 border-white flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center transition-all duration-300 hover:scale-110 ${action.shadow} z-30`}
+                  className={cn(
+                    'absolute z-30 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center border-4 border-border transition-all duration-300 hover:scale-110',
+                    actionPositions[index],
+                    buttonSize,
+                    accentBg[action.accent],
+                    accentShadow[action.accent],
+                  )}
                   onClick={() =>
                     document
                       .getElementById(action.targetId)
@@ -141,10 +149,13 @@ export const HeroSection = () => (
                   <action.icon
                     aria-hidden="true"
                     size={iconSize}
-                    className="text-white mb-2 drop-shadow-sm"
+                    className="mb-2 text-foreground drop-shadow-sm"
                   />
                   <span
-                    className={`text-white ${textSize} font-bold text-center leading-tight drop-shadow-sm uppercase tracking-wider px-2`}
+                    className={cn(
+                      'px-2 text-center font-bold uppercase leading-tight tracking-wider text-foreground drop-shadow-sm',
+                      textSize,
+                    )}
                   >
                     {action.label}
                   </span>
