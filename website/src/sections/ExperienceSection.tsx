@@ -20,7 +20,7 @@ export const ExperienceSection = () => {
   return (
     <section
       id="experience"
-      className="relative border-t-2 border-border bg-grid px-4 py-20"
+      className="relative border-t-4 border-black bg-grid px-4 py-20"
     >
       <div className="mx-auto max-w-4xl">
         <motion.div className="relative z-10 mb-16 text-center">
@@ -42,12 +42,9 @@ export const ExperienceSection = () => {
               return (
                 <motion.div layout key={experience.company}>
                   <Card
-                    variant={isExpanded ? 'accent' : 'inset'}
+                    variant={isExpanded ? 'accent' : 'raised'}
                     accent="cyan"
-                    className={cn(
-                      'transition-all duration-300',
-                      !isExpanded && 'hover:border-border hover:shadow-neo',
-                    )}
+                    className="transition-all duration-300"
                   >
                     <div className="p-6">
                       <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">

@@ -65,6 +65,45 @@ export const actions = [
 
 export const experiences: readonly Experience[] = [
   {
+    company: 'Jurin AI',
+    position: 'Software Engineer Intern – AI Agent Team',
+    period: 'May–Aug 2026',
+    location: 'Tokyo, Japan',
+    description:
+      'Worked on a production AI-powered enterprise workspace, building full-stack product features and automation workflows using TypeScript, tRPC, Prisma/PostgreSQL, and AWS.',
+    tech: [
+      'TypeScript',
+      'tRPC',
+      'Prisma',
+      'PostgreSQL',
+      'AWS',
+      'LiveKit',
+      'Twilio',
+    ],
+    website: 'https://www.jurin.ai/',
+    details: [
+      {
+        section: 'Identity & Messaging',
+        items: [
+          'Built identity-resolution workflows for inbound calls and WhatsApp, including Meta API integrations and backward-compatible handling of evolving WhatsApp identifiers.',
+        ],
+      },
+      {
+        section: 'Voice Platform & Auth',
+        items: [
+          'Implemented role-based authorization across workspace agents and chats, updating application access logic and migrating production data as the permission model evolved.',
+          'Implemented and extended agent tools for a production voice platform handling 10,000+ calls/month, including language detection and human escalation with LiveKit/Twilio handoff logic.',
+        ],
+      },
+      {
+        section: 'RAG & Knowledge',
+        items: [
+          'Contributed to RAG and knowledge-prefetch systems, building full-stack support for retrieval parameters, context limits, knowledge selection, and related production data migrations.',
+        ],
+      },
+    ],
+  },
+  {
     company: 'SparkLease',
     position: 'Full-Stack Developer Intern',
     period: 'May–Aug 2025',
@@ -283,20 +322,28 @@ export const skillGroups = [
     accent: 'cyan',
     skills: [
       'Python',
-      'Java',
-      'C',
+      'TypeScript',
+      'JavaScript',
       'C++',
       'C#',
-      'JavaScript',
-      'TypeScript',
+      'Java',
+      'C',
+      'Scala',
       'Racket',
-      'Haskell',
     ],
   },
   {
-    label: '[ Web_Stack ]',
+    label: '[ Web / Backend ]',
     accent: 'green',
-    skills: ['Razor', 'React', 'Node.js', 'SQL', '.NET', 'FastAPI', 'Docker'],
+    skills: [
+      'React',
+      'Next.js',
+      'Node.js',
+      'tRPC',
+      'Prisma',
+      'FastAPI',
+      'ASP.NET Core',
+    ],
   },
   {
     label: '[ AI / ML ]',
@@ -304,21 +351,23 @@ export const skillGroups = [
     skills: [
       'PyTorch',
       'TensorFlow',
-      'CNN',
-      'GAN',
-      'Fine-tuning',
-      'Model Training',
+      'RAG',
+      'Tool Calling',
+      'AI Agents',
+      'Reinforcement Learning',
     ],
   },
   {
-    label: '[ Tools / APIs ]',
+    label: '[ Infra / Data ]',
     accent: 'yellow',
     skills: [
-      'OpenAI API',
-      'Google AI API',
-      'VSCE',
-      'AI Agents',
-      'Automation',
+      'AWS',
+      'Azure',
+      'Docker',
+      'PostgreSQL',
+      'LiveKit',
+      'Twilio',
+      'Linux',
     ],
   },
 ] satisfies readonly SkillGroup[];

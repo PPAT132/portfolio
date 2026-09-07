@@ -4,7 +4,7 @@ import { Download } from 'lucide-react';
 import profileImage from '../assets/images/My_Picture.jpg';
 import { buttonStyles } from '../components/ui/Button';
 import { actions, floatingLinks } from '../content/portfolio';
-import { accentBg, accentShadow, toneFill, toneHoverText } from '../lib/accent';
+import { accentBg, accentShadow, toneFill, toneHoverText, toneOn } from '../lib/accent';
 import { cn } from '../lib/cn';
 
 const floatingLinkPositions = [
@@ -30,16 +30,16 @@ export const HeroSection = () => (
       <div className="grid items-center gap-12 lg:grid-cols-5">
         <div className="hero-text-container max-w-[60ch] space-y-8 lg:col-span-3">
           <div>
-            <div className="mb-4 inline-block border-2 border-border bg-accent-cyan p-2 font-bold uppercase tracking-widest text-background shadow-neo-sm">
+            <div className="mb-4 inline-block ink bg-sky p-2 font-display text-sm font-bold uppercase tracking-widest text-on-light shadow-neo-sm -rotate-1">
               Full Stack / AI Engineer
             </div>
             <h1
-              className="glitch-text mb-6 text-5xl font-bold text-foreground md:text-7xl"
+              className="glitch-text mb-6 font-display text-5xl font-bold text-foreground md:text-7xl"
               data-text="Patrick Maxiao Ma"
             >
               Patrick Maxiao Ma
             </h1>
-            <h2 className="text-xl font-bold tracking-tight text-accent-cyan md:text-2xl">
+            <h2 className="font-display text-xl font-bold tracking-tight text-navy md:text-2xl">
               Waterloo CS Student <span className="text-foreground">·</span>{' '}
               Builder of Ideas
             </h2>
@@ -76,8 +76,8 @@ export const HeroSection = () => (
 
         <div className="hero-image-container relative flex items-center justify-center lg:justify-start">
           <div className="relative my-24 sm:my-32 lg:my-0">
-            <div className="relative z-10 h-60 w-60 border-4 border-border bg-inset shadow-neo-purple sm:h-80 sm:w-80">
-              <div className="h-full w-full overflow-hidden transition-all duration-500">
+            <div className="ink-plate relative z-10">
+              <div className="relative h-60 w-60 overflow-hidden ink bg-surface sm:h-80 sm:w-80">
                 <img
                   src={profileImage}
                   alt="Patrick Maxiao Ma"
@@ -86,10 +86,9 @@ export const HeroSection = () => (
               </div>
             </div>
 
-            <div className="absolute -right-6 -top-6 z-0 h-16 w-16 animate-float border-4 border-accent-cyan" />
-            <div className="absolute -bottom-6 -left-6 z-20 h-20 w-20 animate-float bg-accent-purple mix-blend-multiply opacity-80" />
-            <div className="absolute -right-12 top-1/2 z-0 h-10 w-10 rotate-45 animate-float bg-accent-green" />
-            <div className="absolute -top-12 left-1/2 z-0 h-0 w-0 animate-float border-b-[35px] border-l-[20px] border-r-[20px] border-b-accent-yellow border-l-transparent border-r-transparent" />
+            <div className="absolute -right-6 -top-6 z-0 h-16 w-16 -rotate-6 animate-float ink bg-sky" />
+            <div className="absolute -bottom-6 -left-6 z-20 h-20 w-20 rotate-3 animate-float ink bg-navy" />
+            <div className="absolute -right-12 top-1/2 z-0 h-10 w-10 rotate-45 animate-float ink bg-sky" />
 
             {floatingLinks.map((link, index) => (
               <a
@@ -104,7 +103,7 @@ export const HeroSection = () => (
                 }
                 aria-label={link.label}
                 className={cn(
-                  'absolute z-30 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 rotate-45 items-center justify-center border-2 border-border shadow-neo-sm transition-all duration-300 hover:scale-110',
+                  'absolute z-30 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 rotate-45 items-center justify-center ink shadow-neo-sm transition-all duration-300 hover:scale-110',
                   floatingLinkPositions[index],
                   toneFill[link.accent],
                   toneHoverText[link.accent],
@@ -114,7 +113,7 @@ export const HeroSection = () => (
                   <link.icon
                     aria-hidden="true"
                     size={20}
-                    className="text-foreground drop-shadow-sm"
+                    className={toneOn[link.accent]}
                   />
                 </div>
               </a>
@@ -134,7 +133,7 @@ export const HeroSection = () => (
                   type="button"
                   aria-label={`${action.label} section`}
                   className={cn(
-                    'absolute z-30 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center border-4 border-border transition-all duration-300 hover:scale-110',
+                    'absolute z-30 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center ink transition-all duration-300 hover:scale-110',
                     actionPositions[index],
                     buttonSize,
                     accentBg[action.accent],
@@ -149,12 +148,13 @@ export const HeroSection = () => (
                   <action.icon
                     aria-hidden="true"
                     size={iconSize}
-                    className="mb-2 text-foreground drop-shadow-sm"
+                    className={cn('mb-2', toneOn[action.accent])}
                   />
                   <span
                     className={cn(
-                      'px-2 text-center font-bold uppercase leading-tight tracking-wider text-foreground drop-shadow-sm',
+                      'px-2 text-center font-display font-bold uppercase leading-tight tracking-wider',
                       textSize,
+                      toneOn[action.accent],
                     )}
                   >
                     {action.label}

@@ -4,24 +4,28 @@
 
 @layer base {
   :root {
-    --color-background: 5 5 5;
-    --color-surface: 10 10 10;
-    --color-inset: 26 26 26;
-    --color-panel: 17 24 39;
-    --color-panel-strong: 31 41 55;
-    --color-foreground: 255 255 255;
-    --color-body: 209 213 219;
-    --color-muted: 156 163 175;
-    --color-faint: 107 114 128;
-    --color-border: 255 255 255;
-    --color-line: 55 65 81;
-    --color-line-soft: 75 85 99;
-    --color-accent-cyan: 0 243 255;
-    --color-accent-purple: 188 19 254;
-    --color-accent-green: 0 255 65;
-    --color-accent-pink: 255 0 255;
-    --color-accent-yellow: 252 238 10;
-    --color-error: 239 68 68;
+    --color-background: 247 244 236;
+    --color-surface: 255 255 255;
+    --color-inset: 226 237 246;
+    --color-panel: 210 230 242;
+    --color-panel-strong: 176 210 230;
+    --color-foreground: 0 0 0;
+    --color-body: 28 30 34;
+    --color-muted: 55 60 68;
+    --color-faint: 90 96 106;
+    --color-border: 0 0 0;
+    --color-line: 0 0 0;
+    --color-line-soft: 28 28 28;
+    --color-navy: 16 42 98;
+    --color-sky: 132 196 228;
+    --color-on-dark: 255 255 255;
+    --color-on-light: 0 0 0;
+    --color-accent-cyan: 132 196 228;
+    --color-accent-purple: 16 42 98;
+    --color-accent-green: 16 42 98;
+    --color-accent-pink: 132 196 228;
+    --color-accent-yellow: 16 42 98;
+    --color-error: 176 32 40;
   }
 
   *,
@@ -38,7 +42,7 @@
     overflow-x: hidden;
     background-color: rgb(var(--color-background));
     color: rgb(var(--color-foreground));
-    font-family: "Courier New", Courier, monospace;
+    font-family: "Helvetica Neue", Arial, sans-serif;
   }
 
   body,
@@ -59,67 +63,80 @@
   }
 
   :where(a, button, input, textarea, select, summary):focus-visible {
-    outline: 2px solid rgb(var(--color-accent-cyan));
+    outline: 3px solid rgb(var(--color-navy));
     outline-offset: 3px;
   }
 }
 
 @layer components {
+  .ink {
+    border-color: #000;
+    border-style: solid;
+    border-width: 3px 5px 6px 4px;
+  }
+
+  .ink-plate {
+    position: relative;
+  }
+
+  .ink-plate::before {
+    position: absolute;
+    inset: 10px -8px -11px 10px;
+    z-index: -1;
+    background: rgb(var(--color-navy));
+    border-color: #000;
+    border-style: solid;
+    border-width: 5px 3px 4px 7px;
+    content: "";
+    transform: skewX(-6deg) rotate(1.4deg);
+  }
+
   .btn-brutal {
-    @apply border-2 border-border bg-background font-mono font-bold uppercase tracking-wider text-foreground transition-all duration-200 hover:-translate-y-1 hover:shadow-neo;
+    @apply ink bg-surface font-mono font-bold uppercase tracking-wider text-foreground shadow-neo transition-all duration-200 hover:-translate-y-1;
   }
 
   .btn-brutal-primary {
-    @apply border-accent-cyan text-accent-cyan hover:bg-accent-cyan hover:text-background hover:shadow-neo-cyan;
+    @apply bg-navy text-on-dark hover:bg-sky hover:text-on-light;
   }
 
   .btn-brutal-secondary {
-    @apply border-accent-purple text-accent-purple hover:bg-accent-purple hover:text-foreground hover:shadow-neo-purple;
+    @apply bg-sky text-on-light hover:bg-navy hover:text-on-dark;
   }
 
   .form-label {
-    @apply mb-2 block text-sm font-bold uppercase tracking-wider;
+    @apply mb-2 block text-sm font-bold uppercase tracking-wider text-navy;
   }
 
   .form-input {
-    @apply w-full border-2 border-line-soft bg-panel px-4 py-3 font-sans text-foreground placeholder:text-faint transition-colors focus:outline-none focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+    @apply w-full border-[3px] border-border bg-surface px-4 py-3 font-sans text-foreground placeholder:text-faint transition-colors focus:border-navy focus:outline-none focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy;
   }
 }
 
 @layer utilities {
   .bg-grid {
     background-image:
-      linear-gradient(to right, rgb(var(--color-foreground) / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(var(--color-foreground) / 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(to right, rgb(var(--color-navy) / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--color-navy) / 0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
   }
 
   .glitch-text {
     position: relative;
-  }
-
-  .glitch-text::before,
-  .glitch-text::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: attr(data-text);
+    isolation: isolate;
+    color: #000;
   }
 
   .glitch-text::before {
-    left: 2px;
-    clip: rect(44px, 450px, 56px, 0);
-    text-shadow: -1px 0 rgb(var(--color-accent-pink));
-    animation: glitch-anim 5s infinite linear alternate-reverse;
+    display: none;
   }
 
   .glitch-text::after {
-    left: -2px;
-    clip: rect(44px, 450px, 56px, 0);
-    text-shadow: -1px 0 rgb(var(--color-accent-cyan));
-    animation: glitch-anim2 5s infinite linear alternate-reverse;
+    position: absolute;
+    top: 5px;
+    left: 6px;
+    z-index: -1;
+    color: rgb(var(--color-navy));
+    content: attr(data-text);
   }
 
   .animate-float {
@@ -129,24 +146,6 @@
   .navigator-responsive {
     right: 1vw;
   }
-}
-
-@keyframes glitch-anim {
-  0% { clip: rect(32px, 9999px, 12px, 0); }
-  5% { clip: rect(65px, 9999px, 88px, 0); }
-  10% { clip: rect(12px, 9999px, 92px, 0); }
-  15% { clip: rect(98px, 9999px, 43px, 0); }
-  20% { clip: rect(15px, 9999px, 2px, 0); }
-  100% { clip: rect(54px, 9999px, 76px, 0); }
-}
-
-@keyframes glitch-anim2 {
-  0% { clip: rect(12px, 9999px, 32px, 0); }
-  5% { clip: rect(88px, 9999px, 65px, 0); }
-  10% { clip: rect(92px, 9999px, 12px, 0); }
-  15% { clip: rect(43px, 9999px, 98px, 0); }
-  20% { clip: rect(2px, 9999px, 15px, 0); }
-  100% { clip: rect(76px, 9999px, 54px, 0); }
 }
 
 @keyframes float {
@@ -191,5 +190,9 @@
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .glitch-text::after {
+    display: none;
   }
 }

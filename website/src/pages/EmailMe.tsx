@@ -284,7 +284,7 @@ const EmailMe = () => {
               <br/>
               <a 
                 href="mailto:maxiaoma833@gmail.com" 
-                className="mt-2 inline-block border-b border-accent-cyan font-mono text-accent-cyan transition-colors hover:bg-accent-cyan hover:text-background"
+                className="mt-2 inline-block border-b-2 border-navy font-mono text-navy transition-colors hover:bg-navy hover:text-on-dark"
               >
                 maxiaoma833@gmail.com
               </a>

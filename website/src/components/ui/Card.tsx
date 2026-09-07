@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-import { accentBorder, accentShadow } from '../../lib/accent';
+import { accentShadow } from '../../lib/accent';
 import { cn } from '../../lib/cn';
 import type { Accent } from '../../types/portfolio';
 
@@ -12,10 +12,10 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  raised: 'border-border bg-surface shadow-neo',
-  flat: 'border-border bg-background',
-  inset: 'border-line-soft bg-panel',
-  accent: 'bg-background',
+  raised: 'ink bg-surface shadow-plate',
+  flat: 'ink bg-surface shadow-plate',
+  inset: 'ink bg-panel shadow-neo',
+  accent: 'ink bg-surface',
 };
 
 export const Card = ({
@@ -26,9 +26,7 @@ export const Card = ({
 }: CardProps) => (
   <div
     className={cn(
-      'border-2',
       variantStyles[variant],
-      variant === 'accent' && accentBorder[accent],
       variant === 'accent' && accentShadow[accent],
       className,
     )}

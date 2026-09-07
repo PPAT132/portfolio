@@ -28,7 +28,7 @@ const TopNavigation = ({
       <div className="max-w-7xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo/Name */}
-          <div className="border-2 border-border bg-background px-2 py-1 font-mono text-xl font-bold uppercase tracking-tighter text-foreground shadow-neo-sm">
+          <div className="ink bg-navy px-2 py-1 font-display text-xl font-bold uppercase tracking-tight text-on-dark shadow-neo-sm -rotate-1">
             Patrick_Ma
           </div>
           
@@ -44,8 +44,8 @@ const TopNavigation = ({
                 }
                 className={`text-sm font-bold font-mono uppercase tracking-wider px-3 py-1 border-2 transition-all duration-200 ${
                   currentSection === section.id
-                    ? 'border-accent-cyan bg-accent-cyan text-background shadow-neo-sm'
-                    : 'border-transparent text-body hover:border-border hover:text-foreground'
+                    ? 'border-black bg-navy text-on-dark shadow-neo-sm'
+                    : 'border-transparent text-body hover:border-black hover:bg-sky hover:text-on-light'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -65,7 +65,7 @@ const TopNavigation = ({
               aria-label={
                 isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'
               }
-              className="border-2 border-transparent p-2 text-foreground transition-colors hover:border-border hover:text-accent-cyan"
+              className="border-2 border-transparent p-2 text-foreground transition-colors hover:border-black hover:bg-sky"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -94,8 +94,8 @@ const TopNavigation = ({
                     }
                     className={`block w-full text-left px-4 py-3 text-sm font-bold font-mono uppercase tracking-wider border-l-4 transition-all duration-200 ${
                       currentSection === section.id
-                        ? 'border-border bg-accent-cyan text-background'
-                        : 'border-transparent text-body hover:border-accent-cyan hover:bg-panel hover:text-accent-cyan'
+                        ? 'border-black bg-navy text-on-dark'
+                        : 'border-transparent text-body hover:border-black hover:bg-sky hover:text-on-light'
                     }`}
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.98 }}

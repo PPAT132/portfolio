@@ -61,7 +61,7 @@ export const ExpandablePanel = ({
         aria-controls={contentId}
         aria-expanded={isOpen}
         className={cn(
-          'flex w-full items-center justify-between gap-4 px-4 py-3 text-left font-mono font-bold uppercase tracking-wider text-foreground transition-colors hover:bg-inset focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent-cyan',
+          'flex w-full items-center justify-between gap-4 px-4 py-3 text-left font-display font-bold uppercase tracking-wide text-foreground transition-colors hover:bg-sky focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-navy',
           headerTone === 'surface' ? 'bg-surface' : 'bg-background',
           buttonClassName,
         )}

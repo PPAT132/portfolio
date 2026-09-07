@@ -13,13 +13,13 @@ interface ButtonStyleOptions {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    'border-border bg-accent-cyan text-background shadow-neo-sm hover:bg-foreground hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none',
+    'border-black bg-navy text-on-dark shadow-neo-sm hover:bg-sky hover:text-on-light hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none',
   secondary:
-    'border-accent-purple bg-background text-accent-purple hover:-translate-y-1 hover:bg-accent-purple hover:text-foreground hover:shadow-neo-purple',
+    'border-black bg-sky text-on-light shadow-neo-sm hover:bg-navy hover:text-on-dark hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none',
   outline:
-    'border-border bg-background text-foreground shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-foreground hover:text-background hover:shadow-none',
+    'border-black bg-surface text-foreground shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-navy hover:text-on-dark hover:shadow-none',
   ghost:
-    'border-transparent bg-transparent text-foreground hover:border-border hover:bg-surface',
+    'border-transparent bg-transparent text-foreground hover:border-black hover:bg-sky',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -36,7 +36,7 @@ export const buttonStyles = ({
   className,
 }: ButtonStyleOptions = {}): string =>
   cn(
-    'inline-flex items-center justify-center gap-2 border-2 font-mono font-bold uppercase tracking-wider transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-cyan disabled:cursor-not-allowed disabled:border-line disabled:bg-panel-strong disabled:text-muted disabled:opacity-100',
+    'inline-flex items-center justify-center gap-2 border-[3px] font-mono font-bold uppercase tracking-wider transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy disabled:cursor-not-allowed disabled:border-black disabled:bg-panel disabled:text-muted disabled:opacity-100',
     variantStyles[variant],
     sizeStyles[size],
     className,

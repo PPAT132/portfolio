@@ -17,7 +17,7 @@ import {
 export const AboutSection = () => (
   <section
     id="about"
-    className="border-t-2 border-border bg-background px-4 py-20"
+    className="border-t-4 border-black bg-inset px-4 py-20"
   >
     <motion.div
       className="mx-auto max-w-4xl"
@@ -26,18 +26,15 @@ export const AboutSection = () => (
       animate="visible"
     >
       <motion.div className="relative mb-16 text-center">
-        <SectionHeading size="xl" className="mb-4">
+        <SectionHeading variant="boxed" size="xl" className="mb-4 inline-block">
           About_Me
         </SectionHeading>
-        <div className="absolute bottom-0 left-0 h-2 w-full -skew-x-12 bg-accent-cyan opacity-50" />
+        <div className="absolute bottom-0 left-0 h-3 w-full -skew-x-12 bg-navy" />
       </motion.div>
 
       <motion.div className="space-y-12" variants={containerVariants}>
         <motion.div variants={itemVariants}>
-          <Card
-            variant="flat"
-            className="p-6 shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
-          >
+          <Card variant="raised" className="p-6">
             <div className="mb-6 flex items-center gap-3 border-b-2 border-dashed border-line pb-4">
               <GraduationCap
                 aria-hidden="true"
@@ -53,10 +50,10 @@ export const AboutSection = () => (
                 <h4 className="text-lg font-bold text-foreground">
                   University of Waterloo
                 </h4>
-                <p className="mt-1 font-mono text-accent-cyan">
+                <p className="mt-1 font-mono font-bold text-navy">
                   Bachelor of Computer Science (Co-op)
                 </p>
-                <p className="mt-2 text-sm text-muted">
+                <p className="mt-2 font-mono text-sm font-bold text-foreground">
                   2024-2029 • Average: 92
                 </p>
               </div>
@@ -64,10 +61,10 @@ export const AboutSection = () => (
                 <h4 className="text-lg font-bold text-foreground">
                   Beijing Chenjinglun Middle School
                 </h4>
-                <p className="mt-1 font-mono text-accent-purple">
+                <p className="mt-1 font-mono font-bold text-navy">
                   High School Diploma
                 </p>
-                <p className="mt-2 text-sm text-muted">
+                <p className="mt-2 font-mono text-sm font-bold text-foreground">
                   2021-2024 • Academic Excellence
                 </p>
               </div>
@@ -90,37 +87,35 @@ export const AboutSection = () => (
             collapsedLabel="EXPAND"
             expandedLabel="COLLAPSE"
             variant="raised"
-            headerTone="background"
-            contentTone="inset"
-            buttonClassName="p-6 hover:bg-background"
-            previewClassName="bg-background p-6 pt-0"
+            buttonClassName="p-6"
+            previewClassName="p-6 pt-0"
             contentClassName="space-y-6 p-6"
             preview={
               <div className="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="border border-line bg-panel/50 p-3">
-                  <p className="mb-1 font-bold text-foreground">
+                <div className="ink bg-navy p-3 text-on-dark">
+                  <p className="mb-1 font-bold">
                     📐 Core Foundations
                   </p>
-                  <p className="text-sm text-muted">
+                  <p className="text-sm text-sky">
                     Advancing math & CS fundamentals.
                   </p>
                 </div>
-                <div className="border border-line bg-panel/50 p-3">
-                  <p className="mb-1 font-bold text-foreground">🖥️ Full-Stack</p>
+                <div className="ink bg-surface p-3">
+                  <p className="mb-1 font-bold">🖥️ Full-Stack</p>
                   <p className="text-sm text-muted">
                     Architecture & core principles.
                   </p>
                 </div>
-                <div className="border border-line bg-panel/50 p-3">
-                  <p className="mb-1 font-bold text-foreground">
+                <div className="ink bg-navy p-3 text-on-dark">
+                  <p className="mb-1 font-bold">
                     🤖 AI Fine-Tuning
                   </p>
-                  <p className="text-sm text-muted">
+                  <p className="text-sm text-sky">
                     Adapting models for specific tasks.
                   </p>
                 </div>
-                <div className="border border-line bg-panel/50 p-3">
-                  <p className="mb-1 font-bold text-foreground">🧩 AI Agents</p>
+                <div className="ink bg-surface p-3">
+                  <p className="mb-1 font-bold">🧩 AI Agents</p>
                   <p className="text-sm text-muted">
                     Building usable AI tools.
                   </p>
@@ -208,10 +203,8 @@ export const AboutSection = () => (
             collapsedLabel="READ"
             expandedLabel="COLLAPSE"
             variant="raised"
-            headerTone="background"
-            contentTone="inset"
-            buttonClassName="p-6 hover:bg-background"
-            previewClassName="bg-panel/30 p-6"
+            buttonClassName="p-6"
+            previewClassName="p-6"
             contentClassName="space-y-4 p-6 font-sans text-sm leading-relaxed text-body"
             preview={
               <p className="font-sans leading-relaxed text-body">
@@ -271,10 +264,7 @@ export const AboutSection = () => (
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Card
-            variant="flat"
-            className="p-6 shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
-          >
+          <Card variant="raised" className="p-6">
             <div className="mb-8 flex items-center gap-3 border-b-2 border-dashed border-line pb-4">
               <Code
                 aria-hidden="true"

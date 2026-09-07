@@ -2,6 +2,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { ChevronDown, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
+import { buttonStyles } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { Tag } from '../components/ui/Tag';
@@ -21,14 +22,14 @@ export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="border-t-2 border-border bg-background px-4 py-20"
+      className="border-t-4 border-black bg-inset px-4 py-20"
     >
       <div className="mx-auto max-w-[1100px]">
         <motion.div className="mb-16 text-center">
-          <SectionHeading size="xl" className="mb-4">
+          <SectionHeading variant="boxed" size="xl" className="mb-4 inline-block">
             Project_Database
           </SectionHeading>
-          <div className="mx-auto h-1 w-full max-w-md bg-gradient-to-r from-transparent via-accent-purple to-transparent" />
+          <div className="mx-auto h-3 w-full max-w-md -skew-x-12 bg-navy" />
         </motion.div>
 
         <LayoutGroup>
@@ -49,13 +50,9 @@ export const ProjectsSection = () => {
                   className={isExpanded ? 'z-10 md:col-span-2' : undefined}
                 >
                   <Card
-                    variant={isExpanded ? 'accent' : 'inset'}
+                    variant={isExpanded ? 'accent' : 'raised'}
                     accent="purple"
-                    className={cn(
-                      'group h-full transition-all duration-300',
-                      !isExpanded &&
-                        'hover:-translate-y-1 hover:border-accent-purple hover:shadow-neo-sm',
-                    )}
+                    className="group h-full transition-all duration-300"
                   >
                     <div className="flex h-full flex-col p-6">
                       <div className="mb-4 flex items-start justify-between">
@@ -70,7 +67,7 @@ export const ProjectsSection = () => {
                           >
                             {project.title}
                           </h3>
-                          <p className="mb-3 inline-block bg-background px-1 font-mono text-xs text-faint">
+                          <p className="mb-3 font-mono text-xs font-bold text-navy">
                             {project.subtitle}
                           </p>
                         </div>
@@ -81,7 +78,11 @@ export const ProjectsSection = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               aria-label={`Open ${project.title}`}
-                              className="border border-line-soft bg-panel-strong p-2 text-muted transition-all hover:border-border hover:text-foreground"
+                              className={buttonStyles({
+                                variant: 'outline',
+                                size: 'sm',
+                                className: 'min-h-0 p-2',
+                              })}
                             >
                               <ExternalLink aria-hidden="true" size={18} />
                             </a>
@@ -92,12 +93,11 @@ export const ProjectsSection = () => {
                               onClick={() => toggleProject(originalIndex)}
                               aria-expanded={isExpanded}
                               aria-label={`${isExpanded ? 'Close' : 'Show'} ${project.title} details`}
-                              className={cn(
-                                'flex h-8 w-8 items-center justify-center border transition-all',
-                                isExpanded
-                                  ? 'border-accent-purple bg-accent-purple text-background'
-                                  : 'border-line-soft bg-transparent text-muted hover:border-border hover:text-foreground',
-                              )}
+                              className={buttonStyles({
+                                variant: isExpanded ? 'primary' : 'outline',
+                                size: 'sm',
+                                className: 'min-h-0 p-2',
+                              })}
                             >
                               <ChevronDown
                                 aria-hidden="true"
@@ -112,17 +112,13 @@ export const ProjectsSection = () => {
                         </div>
                       </div>
 
-                      <p className="mb-6 flex-grow border-l-2 border-panel-strong pl-4 font-sans text-sm leading-relaxed text-body transition-colors group-hover:border-accent-purple">
+                      <p className="mb-6 flex-grow border-l-2 border-line pl-4 font-sans text-sm leading-relaxed text-body">
                         {project.description}
                       </p>
 
-                      <div className="mt-auto flex flex-wrap gap-2 border-t border-panel-strong pt-4">
+                      <div className="mt-auto flex flex-wrap gap-2 border-t border-line pt-4">
                         {project.tech.map((tech) => (
-                          <Tag
-                            key={tech}
-                            variant="muted"
-                            className="bg-background px-2 py-1 text-[10px]"
-                          >
+                          <Tag key={tech} variant="muted">
                             {tech}
                           </Tag>
                         ))}

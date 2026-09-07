@@ -7,11 +7,11 @@ import { contactLinks } from '../content/portfolio';
 export const ContactSection = () => (
   <section
     id="contact"
-    className="border-t-2 border-border bg-grid px-4 py-20 pb-32"
+    className="border-t-4 border-black bg-grid px-4 py-20 pb-32"
   >
     <div className="mx-auto max-w-4xl">
       <motion.div className="mb-16 text-center">
-        <SectionHeading size="xl" className="mb-6">
+        <SectionHeading variant="boxed" size="xl" className="mb-6 inline-block">
           Initialize_Connection
         </SectionHeading>
         <p className="mx-auto max-w-2xl font-mono text-lg text-body">

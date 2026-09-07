@@ -14,11 +14,9 @@ export interface SectionHeadingProps extends HTMLAttributes<HTMLHeadingElement> 
 
 const variantStyles: Record<SectionHeadingVariant, string> = {
   plain: 'text-foreground',
-  boxed: 'border-2 border-border bg-accent-cyan px-2 text-background shadow-neo-sm',
-  framed:
-    'border-2 border-accent-cyan bg-background px-4 text-foreground shadow-neo-cyan',
-  gradient:
-    'bg-gradient-to-r from-accent-cyan via-accent-purple to-accent-pink bg-clip-text text-transparent',
+  boxed: 'ink bg-navy px-3 py-1 text-on-dark shadow-neo-sm -rotate-1',
+  framed: 'ink bg-sky px-4 py-1 text-on-light shadow-plate rotate-1',
+  gradient: 'text-navy',
 };
 
 const sizeStyles: Record<SectionHeadingSize, string> = {
@@ -35,7 +33,7 @@ export const SectionHeading = ({
 }: SectionHeadingProps) => (
   <Heading
     className={cn(
-      'font-mono font-bold uppercase tracking-tighter',
+      'font-display font-bold uppercase tracking-tight',
       sizeStyles[size],
       variantStyles[variant],
       className,

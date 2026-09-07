@@ -16,7 +16,7 @@ const getItemAnimation = (
   if (hoveredIndex === null) {
     return isCurrent
       ? { scale: 0.9, opacity: 1 }
-      : { scale: 0.6, opacity: 0.5 };
+      : { scale: 0.6, opacity: 1 };
   }
 
   const distance = Math.abs(hoveredIndex - index);
@@ -26,14 +26,14 @@ const getItemAnimation = (
   }
 
   if (distance === 1) {
-    return { scale: 0.9, opacity: 0.8 };
+    return { scale: 0.9, opacity: 1 };
   }
 
   if (distance === 2) {
-    return { scale: 0.75, opacity: 0.65 };
+    return { scale: 0.75, opacity: 1 };
   }
 
-  return { scale: 0.6, opacity: 0.5 };
+  return { scale: 0.6, opacity: 1 };
 };
 
 const SideNavigation = ({
@@ -74,8 +74,8 @@ const SideNavigation = ({
                 aria-hidden="true"
                 className={`mr-0.5 border-2 ${
                   isCurrent
-                    ? 'h-4 w-4 border-accent-cyan bg-accent-cyan shadow-[0_0_10px_rgb(var(--color-accent-cyan)/0.5)]'
-                    : 'h-3 w-3 border-line-soft bg-transparent'
+                    ? 'h-4 w-4 border-black bg-navy'
+                    : 'h-3 w-3 border-black bg-surface'
                 }`}
                 animate={{
                   rotate: isCurrent ? 45 : 0,
@@ -87,7 +87,7 @@ const SideNavigation = ({
 
               <div
                 aria-hidden="true"
-                className={`absolute right-[18px] h-0.5 bg-accent-cyan transition-all duration-300 ${
+                className={`absolute right-[18px] h-1 bg-navy transition-all duration-300 ${
                   isCurrent ? 'w-12 opacity-100' : 'w-0 opacity-0'
                 }`}
               />

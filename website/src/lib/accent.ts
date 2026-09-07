@@ -1,57 +1,64 @@
 import type { Accent, Tone } from '../types/portfolio';
 
 export const accentText: Record<Accent, string> = {
-  cyan: 'text-accent-cyan',
-  purple: 'text-accent-purple',
-  green: 'text-accent-green',
-  pink: 'text-accent-pink',
-  yellow: 'text-accent-yellow',
+  cyan: 'text-navy',
+  purple: 'text-navy',
+  green: 'text-navy',
+  pink: 'text-navy',
+  yellow: 'text-navy',
 };
 
 export const accentBorder: Record<Accent, string> = {
-  cyan: 'border-accent-cyan',
-  purple: 'border-accent-purple',
-  green: 'border-accent-green',
-  pink: 'border-accent-pink',
-  yellow: 'border-accent-yellow',
+  cyan: 'border-black',
+  purple: 'border-black',
+  green: 'border-black',
+  pink: 'border-black',
+  yellow: 'border-black',
 };
 
 export const accentBg: Record<Accent, string> = {
-  cyan: 'bg-accent-cyan',
-  purple: 'bg-accent-purple',
-  green: 'bg-accent-green',
-  pink: 'bg-accent-pink',
-  yellow: 'bg-accent-yellow',
+  cyan: 'bg-sky',
+  purple: 'bg-navy',
+  green: 'bg-navy',
+  pink: 'bg-sky',
+  yellow: 'bg-navy',
 };
 
 export const accentShadow: Record<Accent, string> = {
-  cyan: 'shadow-neo-cyan',
-  purple: 'shadow-neo-purple',
-  green: 'shadow-neo-green',
-  pink: 'shadow-neo-pink',
-  yellow: 'shadow-neo-yellow',
+  cyan: 'shadow-plate',
+  purple: 'shadow-plate',
+  green: 'shadow-plate',
+  pink: 'shadow-plate',
+  yellow: 'shadow-plate',
 };
 
 export const accentFillHover: Record<Accent, string> = {
-  cyan: 'hover:border-accent-cyan hover:bg-accent-cyan hover:text-background',
-  purple:
-    'hover:border-accent-purple hover:bg-accent-purple hover:text-background',
-  green: 'hover:border-accent-green hover:bg-accent-green hover:text-background',
-  pink: 'hover:border-accent-pink hover:bg-accent-pink hover:text-background',
-  yellow:
-    'hover:border-accent-yellow hover:bg-accent-yellow hover:text-background',
+  cyan: 'hover:border-black hover:bg-sky hover:text-on-light',
+  purple: 'hover:border-black hover:bg-navy hover:text-on-dark',
+  green: 'hover:border-black hover:bg-navy hover:text-on-dark',
+  pink: 'hover:border-black hover:bg-sky hover:text-on-light',
+  yellow: 'hover:border-black hover:bg-navy hover:text-on-dark',
 };
 
 export const toneFill: Record<Tone, string> = {
   ...accentBg,
-  neutral: 'bg-inset',
+  neutral: 'bg-foreground',
+};
+
+export const toneOn: Record<Tone, string> = {
+  cyan: 'text-on-light',
+  purple: 'text-on-dark',
+  green: 'text-on-dark',
+  pink: 'text-on-light',
+  yellow: 'text-on-dark',
+  neutral: 'text-on-dark',
 };
 
 export const toneHoverText: Record<Tone, string> = {
-  cyan: 'hover:text-accent-cyan',
-  purple: 'hover:text-accent-purple',
-  green: 'hover:text-accent-green',
-  pink: 'hover:text-accent-pink',
-  yellow: 'hover:text-accent-yellow',
-  neutral: 'hover:text-inset',
+  cyan: 'hover:bg-navy hover:text-on-dark',
+  purple: 'hover:bg-sky hover:text-on-light',
+  green: 'hover:bg-sky hover:text-on-light',
+  pink: 'hover:bg-navy hover:text-on-dark',
+  yellow: 'hover:bg-sky hover:text-on-light',
+  neutral: 'hover:bg-sky hover:text-on-light',
 };
