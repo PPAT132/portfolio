@@ -291,8 +291,6 @@ export const skillGroups = [
   {
     label: '[ Languages ]',
     accent: 'cyan',
-    hoverClasses:
-      'hover:bg-cyber-blue hover:text-black hover:border-cyber-blue',
     skills: [
       'Python',
       'Java',
@@ -308,15 +306,11 @@ export const skillGroups = [
   {
     label: '[ Web_Stack ]',
     accent: 'green',
-    hoverClasses:
-      'hover:bg-cyber-green hover:text-black hover:border-cyber-green',
     skills: ['Razor', 'React', 'Node.js', 'SQL', '.NET', 'FastAPI', 'Docker'],
   },
   {
     label: '[ AI / ML ]',
     accent: 'purple',
-    hoverClasses:
-      'hover:bg-cyber-purple hover:text-black hover:border-cyber-purple',
     skills: [
       'PyTorch',
       'TensorFlow',
@@ -329,8 +323,6 @@ export const skillGroups = [
   {
     label: '[ Tools / APIs ]',
     accent: 'yellow',
-    hoverClasses:
-      'hover:bg-cyber-yellow hover:text-black hover:border-cyber-yellow',
     skills: [
       'OpenAI API',
       'Google AI API',

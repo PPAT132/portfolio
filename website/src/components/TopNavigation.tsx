@@ -45,7 +45,7 @@ const TopNavigation = ({
                 className={`text-sm font-bold font-mono uppercase tracking-wider px-3 py-1 border-2 transition-all duration-200 ${
                   currentSection === section.id
                     ? 'text-black bg-cyber-blue border-cyber-blue shadow-neo-sm'
-                    : 'text-gray-300 border-transparent hover:border-white hover:text-white'
+                    : 'text-body border-transparent hover:border-white hover:text-white'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -81,7 +81,7 @@ const TopNavigation = ({
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden overflow-hidden border-t-2 border-gray-800 mt-3 bg-black"
+              className="md:hidden overflow-hidden border-t-2 border-panel-strong mt-3 bg-background"
             >
               <div className="py-3 space-y-2">
                 {sections.map((section) => (
@@ -95,7 +95,7 @@ const TopNavigation = ({
                     className={`block w-full text-left px-4 py-3 text-sm font-bold font-mono uppercase tracking-wider border-l-4 transition-all duration-200 ${
                       currentSection === section.id
                         ? 'bg-cyber-blue text-black border-white'
-                        : 'text-gray-300 border-transparent hover:bg-gray-900 hover:text-cyber-blue hover:border-cyber-blue'
+                        : 'text-body border-transparent hover:bg-panel hover:text-accent-cyan hover:border-accent-cyan'
                     }`}
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.98 }}

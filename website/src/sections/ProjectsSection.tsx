@@ -19,18 +19,16 @@ export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="py-20 px-4 border-t-2 border-white bg-cyber-black"
+      className="border-t-2 border-border bg-background px-4 py-20"
     >
-      <div className="max-w-[1100px] mx-auto">
-        <motion.div className="text-center mb-16">
-          <SectionHeading className="text-4xl md:text-6xl mb-4 text-white">
-            Project_Database
-          </SectionHeading>
-          <div className="w-full max-w-md mx-auto h-1 bg-gradient-to-r from-transparent via-cyber-purple to-transparent" />
+      <div className="mx-auto max-w-[1100px]">
+        <motion.div className="mb-16 text-center">
+          <SectionHeading className="mb-4">Project_Database</SectionHeading>
+          <div className="mx-auto h-1 w-full max-w-md bg-gradient-to-r from-transparent via-accent-purple to-transparent" />
         </motion.div>
 
         <LayoutGroup>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid gap-8 md:grid-cols-2">
             {projects.map((project, index) => {
               const isExpanded = expandedIndex === index;
               const work = project.work;
@@ -43,32 +41,20 @@ export const ProjectsSection = () => {
                 <motion.div
                   layout
                   key={project.title}
-                  className={
-                    isExpanded ? 'md:col-span-2 z-10' : undefined
-                  }
+                  className={isExpanded ? 'z-10 md:col-span-2' : undefined}
                 >
-                  <Card
-                    elevated={false}
-                    surface={false}
-                    className={`h-full bg-gray-900 border-gray-700 hover:border-cyber-purple transition-all duration-300 group ${
-                      isExpanded
-                        ? 'border-cyber-purple shadow-neo-purple'
-                        : 'hover:-translate-y-1 hover:shadow-neo-sm'
-                    }`}
-                  >
-                    <div className="p-6 h-full flex flex-col">
-                      <div className="flex items-start justify-between mb-4">
+                  <Card variant={isExpanded ? 'projectActive' : 'project'}>
+                    <div className="flex h-full flex-col p-6">
+                      <div className="mb-4 flex items-start justify-between">
                         <div>
                           <h3
-                            className={`text-xl font-bold mb-2 uppercase tracking-wide group-hover:text-cyber-purple transition-colors ${
-                              isExpanded
-                                ? 'text-cyber-purple'
-                                : 'text-white'
+                            className={`mb-2 text-xl font-bold uppercase tracking-wide transition-colors group-hover:text-accent-purple ${
+                              isExpanded ? 'text-accent-purple' : 'text-foreground'
                             }`}
                           >
                             {project.title}
                           </h3>
-                          <p className="text-gray-500 text-xs font-mono mb-3 bg-black inline-block px-1">
+                          <p className="mb-3 inline-block bg-background px-1 font-mono text-xs text-faint">
                             {project.subtitle}
                           </p>
                         </div>
@@ -79,7 +65,7 @@ export const ProjectsSection = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               aria-label={`Open ${project.title}`}
-                              className="text-gray-400 hover:text-white bg-gray-800 p-2 border border-gray-600 hover:border-white transition-all"
+                              className="border border-line-soft bg-panel-strong p-2 text-muted transition-all hover:border-foreground hover:text-foreground"
                             >
                               <ExternalLink aria-hidden="true" size={18} />
                             </a>
@@ -90,10 +76,10 @@ export const ProjectsSection = () => {
                               onClick={() => toggleProject(index)}
                               aria-expanded={isExpanded}
                               aria-label={`${isExpanded ? 'Close' : 'Show'} ${project.title} details`}
-                              className={`flex items-center justify-center w-8 h-8 border transition-all ${
+                              className={`flex h-8 w-8 items-center justify-center border transition-all ${
                                 isExpanded
-                                  ? 'bg-cyber-purple border-cyber-purple text-black'
-                                  : 'bg-transparent border-gray-600 text-gray-400 hover:border-white hover:text-white'
+                                  ? 'border-accent-purple bg-accent-purple text-background'
+                                  : 'border-line-soft bg-transparent text-muted hover:border-foreground hover:text-foreground'
                               }`}
                             >
                               <ChevronDown
@@ -108,16 +94,16 @@ export const ProjectsSection = () => {
                         </div>
                       </div>
 
-                      <p className="text-gray-300 leading-relaxed mb-6 text-sm font-sans flex-grow border-l-2 border-gray-800 pl-4 group-hover:border-cyber-purple transition-colors">
+                      <p className="mb-6 flex-grow border-l-2 border-panel-strong pl-4 font-sans text-sm leading-relaxed text-body transition-colors group-hover:border-accent-purple">
                         {project.description}
                       </p>
 
-                      <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800">
+                      <div className="mt-auto flex flex-wrap gap-2 border-t border-panel-strong pt-4">
                         {project.tech.map((tech) => (
                           <Tag
                             key={tech}
-                            accent="purple"
-                            className="px-2 py-1 bg-black border-gray-800 text-[10px] text-gray-400 font-normal group-hover:border-gray-600 transition-colors"
+                            variant="chip"
+                            className="border-panel-strong bg-background group-hover:border-line-soft"
                           >
                             {tech}
                           </Tag>
@@ -132,14 +118,14 @@ export const ProjectsSection = () => {
                             animate="expanded"
                             exit="collapsed"
                             variants={panelVariants}
-                            className="overflow-hidden mt-6 pt-6 border-t border-cyber-purple bg-black/50 -mx-6 px-6 -mb-6 pb-6"
+                            className="-mx-6 -mb-6 mt-6 overflow-hidden border-t border-accent-purple bg-background/50 px-6 pb-6 pt-6"
                           >
                             {hasWhyItMatters && (
                               <div className="mb-8">
-                                <h4 className="text-xs font-bold text-cyber-purple mb-3 uppercase tracking-widest border-b border-gray-800 pb-2 inline-block">
+                                <h4 className="mb-3 inline-block border-b border-panel-strong pb-2 text-xs font-bold uppercase tracking-widest text-accent-purple">
                                   /// Why_it_matters
                                 </h4>
-                                <p className="text-sm text-gray-300 font-sans leading-relaxed border-l-2 border-gray-800 pl-4">
+                                <p className="border-l-2 border-panel-strong pl-4 font-sans text-sm leading-relaxed text-body">
                                   {project.whyItMatters}
                                 </p>
                               </div>
@@ -147,26 +133,26 @@ export const ProjectsSection = () => {
 
                             {hasWork && (
                               <div>
-                                <h4 className="text-xs font-bold text-cyber-purple mb-6 uppercase tracking-widest border-b border-gray-800 pb-2 inline-block">
+                                <h4 className="mb-6 inline-block border-b border-panel-strong pb-2 text-xs font-bold uppercase tracking-widest text-accent-purple">
                                   /// Development_Log
                                 </h4>
                                 {sectionedWork ? (
-                                  <div className="grid md:grid-cols-3 gap-8">
+                                  <div className="grid gap-8 md:grid-cols-3">
                                     {work.map((workSection) => (
                                       <div
                                         key={workSection.section}
                                         className="space-y-4"
                                       >
-                                        <h5 className="text-sm font-bold text-white border-l-4 border-cyber-purple pl-3">
+                                        <h5 className="border-l-4 border-accent-purple pl-3 text-sm font-bold text-foreground">
                                           {workSection.section}
                                         </h5>
                                         <ul className="space-y-3">
                                           {workSection.items.map((item) => (
                                             <li
                                               key={item}
-                                              className="flex items-start gap-3 text-sm text-gray-400 font-sans"
+                                              className="flex items-start gap-3 font-sans text-sm text-muted"
                                             >
-                                              <span className="text-cyber-purple mt-1 flex-shrink-0 text-xs">
+                                              <span className="mt-1 shrink-0 text-xs text-accent-purple">
                                                 ■
                                               </span>
                                               <span>{item}</span>
@@ -181,9 +167,9 @@ export const ProjectsSection = () => {
                                     {work.map((workItem) => (
                                       <li
                                         key={workItem}
-                                        className="flex items-start gap-2 text-sm text-gray-400 font-sans"
+                                        className="flex items-start gap-2 font-sans text-sm text-muted"
                                       >
-                                        <span className="text-cyber-purple mt-1">
+                                        <span className="mt-1 text-accent-purple">
                                           ■
                                         </span>
                                         <span>{workItem}</span>

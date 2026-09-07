@@ -15,7 +15,6 @@ export interface ExpandablePanelProps
   onOpenChange?: (open: boolean) => void;
   collapsedLabel?: string;
   expandedLabel?: string;
-  headerTone?: 'surface' | 'background';
   buttonClassName?: string;
   previewClassName?: string;
   contentClassName?: string;
@@ -29,7 +28,6 @@ export const ExpandablePanel = ({
   onOpenChange,
   collapsedLabel,
   expandedLabel,
-  headerTone = 'surface',
   buttonClassName,
   previewClassName,
   className,
@@ -51,19 +49,13 @@ export const ExpandablePanel = ({
   };
 
   return (
-    <Card
-      elevated={false}
-      surface={false}
-      className={cn('overflow-hidden', className)}
-      {...props}
-    >
+    <Card variant="panel" className={cn('overflow-hidden shadow-neo', className)} {...props}>
       <button
         type="button"
         aria-controls={contentId}
         aria-expanded={isOpen}
         className={cn(
-          'flex w-full items-center justify-between gap-4 px-4 py-3 text-left font-mono font-bold uppercase tracking-wider text-foreground transition-colors hover:bg-cyber-gray focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent-cyan',
-          headerTone === 'surface' ? 'bg-surface' : 'bg-background',
+          'flex w-full items-center justify-between gap-4 bg-background p-6 text-left font-mono font-bold uppercase tracking-wider text-foreground transition-colors hover:bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent-cyan',
           buttonClassName,
         )}
         onClick={togglePanel}
@@ -87,7 +79,7 @@ export const ExpandablePanel = ({
       </button>
 
       {preview && (
-        <div className={cn('border-t-2 border-border', previewClassName)}>
+        <div className={cn('border-t-2 border-border bg-background', previewClassName)}>
           {preview}
         </div>
       )}
@@ -104,7 +96,7 @@ export const ExpandablePanel = ({
           >
             <div
               className={cn(
-                'border-t-2 border-border p-4 text-muted',
+                'space-y-6 border-t-2 border-line bg-panel p-6 text-body',
                 contentClassName,
               )}
             >

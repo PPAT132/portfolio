@@ -75,7 +75,7 @@ const SideNavigation = ({
                 className={`mr-0.5 border-2 ${
                   isCurrent
                     ? 'bg-cyber-blue border-cyber-blue w-4 h-4 shadow-[0_0_10px_rgba(0,243,255,0.5)]'
-                    : 'h-3 w-3 border-gray-600 bg-transparent'
+                    : 'h-3 w-3 border-line-soft bg-transparent'
                 }`}
                 animate={{
                   rotate: isCurrent ? 45 : 0,

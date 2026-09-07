@@ -9,9 +9,19 @@ export default {
       colors: {
         background: 'rgb(var(--color-background) / <alpha-value>)',
         surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        panel: {
+          DEFAULT: 'rgb(var(--color-panel) / <alpha-value>)',
+          strong: 'rgb(var(--color-panel-strong) / <alpha-value>)',
+        },
         foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
+        body: 'rgb(var(--color-body) / <alpha-value>)',
         muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        faint: 'rgb(var(--color-faint) / <alpha-value>)',
         border: 'rgb(var(--color-border) / <alpha-value>)',
+        line: {
+          DEFAULT: 'rgb(var(--color-line) / <alpha-value>)',
+          soft: 'rgb(var(--color-line-soft) / <alpha-value>)',
+        },
         accent: {
           DEFAULT: 'rgb(var(--color-accent-cyan) / <alpha-value>)',
           cyan: 'rgb(var(--color-accent-cyan) / <alpha-value>)',
