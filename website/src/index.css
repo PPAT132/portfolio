@@ -131,6 +131,16 @@
   .kinetic-fit-park {
     max-width: 100%;
   }
+
+  .kinetic-fit-normal-mode {
+    position: absolute;
+  }
+}
+
+@container kinetic (max-width: 196px) {
+  .kinetic-fit-normal-mode {
+    display: none;
+  }
 }
 
 @container kinetic (max-width: 152px) {

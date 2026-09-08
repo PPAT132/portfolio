@@ -3,6 +3,7 @@ import { BookOpen, Code, GraduationCap } from 'lucide-react';
 
 import { KineticGeometry } from '../components/KineticGeometry';
 import { KineticGutter } from '../components/KineticGutter';
+import { NormalModePanel } from '../components/kinetic/NormalModePanel';
 import { Card } from '../components/ui/Card';
 import { ExpandablePanel } from '../components/ui/ExpandablePanel';
 import { SectionHeading } from '../components/ui/SectionHeading';
@@ -22,6 +23,9 @@ export const AboutSection = () => (
     className="relative border-t-4 border-black bg-inset px-4 py-20"
   >
     <KineticGutter
+      left={
+        <NormalModePanel className="kinetic-fit-normal-mode right-3 top-9" />
+      }
       right={
         <KineticGeometry
           motif="tusi"
