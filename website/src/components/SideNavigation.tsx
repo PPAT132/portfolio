@@ -8,32 +8,26 @@ interface SideNavigationProps {
   onNavigate: (sectionId: SectionId) => void;
 }
 
-const getItemAnimation = (
+const getItemScale = (
   index: number,
   hoveredIndex: number | null,
   isCurrent: boolean,
 ) => {
   if (hoveredIndex === null) {
-    return isCurrent
-      ? { scale: 0.9, opacity: 1 }
-      : { scale: 0.6, opacity: 1 };
+    return isCurrent ? 1 : 0.92;
   }
 
   const distance = Math.abs(hoveredIndex - index);
 
   if (distance === 0) {
-    return { scale: 1.1, opacity: 1 };
+    return 1.06;
   }
 
   if (distance === 1) {
-    return { scale: 0.9, opacity: 1 };
+    return 0.96;
   }
 
-  if (distance === 2) {
-    return { scale: 0.75, opacity: 1 };
-  }
-
-  return { scale: 0.6, opacity: 1 };
+  return 0.9;
 };
 
 const SideNavigation = ({
@@ -45,19 +39,15 @@ const SideNavigation = ({
   return (
     <nav
       aria-label="Section navigation"
-      className="fixed top-1/2 right-8 z-50 hidden -translate-y-1/2 lg:block navigator-responsive"
+      className="navigator-responsive fixed top-1/2 right-8 z-50 hidden -translate-y-1/2 lg:block"
     >
       <div
-        className="flex h-[400px] w-40 flex-col items-end justify-center gap-10 border border-transparent bg-transparent pr-3"
+        className="flex flex-col items-end justify-center gap-7 pr-3"
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {sections.map((section, index) => {
           const isCurrent = currentSection === section.id;
-          const animation = getItemAnimation(
-            index,
-            hoveredIndex,
-            isCurrent,
-          );
+          const isHot = hoveredIndex === index || isCurrent;
 
           return (
             <motion.button
@@ -65,46 +55,33 @@ const SideNavigation = ({
               type="button"
               onClick={() => onNavigate(section.id)}
               onMouseEnter={() => setHoveredIndex(index)}
-              aria-label={`Navigate to ${section.label}`}
               aria-current={isCurrent ? 'page' : undefined}
-              className="relative flex w-full items-center justify-end"
-              whileTap={{ scale: 0.9 }}
+              className="flex origin-right items-center"
+              animate={{ scale: getItemScale(index, hoveredIndex, isCurrent) }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              whileTap={{ scale: 0.94 }}
             >
-              <motion.div
-                aria-hidden="true"
-                className={`mr-0.5 border-2 ${
+              <span
+                className={`whitespace-nowrap border-2 border-black px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider ${
                   isCurrent
-                    ? 'h-4 w-4 border-black bg-navy'
-                    : 'h-3 w-3 border-black bg-surface'
+                    ? 'bg-navy text-on-dark'
+                    : 'bg-background text-foreground'
                 }`}
-                animate={{
-                  rotate: isCurrent ? 45 : 0,
-                  scale: animation.scale,
-                  opacity: animation.opacity,
-                }}
-                transition={{ duration: 0.18, ease: 'easeOut' }}
-              />
-
-              <div
+              >
+                {section.label}
+              </span>
+              <span
                 aria-hidden="true"
-                className={`absolute right-[18px] h-1 bg-navy transition-all duration-300 ${
-                  isCurrent ? 'w-12 opacity-100' : 'w-0 opacity-0'
+                className={`h-1 w-3 ${isHot ? 'bg-navy' : 'bg-black'}`}
+              />
+              <span
+                aria-hidden="true"
+                className={`shrink-0 border-2 border-black ${
+                  isCurrent
+                    ? 'h-3.5 w-3.5 rotate-45 bg-navy'
+                    : 'h-3 w-3 bg-surface'
                 }`}
               />
-
-              <div className="absolute right-[34px] top-1/2 -translate-y-1/2">
-                <motion.div
-                  className={`whitespace-nowrap border border-border bg-background px-3 py-1 text-foreground shadow-neo-sm ${
-                    isCurrent ? 'z-10' : 'z-0'
-                  }`}
-                  animate={animation}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
-                >
-                  <span className="font-mono text-xs font-bold uppercase tracking-wider">
-                    {section.label}
-                  </span>
-                </motion.div>
-              </div>
             </motion.button>
           );
         })}
