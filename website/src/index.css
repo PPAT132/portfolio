@@ -34,6 +34,10 @@
     box-sizing: border-box;
   }
 
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+
   html,
   body {
     width: 100%;
@@ -44,6 +48,12 @@
     background-color: rgb(var(--color-background));
     color: rgb(var(--color-foreground));
     font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      scroll-padding-top: 0;
+    }
   }
 
   body,
@@ -130,16 +140,6 @@
 
   .kinetic-fit-park {
     max-width: 100%;
-  }
-
-  .kinetic-fit-normal-mode {
-    position: absolute;
-  }
-}
-
-@container kinetic (max-width: 196px) {
-  .kinetic-fit-normal-mode {
-    display: none;
   }
 }
 
