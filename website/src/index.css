@@ -177,6 +177,79 @@
     overflow-anchor: none;
   }
 
+  @keyframes project-expand-from-left {
+    from {
+      clip-path: inset(0 50% 0 0);
+      opacity: 0.92;
+    }
+
+    to {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes project-expand-from-right {
+    from {
+      clip-path: inset(0 0 0 50%);
+      opacity: 0.92;
+    }
+
+    to {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes project-collapse-to-left {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+
+    to {
+      clip-path: inset(0 50% 0 0);
+    }
+  }
+
+  @keyframes project-collapse-to-right {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+
+    to {
+      clip-path: inset(0 0 0 50%);
+    }
+  }
+
+  .project-card-shell {
+    clip-path: none;
+  }
+
+  .project-expand-from-left,
+  .project-expand-from-right,
+  .project-collapse-to-left,
+  .project-collapse-to-right {
+    animation: none;
+  }
+
+  @media (min-width: 768px) {
+    .project-expand-from-left {
+      animation: project-expand-from-left 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .project-expand-from-right {
+      animation: project-expand-from-right 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .project-collapse-to-left {
+      animation: project-collapse-to-left 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+
+    .project-collapse-to-right {
+      animation: project-collapse-to-right 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+  }
+
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }

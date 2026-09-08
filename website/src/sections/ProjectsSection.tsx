@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { ChevronDown, ExternalLink } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { KineticGeometry } from '../components/KineticGeometry';
 import { KineticGutter } from '../components/KineticGutter';
@@ -10,17 +10,103 @@ import { SectionHeading } from '../components/ui/SectionHeading';
 import { Tag } from '../components/ui/Tag';
 import { projects } from '../content/portfolio';
 import { cn } from '../lib/cn';
-import { promoteExpanded } from '../lib/expandLayout';
+import { promoteExpandedPair } from '../lib/expandLayout';
 import { expandRootFrom, pinScrollDuring } from '../lib/keepScroll';
-import { panelVariants } from '../lib/motion';
+import { projectPanelVariants } from '../lib/motion';
 import { isSectionedProjectWork } from '../types/portfolio';
+
+const STRETCH_MS = 280;
+
+type StretchMode =
+  | 'expand-left'
+  | 'expand-right'
+  | 'collapse-left'
+  | 'collapse-right';
+
+const stretchClassName: Record<StretchMode, string> = {
+  'expand-left': 'project-expand-from-left',
+  'expand-right': 'project-expand-from-right',
+  'collapse-left': 'project-collapse-to-left',
+  'collapse-right': 'project-collapse-to-right',
+};
+
+const canStretchHorizontally = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(min-width: 768px)').matches;
+
+const stretchModeFor = (
+  index: number,
+  action: 'expand' | 'collapse',
+): StretchMode => {
+  const side = index % 2 === 0 ? 'left' : 'right';
+  return `${action}-${side}`;
+};
 
 export const ProjectsSection = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [wideIndex, setWideIndex] = useState<number | null>(null);
+  const [stretchMode, setStretchMode] = useState<StretchMode | null>(null);
+  const stretchTimerRef = useRef<number | null>(null);
+
+  const clearStretchTimer = () => {
+    if (stretchTimerRef.current !== null) {
+      window.clearTimeout(stretchTimerRef.current);
+      stretchTimerRef.current = null;
+    }
+  };
+
+  useEffect(
+    () => () => {
+      clearStretchTimer();
+    },
+    [],
+  );
+
+  const finishStretch = (mode: StretchMode | null = stretchMode) => {
+    clearStretchTimer();
+
+    if (mode?.startsWith('collapse')) {
+      setWideIndex(null);
+    }
+
+    setStretchMode(null);
+  };
 
   const toggleProject = (index: number, target: EventTarget | null) => {
-    pinScrollDuring(expandRootFrom(target), () => {
-      setExpandedIndex((current) => (current === index ? null : index));
+    const pinElement = expandRootFrom(target);
+
+    pinScrollDuring(pinElement, () => {
+      clearStretchTimer();
+
+      if (expandedIndex === index) {
+        setExpandedIndex(null);
+
+        if (canStretchHorizontally()) {
+          const mode = stretchModeFor(index, 'collapse');
+          setStretchMode(mode);
+          stretchTimerRef.current = window.setTimeout(() => {
+            finishStretch(mode);
+          }, STRETCH_MS);
+        } else {
+          setWideIndex(null);
+          setStretchMode(null);
+        }
+
+        return;
+      }
+
+      setWideIndex(index);
+      setExpandedIndex(index);
+
+      if (canStretchHorizontally()) {
+        const mode = stretchModeFor(index, 'expand');
+        setStretchMode(mode);
+        stretchTimerRef.current = window.setTimeout(() => {
+          finishStretch(mode);
+        }, STRETCH_MS);
+      } else {
+        setStretchMode(null);
+      }
     });
   };
 
@@ -60,9 +146,10 @@ export const ProjectsSection = () => {
           data-expand-pin
           className="grid items-start gap-8 md:grid-cols-2"
         >
-          {promoteExpanded(projects, expandedIndex).map(
+          {promoteExpandedPair(projects, wideIndex).map(
             ({ item: project, originalIndex }) => {
               const isExpanded = expandedIndex === originalIndex;
+              const isWide = wideIndex === originalIndex;
               const work = project.work;
               const hasWork = work.length > 0;
               const hasWhyItMatters = Boolean(project.whyItMatters?.trim());
@@ -73,14 +160,29 @@ export const ProjectsSection = () => {
                 <div
                   key={project.title}
                   className={cn(
-                    'expand-stable min-w-0',
-                    isExpanded && 'md:col-span-2',
+                    'expand-stable w-full min-w-0 self-start',
+                    isWide && 'md:col-span-2',
                   )}
                 >
+                  <div
+                    className={cn(
+                      'project-card-shell w-full',
+                      isWide &&
+                        stretchMode &&
+                        stretchClassName[stretchMode],
+                    )}
+                    onAnimationEnd={(event) => {
+                      if (event.target !== event.currentTarget) {
+                        return;
+                      }
+
+                      finishStretch();
+                    }}
+                  >
                     <Card
-                      variant={isExpanded ? 'accent' : 'raised'}
+                      variant={isWide ? 'accent' : 'raised'}
                       accent="purple"
-                      className="group transition-colors duration-300"
+                      className="group w-full transition-colors duration-300"
                     >
                       <div className="flex flex-col p-6">
                         <div className="mb-4 flex items-start justify-between">
@@ -145,25 +247,24 @@ export const ProjectsSection = () => {
                           </div>
                         </div>
 
-                        <p className="mb-6 flex-grow border-l-2 border-line pl-4 font-sans text-sm leading-relaxed text-body">
+                        <p className="mb-6 border-l-2 border-line pl-4 font-sans text-sm leading-relaxed text-body">
                           {project.description}
                         </p>
 
-                        <div className="mt-auto flex flex-wrap gap-2 border-t border-line pt-4">
+                        <div className="flex flex-wrap gap-2 border-t border-line pt-4">
                           {project.tech.map((tech) => (
                             <Tag key={tech} variant="muted">
                               {tech}
                             </Tag>
                           ))}
                         </div>
-
                       </div>
 
                       {canExpand && (
                         <motion.div
                           initial={false}
                           animate={isExpanded ? 'expanded' : 'collapsed'}
-                          variants={panelVariants}
+                          variants={projectPanelVariants}
                           className="grid overflow-hidden"
                           aria-hidden={!isExpanded}
                           inert={!isExpanded}
@@ -235,6 +336,7 @@ export const ProjectsSection = () => {
                       )}
                     </Card>
                   </div>
+                </div>
               );
             },
           )}

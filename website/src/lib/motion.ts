@@ -49,6 +49,27 @@ export const panelVariants: Variants = {
   },
 };
 
+export const projectPanelVariants: Variants = {
+  collapsed: {
+    gridTemplateRows: '0fr',
+    opacity: 0,
+    transition: {
+      duration: 0.28,
+      ease: [0.4, 0, 1, 1],
+      opacity: { duration: 0.16 },
+    },
+  },
+  expanded: {
+    gridTemplateRows: '1fr',
+    opacity: 1,
+    transition: {
+      duration: 0.42,
+      ease: [0.16, 1, 0.3, 1],
+      opacity: { duration: 0.22, delay: 0.08 },
+    },
+  },
+};
+
 export const statusMessageVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
