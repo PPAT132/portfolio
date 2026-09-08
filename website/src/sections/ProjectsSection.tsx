@@ -2,6 +2,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { ChevronDown, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
+import { KineticGeometry } from '../components/KineticGeometry';
 import { buttonStyles } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { SectionHeading } from '../components/ui/SectionHeading';
@@ -22,13 +23,27 @@ export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="border-t-4 border-black bg-inset px-4 py-20"
+      className="relative border-t-4 border-black bg-inset px-4 py-20"
     >
-      <div className="mx-auto max-w-[1100px]">
+      <KineticGeometry
+        motif="resonance"
+        className="-left-8 top-[46%] opacity-80 lg:left-4"
+      />
+      <div className="relative z-10 mx-auto max-w-[1100px]">
         <motion.div className="mb-16 text-center">
-          <SectionHeading variant="boxed" size="xl" className="mb-4 inline-block">
-            Project_Database
-          </SectionHeading>
+          <div className="relative inline-block">
+            <SectionHeading
+              variant="boxed"
+              size="xl"
+              className="mb-4 inline-block"
+            >
+              Project_Database
+            </SectionHeading>
+            <KineticGeometry
+              motif="trefoil"
+              className="left-full top-1/2 ml-7 -translate-y-1/2 opacity-80"
+            />
+          </div>
           <div className="mx-auto h-3 w-full max-w-md -skew-x-12 bg-navy" />
         </motion.div>
 

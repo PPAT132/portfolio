@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 
+import { KineticGeometry } from '../components/KineticGeometry';
 import { buttonStyles } from '../components/ui/Button';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { contactLinks } from '../content/portfolio';
@@ -7,9 +8,13 @@ import { contactLinks } from '../content/portfolio';
 export const ContactSection = () => (
   <section
     id="contact"
-    className="border-t-4 border-black bg-grid px-4 py-20 pb-32"
+    className="relative border-t-4 border-black bg-grid px-4 py-20 pb-32"
   >
-    <div className="mx-auto max-w-4xl">
+    <KineticGeometry
+      motif="hopf"
+      className="-left-8 top-20 opacity-80 lg:left-4"
+    />
+    <div className="relative z-10 mx-auto max-w-4xl">
       <motion.div className="mb-16 text-center">
         <SectionHeading variant="boxed" size="xl" className="mb-6 inline-block">
           Initialize_Connection

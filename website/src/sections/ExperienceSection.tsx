@@ -2,6 +2,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { Calendar, ChevronDown, ExternalLink, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
+import { KineticGeometry } from '../components/KineticGeometry';
 import { buttonStyles } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { SectionHeading } from '../components/ui/SectionHeading';
@@ -22,15 +23,25 @@ export const ExperienceSection = () => {
       id="experience"
       className="relative border-t-4 border-black bg-grid px-4 py-20"
     >
-      <div className="mx-auto max-w-4xl">
+      <KineticGeometry
+        motif="gears"
+        className="-left-3 top-[20%] opacity-80 lg:left-5"
+      />
+      <div className="relative z-10 mx-auto max-w-4xl">
         <motion.div className="relative z-10 mb-16 text-center">
-          <SectionHeading
-            variant="framed"
-            size="xl"
-            className="mb-4 inline-block -rotate-1"
-          >
-            Experience_Log
-          </SectionHeading>
+          <div className="relative inline-block">
+            <SectionHeading
+              variant="framed"
+              size="xl"
+              className="mb-4 inline-block -rotate-1"
+            >
+              Experience_Log
+            </SectionHeading>
+            <KineticGeometry
+              motif="precession"
+              className="left-full top-1/2 ml-7 -translate-y-1/2 opacity-90"
+            />
+          </div>
         </motion.div>
 
         <LayoutGroup>

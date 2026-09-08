@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { BookOpen, Code, GraduationCap } from 'lucide-react';
 
+import { KineticGeometry } from '../components/KineticGeometry';
 import { Card } from '../components/ui/Card';
 import { ExpandablePanel } from '../components/ui/ExpandablePanel';
 import { SectionHeading } from '../components/ui/SectionHeading';
@@ -17,10 +18,14 @@ import {
 export const AboutSection = () => (
   <section
     id="about"
-    className="border-t-4 border-black bg-inset px-4 py-20"
+    className="relative border-t-4 border-black bg-inset px-4 py-20"
   >
+    <KineticGeometry
+      motif="tusi"
+      className="-right-8 top-28 opacity-75 lg:right-8"
+    />
     <motion.div
-      className="mx-auto max-w-4xl"
+      className="relative z-10 mx-auto max-w-4xl"
       variants={sectionVariants}
       initial="hidden"
       animate="visible"
