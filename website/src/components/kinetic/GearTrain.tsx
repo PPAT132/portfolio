@@ -213,10 +213,11 @@ const Gear = ({
 };
 
 export const GearTrain = ({ rotation, reduceMotion }: GearTrainProps) => (
-  <div className="relative h-64 w-40">
+  <div className="relative w-full">
     <svg
       viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
-      className="h-[230px] w-40 overflow-visible"
+      className="h-auto w-full overflow-visible"
+      preserveAspectRatio="xMaxYMin meet"
     >
       <path
         d={guidePath}

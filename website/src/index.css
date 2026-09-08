@@ -110,6 +110,58 @@
   .form-input {
     @apply w-full border-[3px] border-border bg-surface px-4 py-3 font-sans text-foreground placeholder:text-faint transition-colors focus:border-navy focus:outline-none focus:ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy;
   }
+
+  .kinetic-gutter-cell {
+    container-name: kinetic;
+    container-type: inline-size;
+    overflow: hidden;
+  }
+
+  .kinetic-fit-gears {
+    transform-origin: right top;
+    width: min(100%, 10rem);
+  }
+
+  .kinetic-fit-cam {
+    transform-origin: right bottom;
+    width: min(100%, 9rem);
+  }
+
+  .kinetic-fit-park {
+    max-width: 100%;
+  }
+}
+
+@container kinetic (max-width: 152px) {
+  .kinetic-fit-gears {
+    transform: translate(8%, 3%);
+  }
+}
+
+@container kinetic (max-width: 124px) {
+  .kinetic-fit-gears {
+    transform: translate(18%, 8%) scale(0.9);
+  }
+}
+
+@container kinetic (max-width: 92px) {
+  .kinetic-fit-gears,
+  .kinetic-fit-park,
+  .kinetic-fit-cam {
+    display: none;
+  }
+}
+
+@container kinetic (max-width: 176px) {
+  .kinetic-fit-hopf {
+    display: none;
+  }
+}
+
+@container kinetic (max-width: 148px) {
+  .kinetic-fit-orbits {
+    display: none;
+  }
 }
 
 @layer utilities {
@@ -120,23 +172,9 @@
     background-size: 36px 36px;
   }
 
-  .glitch-text {
-    position: relative;
-    isolation: isolate;
+  .hero-name {
     color: #000;
-  }
-
-  .glitch-text::before {
-    display: none;
-  }
-
-  .glitch-text::after {
-    position: absolute;
-    top: 5px;
-    left: 6px;
-    z-index: -1;
-    color: rgb(var(--color-navy));
-    content: attr(data-text);
+    text-shadow: 2px 2px 0 rgb(var(--color-sky));
   }
 
   .animate-float {
@@ -144,7 +182,7 @@
   }
 
   .navigator-responsive {
-    right: 1vw;
+    right: 0.25vw;
   }
 }
 
@@ -156,7 +194,7 @@
 
 @media (min-width: 1320px) {
   .navigator-responsive {
-    right: calc((100vw - 1130px) / 2 - 24px);
+    right: calc((100vw - 1130px) / 2 - 40px);
   }
 }
 
@@ -190,9 +228,5 @@
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-  }
-
-  .glitch-text::after {
-    display: none;
   }
 }

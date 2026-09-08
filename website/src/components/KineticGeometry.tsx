@@ -7,11 +7,13 @@ import {
 } from 'framer-motion';
 import { useRef, type HTMLAttributes } from 'react';
 
+import { EccentricCam } from './kinetic/EccentricCam';
 import { GearTrain } from './kinetic/GearTrain';
 import { OrbitalResonance } from './kinetic/OrbitalResonance';
 import { cn } from '../lib/cn';
 
 type GeometryMotif =
+  | 'cam'
   | 'gears'
   | 'hopf'
   | 'precession'
@@ -332,7 +334,7 @@ export const KineticGeometry = ({
       ref={ref}
       aria-hidden="true"
       className={cn(
-        'pointer-events-none absolute z-0 hidden select-none md:block',
+        'pointer-events-none absolute z-0 select-none',
         className,
       )}
       {...props}
@@ -365,6 +367,13 @@ export const KineticGeometry = ({
 
       {motif === 'gears' && (
         <GearTrain
+          rotation={baseGearRotation}
+          reduceMotion={Boolean(reduceMotion)}
+        />
+      )}
+
+      {motif === 'cam' && (
+        <EccentricCam
           rotation={baseGearRotation}
           reduceMotion={Boolean(reduceMotion)}
         />

@@ -33,10 +33,7 @@ export const HeroSection = () => (
             <div className="mb-4 inline-block ink bg-sky p-2 font-display text-sm font-bold uppercase tracking-widest text-on-light shadow-neo-sm -rotate-1">
               Full Stack / AI Engineer
             </div>
-            <h1
-              className="glitch-text mb-6 font-display text-5xl font-bold text-foreground md:text-7xl"
-              data-text="Patrick Maxiao Ma"
-            >
+            <h1 className="hero-name mb-6 font-display text-5xl font-bold text-foreground md:text-7xl">
               Patrick Maxiao Ma
             </h1>
             <h2 className="font-display text-xl font-bold tracking-tight text-navy md:text-2xl">

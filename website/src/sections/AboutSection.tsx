@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { BookOpen, Code, GraduationCap } from 'lucide-react';
 
 import { KineticGeometry } from '../components/KineticGeometry';
+import { KineticGutter } from '../components/KineticGutter';
 import { Card } from '../components/ui/Card';
 import { ExpandablePanel } from '../components/ui/ExpandablePanel';
 import { SectionHeading } from '../components/ui/SectionHeading';
@@ -20,9 +21,13 @@ export const AboutSection = () => (
     id="about"
     className="relative border-t-4 border-black bg-inset px-4 py-20"
   >
-    <KineticGeometry
-      motif="tusi"
-      className="-right-8 top-28 opacity-75 lg:right-8"
+    <KineticGutter
+      right={
+        <KineticGeometry
+          motif="tusi"
+          className="kinetic-fit-park left-1 top-28 opacity-75"
+        />
+      }
     />
     <motion.div
       className="relative z-10 mx-auto max-w-4xl"

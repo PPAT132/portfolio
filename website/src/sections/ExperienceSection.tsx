@@ -3,6 +3,7 @@ import { Calendar, ChevronDown, ExternalLink, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
 import { KineticGeometry } from '../components/KineticGeometry';
+import { KineticGutter } from '../components/KineticGutter';
 import { buttonStyles } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { SectionHeading } from '../components/ui/SectionHeading';
@@ -23,9 +24,19 @@ export const ExperienceSection = () => {
       id="experience"
       className="relative border-t-4 border-black bg-grid px-4 py-20"
     >
-      <KineticGeometry
-        motif="gears"
-        className="-left-3 top-[20%] opacity-80 lg:left-5"
+      <KineticGutter
+        left={
+          <>
+            <KineticGeometry
+              motif="gears"
+              className="kinetic-fit-gears right-0 top-[22%] opacity-80"
+            />
+            <KineticGeometry
+              motif="cam"
+              className="kinetic-fit-cam right-0 bottom-[6%] opacity-80"
+            />
+          </>
+        }
       />
       <div className="relative z-10 mx-auto max-w-4xl">
         <motion.div className="relative z-10 mb-16 text-center">
@@ -39,7 +50,7 @@ export const ExperienceSection = () => {
             </SectionHeading>
             <KineticGeometry
               motif="precession"
-              className="left-full top-1/2 ml-7 -translate-y-1/2 opacity-90"
+              className="left-full top-1/2 ml-7 hidden -translate-y-1/2 opacity-90 lg:block"
             />
           </div>
         </motion.div>

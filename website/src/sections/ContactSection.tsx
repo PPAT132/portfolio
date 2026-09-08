@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 
 import { KineticGeometry } from '../components/KineticGeometry';
+import { KineticGutter } from '../components/KineticGutter';
 import { buttonStyles } from '../components/ui/Button';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { contactLinks } from '../content/portfolio';
@@ -10,9 +11,13 @@ export const ContactSection = () => (
     id="contact"
     className="relative border-t-4 border-black bg-grid px-4 py-20 pb-32"
   >
-    <KineticGeometry
-      motif="hopf"
-      className="-left-8 top-20 opacity-80 lg:left-4"
+    <KineticGutter
+      left={
+        <KineticGeometry
+          motif="hopf"
+          className="kinetic-fit-hopf right-1 top-20 opacity-80"
+        />
+      }
     />
     <div className="relative z-10 mx-auto max-w-4xl">
       <motion.div className="mb-16 text-center">

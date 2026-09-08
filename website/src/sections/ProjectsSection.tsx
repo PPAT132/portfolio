@@ -3,6 +3,7 @@ import { ChevronDown, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
 import { KineticGeometry } from '../components/KineticGeometry';
+import { KineticGutter } from '../components/KineticGutter';
 import { buttonStyles } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { SectionHeading } from '../components/ui/SectionHeading';
@@ -25,9 +26,14 @@ export const ProjectsSection = () => {
       id="projects"
       className="relative border-t-4 border-black bg-inset px-4 py-20"
     >
-      <KineticGeometry
-        motif="resonance"
-        className="-left-8 top-[46%] opacity-80 lg:left-4"
+      <KineticGutter
+        content="wide"
+        left={
+          <KineticGeometry
+            motif="resonance"
+            className="kinetic-fit-orbits right-0 top-[42%] opacity-80"
+          />
+        }
       />
       <div className="relative z-10 mx-auto max-w-[1100px]">
         <motion.div className="mb-16 text-center">
@@ -41,7 +47,7 @@ export const ProjectsSection = () => {
             </SectionHeading>
             <KineticGeometry
               motif="trefoil"
-              className="left-full top-1/2 ml-7 -translate-y-1/2 opacity-80"
+              className="left-full top-1/2 ml-7 hidden -translate-y-1/2 opacity-80 lg:block"
             />
           </div>
           <div className="mx-auto h-3 w-full max-w-md -skew-x-12 bg-navy" />
