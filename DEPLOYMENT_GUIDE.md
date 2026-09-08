@@ -1,144 +1,74 @@
-# 🚀 Portfolio Deployment Guide
+# Portfolio Deployment Guide
 
-## 📋 **Complete Deployment Steps**
+The portfolio is a static frontend hosted on Netlify. The `/email` page submits directly to Netlify Forms, so no separate email server or API environment variables are required.
 
-### ✅ **What We're Doing:**
+## Deploy to Netlify
 
-This guide explains how to deploy your portfolio website online so people can access it at your domain.
+1. Push the repository to your Git provider.
+2. In [Netlify](https://www.netlify.com/), select **Add new site** → **Import an existing project**.
+3. Select the repository and configure:
+   - Base directory: leave blank
+   - Build command: `npm run build --prefix website`
+   - Publish directory: `website/dist`
+4. Deploy the site.
 
----
+Alternatively, set the base directory to `website`, then use `npm run build` as the build command and `dist` as the publish directory.
 
-### 🛠️ **Step 1: Backend Deployment to Railway**
+Netlify detects the hidden `contact` form in `website/public/__forms.html` during deployment. The React page submits the fields `name`, `email`, `subject`, and `message` to that form and includes the `bot-field` honeypot.
 
-**Purpose**: Deploy your email server so contact forms work
-**Duration**: 5 minutes
+## Configure Form Notifications
 
-1. **Visit**: https://railway.app
-2. **Register/Login**: Use your GitHub account
-3. **Create New Project**: Click "Deploy from GitHub repo"
-4. **Select Repository**: Choose your portfolio repository
-5. **Select Folder**: Choose `portfolio/backend` folder
-6. **Deploy**: Railway automatically detects package.json and starts building
+1. Open the deployed site in the Netlify dashboard.
+2. Go to **Forms** and confirm that the `contact` form appears after the first deployment.
+3. Go to **Project configuration** → **Notifications** → **Emails and webhooks**.
+4. Add an email notification for new `contact` form submissions.
+5. Submit a test message from `/email` and verify it appears under **Forms**.
 
-**Result**: You get: `https://portfolio-backend-production.up.railway.app`
+No frontend environment variable is needed for contact form submissions.
 
----
+## Custom Domain
 
-### 🌐 **Step 2: Frontend Deployment to Netlify**
+1. Open **Domain management** in Netlify.
+2. Select **Add a domain** and enter your domain.
+3. Follow Netlify's DNS instructions.
+4. Wait for DNS propagation and confirm HTTPS is active.
 
-**Purpose**: Deploy your website so visitors can see it
-**Duration**: 5 minutes
-
-1. **Visit**: https://netlify.com
-2. **Register/Login**: Use your GitHub account
-3. **New Site**: Click "Add new site" → "Import an existing project"
-4. **Connect GitHub**: Select your portfolio repository
-5. **Configure Build**:
-   - Build command: `npm run build --prefix portfolio/website`
-   - Publish directory: `portfolio/website/dist`
-   - Advanced → Environment variables
-6. **Deploy**: Netlify automatically builds and deploys
-
-**Result**: You get: `https://amazing-portfolio-123.netlify.app`
-
----
-
-### ⚙️ **Step 3: Connect Frontend and Backend**
-
-**Purpose**: Make the contact form work with your railway server
-
-1. In Netlify dashboard:
-   - Go to Site Settings → Environment Variables
-   - Add New Variable:
-     - Key: `VITE_API_URL`
-     - Value: Your Railway URL (from Step 1)
-2. Redeploy: Trigger a new deployment
-
-**Result**: Contact form now sends emails to your Gmail
-
----
-
-### 🌍 **Step 4: Custom Domain Setup**
-
-**Purpose**: Get a professional domain like `patrickma.com`
-
-1. **Purchase Domain**:
-
-   - Visit [Namecheap](https://namecheap.com) or [GoDaddy](https://godaddy.com)
-   - Search for your desired domain
-   - Purchase ($10-15/year)
-
-2. **Configure in Netlify**:
-   - Settings → Domain Management → Add Custom Domain
-   - Enter your domain
-   - Follow DNS instructions
-
-**Result**: Your site is live at `yourdomain.com`
-
----
-
-## 🔄 **How to Update Your Site**
-
-### 📝 **Frontend Updates:**
+## Update the Site
 
 ```bash
-# 1. Make changes locally
-npm run dev
-
-# 2. Test everything works
+cd website
+npm run lint
 npm run build
-
-# 3. Push to GitHub
-git add .
-git commit -m "Added new feature"
-git push origin main
-
-# 4. Netlify automatically redeploys! ✨
 ```
 
-### 🔧 **Backend Updates:**
+Commit and push the changes. Netlify will build and deploy the new version automatically.
 
-```bash
-# 1. Make changes locally
-node server.js
+## Deployment Checklist
 
-# 2. Push to GitHub
-git add .
-git commit -m "Fixed email bug"
-git push origin main
+- [ ] Netlify deployment completes successfully
+- [ ] The site and `/email` route load
+- [ ] Netlify lists the `contact` form
+- [ ] A test submission appears in the Forms dashboard
+- [ ] Form email notifications arrive
+- [ ] The honeypot field is present in the deployed form
+- [ ] The custom domain resolves and HTTPS is active
 
-# 3. Railway automatically redeploys! ✨
-```
+## Troubleshooting
 
----
+### Netlify does not detect the form
 
-## 🎯 **Final Checklist**
+- Confirm `website/public/__forms.html` is present in the deployed output.
+- Trigger a fresh deployment after clearing the Netlify build cache.
+- Confirm the hidden form is named `contact` and includes `data-netlify="true"`.
 
-Before you're done, verify:
+### A submission fails
 
-- [ ] Railway dashboard shows "Deployed" status
-- [ ] Netlify dashboard shows "Deployed" status
-- [ ] Visit your Netlify URL - website loads
-- [ ] Try the contact form - email is sent
-- [ ] Domain resolves to your site (takes 1-24 hours)
-- [ ] HTTPS is enabled (automatic)
+- Check the browser network panel for the POST request to `/__forms.html`.
+- Confirm the request content type is `application/x-www-form-urlencoded`.
+- Confirm the submitted form name is `contact`.
+- Review the site's form submissions and spam entries in Netlify.
 
----
+### A route returns 404
 
-## 🆘 **If Something Goes Wrong**
-
-**Contact form not working?**
-
-- Check VITE_API_URL is set correctly in Netlify
-- Check Railway has EMAIL_USER and EMAIL_PASS set
-- Check browser console for errors
-
-**Domain not working?**
-
-- DNS changes can take up to 24 hours
-- Check domain registrar DNS settings
-
-**Site not loading?**
-
-- Check Railway and Netlify deployment status
-- Make sure environment variables are set
+- Confirm `website/public/_redirects` is included in the deployed output.
+- Confirm the publish directory points to the generated `dist` directory.

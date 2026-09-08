@@ -1,98 +1,74 @@
-# Patrick Maxiao Ma - Portfolio
+# Patrick Maxiao Ma — Portfolio Website
 
-A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS.
+A responsive, single-page portfolio built with React 19, TypeScript, Vite,
+Tailwind CSS, Framer Motion, and Lucide icons.
 
-## 🚀 Features
+## Development
 
-- **Responsive Design**: Optimized for both desktop and mobile devices
-- **Dark Theme**: Modern dark UI with gradient accents
-- **Smooth Animations**: Powered by Framer Motion
-- **TypeScript**: Type-safe development
-- **Modern Stack**: React 18, Vite, Tailwind CSS
+Use Node.js 22.12+ and npm. From the repository root, `nvm use` reads the
+checked-in `.nvmrc` and selects the correct version.
 
-## 📋 Sections
-
-- **Home**: Landing page with introduction and quick links
-- **About**: Personal story, education, and current focus
-- **Experience**: Work history with timeline layout
-- **Projects**: Featured projects with detailed descriptions
-- **Skills**: Categorized skills with progress indicators
-- **Contact**: Contact information and availability
-
-## 🛠 Tech Stack
-
-- **Frontend**: React 18, TypeScript, Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Build Tool**: Vite
-- **Routing**: React Router DOM
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v18 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/PPAT132/portfolio.git
-cd portfolio/website
-```
-
-2. Install dependencies:
-```bash
+nvm use
 npm install
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
 
-4. Open your browser and visit `http://localhost:5173`
+The development server is available at `http://localhost:5173`.
 
-## 📝 Available Scripts
+Available commands:
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+- `npm run dev` starts Vite.
+- `npm run lint` runs ESLint.
+- `npm run build` type-checks and creates the production build.
+- `npm run preview` serves the production build locally.
 
-## 🎨 Customization
+## Architecture
 
-### Content Updates
+```text
+src/
+├── components/
+│   ├── ui/          Shared design-system components
+│   └── *Navigation Navigation for desktop and mobile
+├── config/          Shared section configuration
+├── content/         Portfolio data and external links
+├── hooks/           Scroll and interaction behavior
+├── lib/             Class and animation helpers
+├── pages/           Route-level composition
+├── sections/        Home-page sections
+└── types/           Portfolio content types
+```
 
-- **Personal Info**: Update content in individual page components
-- **Projects**: Modify the `projects` array in `src/pages/Projects.tsx`
-- **Skills**: Update the `skillCategories` array in `src/pages/Skills.tsx`
-- **Experience**: Edit the `experiences` array in `src/pages/Experience.tsx`
+The `/` route is a single scrolling page with Home, About, Experience,
+Projects, and Contact sections. The `/email` route contains the Netlify contact
+form.
 
-### Styling
+## Updating content
 
-- **Colors**: Modify Tailwind classes or update CSS variables
-- **Animations**: Adjust Framer Motion variants in components
-- **Layout**: Update Tailwind classes for responsive design
+Most portfolio content lives in `src/content/portfolio.ts`. Update projects,
+experience, skills, social links, and contact links there instead of editing
+rendering components.
 
-## 📱 Responsive Design
+Long-form About copy currently lives in `src/sections/AboutSection.tsx`.
 
-The website is fully responsive with breakpoints:
-- Mobile: < 768px
-- Tablet: 768px - 1024px
-- Desktop: > 1024px
+## Updating the design
 
-## 🔗 Links
+- Change global color values in `src/index.css`.
+- Change semantic Tailwind mappings and shadows in `tailwind.config.js`.
+- Change reusable buttons, cards, tags, headings, and expandable panels in
+  `src/components/ui/`.
+- Change section-specific layout in `src/sections/`.
+- Change shared animation behavior in `src/lib/motion.ts`.
 
-- **GitHub**: [github.com/PPAT132](https://github.com/PPAT132)
-- **LinkedIn**: [linkedin.com/in/maxiao-ma-2162752b3](https://www.linkedin.com/in/maxiao-ma-2162752b3)
-- **Email**: maxiaoma833@gmail.com
+The `cyber-*` Tailwind names remain as compatibility aliases. New reusable
+components should prefer semantic names such as `background`, `surface`,
+`foreground`, `muted`, `border`, and `accent-*`.
 
-## 📄 License
+## Contact form
 
-MIT License - feel free to use this template for your own portfolio!
+The React form posts to Netlify Forms. `public/__forms.html` is the static form
+declaration Netlify detects during deployment. Keep its field names synchronized
+with `src/pages/EmailMe.tsx`.
 
----
-
-Built with ❤️ by Patrick Maxiao Ma
+No API server or `VITE_API_URL` is required. Notification setup and deployment
+instructions are in the repository's `DEPLOYMENT_GUIDE.md`.

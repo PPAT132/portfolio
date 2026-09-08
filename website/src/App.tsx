@@ -1,44 +1,69 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import { MotionConfig } from 'framer-motion';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import EmailMe from './pages/EmailMe';
 import SideNavigation from './components/SideNavigation';
 import TopNavigation from './components/TopNavigation';
+import { sections, type SectionId } from './config/sections';
+import { useScrollSpy } from './hooks/useScrollSpy';
 
 function App() {
-  const [currentSection, setCurrentSection] = useState('home');
-  
-  // Handle hash navigation on page load
+  const {
+    currentSection,
+    navigateToSection: scrollToSection,
+  } = useScrollSpy();
+
+  const navigateToSection = useCallback(
+    (sectionId: SectionId) => {
+      scrollToSection(sectionId);
+    },
+    [scrollToSection],
+  );
+
   useEffect(() => {
-    const hash = window.location.hash.substring(1);
-    if (hash && hash !== currentSection) {
-      setCurrentSection(hash);
-      setTimeout(() => {
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
+    const hash = window.location.hash.slice(1);
+    const initialSection = sections.find((section) => section.id === hash);
+
+    if (!initialSection) {
+      return;
     }
-  }, [currentSection]);
+
+    const animationFrameId = window.requestAnimationFrame(() => {
+      navigateToSection(initialSection.id);
+    });
+
+    return () => window.cancelAnimationFrame(animationFrameId);
+  }, [navigateToSection]);
 
   return (
-    <Router>
-      <div className="min-h-screen bg-cyber-black text-white overflow-x-hidden overflow-y-auto bg-grid font-mono">
-        <Routes>
-          <Route path="/email" element={<EmailMe />} />
-          <Route path="/*" element={
-            <>
-              <TopNavigation currentSection={currentSection} setCurrentSection={setCurrentSection} />
-              <main className="w-full px-4 sm:px-6 lg:pl-16 lg:pr-56 pt-16 lg:pt-0">
-                <Home setCurrentSection={setCurrentSection} />
-              </main>
-              <SideNavigation currentSection={currentSection} setCurrentSection={setCurrentSection} />
-            </>
-          } />
-        </Routes>
-      </div>
-    </Router>
+    <MotionConfig reducedMotion="user">
+      <Router>
+        <div className="min-h-screen overflow-x-hidden overflow-y-auto bg-background bg-grid font-mono text-foreground">
+          <Routes>
+            <Route path="/email" element={<EmailMe />} />
+            <Route
+              path="/*"
+              element={
+                <>
+                  <TopNavigation
+                    currentSection={currentSection}
+                    onNavigate={navigateToSection}
+                  />
+                  <main className="w-full px-4 sm:px-6 lg:pl-16 lg:pr-64 pt-16 lg:pt-0">
+                    <Home />
+                  </main>
+                  <SideNavigation
+                    currentSection={currentSection}
+                    onNavigate={navigateToSection}
+                  />
+                </>
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
+    </MotionConfig>
   );
 }
 

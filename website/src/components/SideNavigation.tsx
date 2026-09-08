@@ -1,251 +1,154 @@
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import {
+  motion,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
+
+import { sections, type SectionId } from '../config/sections';
 
 interface SideNavigationProps {
-  currentSection: string;
-  setCurrentSection: (section: string) => void;
+  currentSection: SectionId;
+  onNavigate: (sectionId: SectionId) => void;
 }
 
-const SideNavigation = ({ currentSection, setCurrentSection }: SideNavigationProps) => {
-  const isNavigatingRef = useRef(false);
-  const sections = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' },
-  ];
+interface LoopMarkProps {
+  active: boolean;
+  hot: boolean;
+}
+
+const morphPath = (amount: number, radius: number) => {
+  const steps = 48;
+  const t = Math.min(1, Math.max(0, amount));
+  const points = Array.from({ length: steps + 1 }, (_, index) => {
+    const theta = (index / steps) * Math.PI * 2;
+    const cos = Math.cos(theta);
+    const sin = Math.sin(theta);
+    const absCos = Math.abs(cos);
+    const absSin = Math.abs(sin);
+    const squareRadius = radius / Math.max(absCos, absSin);
+    const diamondRadius = radius / (absCos + absSin);
+    const currentRadius = squareRadius + (diamondRadius - squareRadius) * t;
+
+    return `${currentRadius * cos} ${currentRadius * sin}`;
+  });
+
+  return `M ${points.join(' L ')} Z`;
+};
+
+const LoopMark = ({ active, hot }: LoopMarkProps) => {
+  const reduceMotion = useReducedMotion();
+  const morph = useSpring(0, {
+    stiffness: 240,
+    damping: 16,
+    mass: 0.7,
+  });
+  const d = useTransform(morph, (value) => morphPath(value, 7));
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Skip updates if we are programmatically scrolling
-      if (isNavigatingRef.current) return;
+    const next = active ? 1 : hot ? 0.35 : 0;
 
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      
-      // Update current section based on scroll position
-      const sectionElements = sections.map(section => ({
-        ...section,
-        element: document.getElementById(section.id)
-      }));
-
-      // Find the current section
-      let currentSectionId = 'home';
-      
-      for (let i = sectionElements.length - 1; i >= 0; i--) {
-        const element = sectionElements[i].element;
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const sectionTop = rect.top + scrollY;
-          const sectionBottom = sectionTop + rect.height;
-          
-          // Check if the section is in view with a more generous offset
-          if (scrollY + 150 >= sectionTop && scrollY + 150 < sectionBottom) {
-            currentSectionId = sectionElements[i].id;
-            break;
-          }
-        }
-      }
-      
-      // Special handling for the last section (contact)
-      const lastSection = sectionElements[sectionElements.length - 1];
-      if (lastSection.element) {
-        const lastRect = lastSection.element.getBoundingClientRect();
-        const lastSectionTop = lastRect.top + scrollY;
-        
-        // If we're near the bottom of the page or in the last section, set to contact
-        if (scrollY + windowHeight >= documentHeight - 200 || 
-            scrollY + 150 >= lastSectionTop) {
-          currentSectionId = 'contact';
-        }
-      }
-      
-      setCurrentSection(currentSectionId);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [sections, setCurrentSection]);
-
-  const scrollToSection = (sectionId: string) => {
-    // 1. Immediately update visual state to target
-    setCurrentSection(sectionId); 
-    
-    // 2. Lock scroll listener updates
-    isNavigatingRef.current = true;
-    
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (reduceMotion) {
+      morph.jump(next);
+      return;
     }
-    
-    // 3. Unlock after scroll is likely finished (keep this generous to cover long scrolls)
-    // Even if it unlocks "too late", it's fine because we are already at the target.
-    setTimeout(() => {
-      isNavigatingRef.current = false;
-    }, 1000);
-  };
+
+    morph.set(next);
+  }, [active, hot, morph, reduceMotion]);
 
   return (
-    <div className="fixed top-1/2 transform -translate-y-1/2 z-50 hidden lg:block navigator-responsive right-8">
-      <div 
-        className="bg-transparent border border-transparent"
-        style={{ 
-          width: '160px', // Reduced width to prevent overlap with project cards
-          height: '400px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'flex-end', // Align buttons to the right
-          paddingRight: '12px',   // Keep buttons visually positioned correctly
-          gap: '40px'
-        }}
-        onMouseMove={(e) => {
-          // Check if we found any buttons to animate, otherwise this function does nothing visible
-          // Logic adapted from the reference branch implementation
-          
-          const containerRect = e.currentTarget.getBoundingClientRect();
-          const mouseY = e.clientY - containerRect.top;
-          
-          // Distance to scale mapping table
-          const distanceToScale = [
-            { maxDistance: 0, scale: 1.1, opacity: 1.0 },
-            { maxDistance: 20, scale: 1.05, opacity: 0.95 },
-            { maxDistance: 40, scale: 1.0, opacity: 0.9 },
-            { maxDistance: 70, scale: 0.9, opacity: 0.8 },
-            { maxDistance: 100, scale: 0.8, opacity: 0.7 },
-            { maxDistance: 140, scale: 0.7, opacity: 0.6 },
-            { maxDistance: Infinity, scale: 0.6, opacity: 0.5 } 
-          ];
-          
-          const getScaleAndOpacity = (distance: number) => {
-            for (const mapping of distanceToScale) {
-              if (distance <= mapping.maxDistance) {
-                return { scale: mapping.scale, opacity: mapping.opacity };
-              }
-            }
-            return { scale: 0.6, opacity: 0.5 };
-          };
-          
-          sections.forEach((section) => {
-            const buttonElement = document.getElementById(`nav-dot-${section.id}`);
-            const labelElement = document.getElementById(`nav-label-${section.id}`);
-            
-            if (buttonElement && labelElement) {
-              const buttonRect = buttonElement.getBoundingClientRect();
-              const buttonTop = buttonRect.top - containerRect.top;
-              const buttonBottom = buttonRect.bottom - containerRect.top;
-              
-              let distance;
-              let scale, opacity;
-              
-              if (mouseY < buttonTop) {
-                distance = buttonTop - mouseY;
-                const result = getScaleAndOpacity(distance);
-                scale = result.scale;
-                opacity = result.opacity;
-              } else if (mouseY > buttonBottom) {
-                distance = mouseY - buttonBottom;
-                const result = getScaleAndOpacity(distance);
-                scale = result.scale;
-                opacity = result.opacity;
-              } else {
-                scale = 1.1;
-                opacity = 1.0;
-              }
-              
-              // Apply styles
-              const duration = '0.1s';
-              buttonElement.style.transition = `transform ${duration} ease-out, opacity ${duration} ease-out, width ${duration} ease-out, height ${duration} ease-out`;
-              labelElement.style.transition = `transform ${duration} ease-out, opacity ${duration} ease-out`;
-              
-              // Apply transform (maintain rotation if needed)
-              const isCurrent = currentSection === section.id;
-              const rotation = isCurrent ? 'rotate(45deg)' : 'rotate(0deg)';
-              
-              buttonElement.style.transform = `${rotation} scale(${scale})`;
-              buttonElement.style.opacity = opacity.toString();
-              
-              labelElement.style.transform = `translateY(-50%) scale(${scale})`;
-              labelElement.style.opacity = opacity.toString();
-            }
-          });
-        }}
-        onMouseLeave={() => {
-          // Reset to default state
-          sections.forEach((s) => {
-            const dotElement = document.getElementById(`nav-dot-${s.id}`);
-            const labelElement = document.getElementById(`nav-label-${s.id}`);
-            
-            if (dotElement && labelElement) {
-              const isCurrent = currentSection === s.id;
-              const scale = isCurrent ? 0.9 : 0.6; // Default scales - reduced
-              const opacity = isCurrent ? 1.0 : 0.5;
-              const rotation = isCurrent ? 'rotate(45deg)' : 'rotate(0deg)';
-              
-              dotElement.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-              labelElement.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-              
-              dotElement.style.transform = `${rotation} scale(${scale})`;
-              dotElement.style.opacity = opacity.toString();
-              
-              labelElement.style.transform = `translateY(-50%) scale(${scale})`;
-              labelElement.style.opacity = opacity.toString();
-            }
-          });
-        }}
+    <svg
+      aria-hidden="true"
+      viewBox="-8 -8 16 16"
+      className="relative z-10 -ml-[3px] block h-4 w-4 shrink-0 overflow-visible"
+    >
+      <motion.path
+        d={d}
+        className={active ? 'fill-navy stroke-black' : 'fill-surface stroke-black'}
+        strokeWidth="2"
+      />
+    </svg>
+  );
+};
+
+const getItemScale = (
+  index: number,
+  hoveredIndex: number | null,
+  isCurrent: boolean,
+) => {
+  if (hoveredIndex === null) {
+    return isCurrent ? 1 : 0.94;
+  }
+
+  const distance = Math.abs(hoveredIndex - index);
+
+  if (distance === 0) {
+    return 1.05;
+  }
+
+  if (distance === 1) {
+    return 0.97;
+  }
+
+  return 0.92;
+};
+
+const SideNavigation = ({
+  currentSection,
+  onNavigate,
+}: SideNavigationProps) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  return (
+    <nav
+      aria-label="Section navigation"
+      className="navigator-responsive fixed top-1/2 right-8 z-50 hidden -translate-y-1/2 lg:block"
+    >
+      <div
+        className="flex flex-col items-end justify-center gap-7 pr-3"
+        onMouseLeave={() => setHoveredIndex(null)}
       >
-        {sections.map((section) => {
+        {sections.map((section, index) => {
           const isCurrent = currentSection === section.id;
+          const isHot = hoveredIndex === index || isCurrent;
+
           return (
             <motion.button
               key={section.id}
-              onClick={() => scrollToSection(section.id)}
-              className="relative group flex items-center justify-end w-full"
-              whileTap={{ scale: 0.9 }}
+              type="button"
+              onClick={() => onNavigate(section.id)}
+              onMouseEnter={() => setHoveredIndex(index)}
+              aria-current={isCurrent ? 'page' : undefined}
+              className="flex origin-right items-center"
+              animate={{ scale: getItemScale(index, hoveredIndex, isCurrent) }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              whileTap={{ scale: 0.94 }}
             >
-              {/* Square with dynamic style - Cyberpunk style maintained */}
-              <div
-                id={`nav-dot-${section.id}`}
-                className={`transition-all duration-200 border-2 ${
+              <span
+                className={`whitespace-nowrap border-2 border-black px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider ${
                   isCurrent
-                    ? 'bg-cyber-blue border-cyber-blue w-4 h-4 shadow-[0_0_10px_rgba(0,243,255,0.5)]'
-                    : 'bg-transparent border-gray-600 w-3 h-3 hover:border-white hover:bg-white'
+                    ? 'bg-navy text-on-dark'
+                    : 'bg-background text-foreground'
                 }`}
-                style={{
-                  transform: isCurrent ? 'rotate(45deg) scale(0.9)' : 'rotate(0deg) scale(0.6)',
-                  opacity: isCurrent ? 1 : 0.5,
-                  marginRight: '2px' // Add slight margin from the absolute right edge
-                }}
-              />
-              
-              {/* Connecting Line (decoration) - Only visible for current */}
-              {/* Positioned relative to the dot (which is approx 20px from right) */}
-              <div className={`absolute right-[18px] h-[2px] bg-cyber-blue transition-all duration-300 ${isCurrent ? 'w-12 opacity-100' : 'w-0 opacity-0'}`}></div>
-              
-              {/* Label - Always visible now, scales with mouse */}
-              {/* Positioned further left from the line */}
-              <div
-                id={`nav-label-${section.id}`}
-                className={`absolute right-[34px] top-1/2 transform -translate-y-1/2 px-3 py-1 bg-black border border-white text-white whitespace-nowrap transition-all duration-200 shadow-neo-sm ${
-                  isCurrent ? 'z-10' : 'z-0'
-                }`}
-                style={{
-                  opacity: isCurrent ? 1 : 0.5,
-                  transform: `translateY(-50%) scale(${isCurrent ? 0.9 : 0.6})`
-                }}
               >
-                <span className="font-mono text-xs font-bold tracking-wider uppercase">
-                  {section.label}
-                </span>
-              </div>
+                {section.label}
+              </span>
+              <motion.span
+                aria-hidden="true"
+                className="relative z-0 h-1 origin-left"
+                animate={{
+                  backgroundColor: isHot ? 'rgb(16 42 98)' : '#000',
+                  width: isCurrent ? 14 : 10,
+                }}
+                transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+              />
+              <LoopMark active={isCurrent} hot={isHot} />
             </motion.button>
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 };
 

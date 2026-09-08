@@ -7,29 +7,59 @@ export default {
   theme: {
     extend: {
       colors: {
+        background: 'rgb(var(--color-background) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        inset: 'rgb(var(--color-inset) / <alpha-value>)',
+        panel: 'rgb(var(--color-panel) / <alpha-value>)',
+        'panel-strong': 'rgb(var(--color-panel-strong) / <alpha-value>)',
+        foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
+        body: 'rgb(var(--color-body) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        faint: 'rgb(var(--color-faint) / <alpha-value>)',
+        border: 'rgb(var(--color-border) / <alpha-value>)',
+        line: 'rgb(var(--color-line) / <alpha-value>)',
+        'line-soft': 'rgb(var(--color-line-soft) / <alpha-value>)',
+        accent: {
+          DEFAULT: 'rgb(var(--color-accent-cyan) / <alpha-value>)',
+          cyan: 'rgb(var(--color-accent-cyan) / <alpha-value>)',
+          purple: 'rgb(var(--color-accent-purple) / <alpha-value>)',
+          green: 'rgb(var(--color-accent-green) / <alpha-value>)',
+          pink: 'rgb(var(--color-accent-pink) / <alpha-value>)',
+          yellow: 'rgb(var(--color-accent-yellow) / <alpha-value>)',
+        },
+        navy: 'rgb(var(--color-navy) / <alpha-value>)',
+        sky: 'rgb(var(--color-sky) / <alpha-value>)',
+        'on-dark': 'rgb(var(--color-on-dark) / <alpha-value>)',
+        'on-light': 'rgb(var(--color-on-light) / <alpha-value>)',
+        error: 'rgb(var(--color-error) / <alpha-value>)',
         cyber: {
-          black: '#050505',
-          dark: '#0a0a0a',
-          gray: '#1a1a1a',
-          white: '#ffffff',
-          blue: '#00f3ff', // Neon Cyan
-          purple: '#bc13fe', // Neon Purple
-          green: '#00ff41', // Matrix Green
-          pink: '#ff00ff', // Magenta
-          yellow: '#fcee0a', // Cyber Yellow
+          black: 'rgb(var(--color-background) / <alpha-value>)',
+          dark: 'rgb(var(--color-surface) / <alpha-value>)',
+          gray: 'rgb(var(--color-inset) / <alpha-value>)',
+          white: 'rgb(var(--color-foreground) / <alpha-value>)',
+          blue: 'rgb(var(--color-accent-cyan) / <alpha-value>)',
+          purple: 'rgb(var(--color-accent-purple) / <alpha-value>)',
+          green: 'rgb(var(--color-accent-green) / <alpha-value>)',
+          pink: 'rgb(var(--color-accent-pink) / <alpha-value>)',
+          yellow: 'rgb(var(--color-accent-yellow) / <alpha-value>)',
         }
       },
       fontFamily: {
-        mono: ['"Courier New"', 'Courier', 'monospace'], // Force brutalist mono font
-        sans: ['"Helvetica Neue"', 'Arial', 'sans-serif'], // Clean sans for body
+        display: ['"Arial Black"', 'Impact', 'Haettenschweiler', 'sans-serif'],
+        mono: ['"Courier New"', 'Courier', 'monospace'],
+        sans: ['"Helvetica Neue"', 'Arial', 'sans-serif'],
       },
       boxShadow: {
-        'neo': '4px 4px 0px 0px rgba(255, 255, 255, 1)',
-        'neo-sm': '2px 2px 0px 0px rgba(255, 255, 255, 1)',
-        'neo-lg': '8px 8px 0px 0px rgba(255, 255, 255, 1)',
-        'neo-blue': '4px 4px 0px 0px #00f3ff',
-        'neo-purple': '4px 4px 0px 0px #bc13fe',
-        'neo-green': '4px 4px 0px 0px #00ff41',
+        'neo': '5px 6px 0px 0px #000000',
+        'neo-sm': '3px 3px 0px 0px #000000',
+        'neo-lg': '9px 10px 0px 0px #000000',
+        'plate': '5px 6px 0px 0px #000000, 11px 13px 0px 0px rgb(var(--color-navy))',
+        'neo-cyan': '5px 6px 0px 0px #000000',
+        'neo-blue': '5px 6px 0px 0px #000000',
+        'neo-purple': '5px 6px 0px 0px #000000',
+        'neo-green': '5px 6px 0px 0px #000000',
+        'neo-pink': '5px 6px 0px 0px #000000',
+        'neo-yellow': '5px 6px 0px 0px #000000',
       },
       borderWidth: {
         '3': '3px',
