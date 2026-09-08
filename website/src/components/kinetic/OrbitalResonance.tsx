@@ -111,8 +111,5 @@ export const OrbitalResonance = ({
         />
       ))}
     </svg>
-    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-widest text-navy">
-      1:2:3:2:1
-    </span>
   </div>
 );

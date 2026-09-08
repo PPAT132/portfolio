@@ -234,8 +234,5 @@ export const GearTrain = ({ rotation, reduceMotion }: GearTrainProps) => (
         />
       ))}
     </svg>
-    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-widest text-navy">
-      rω = constant
-    </span>
   </div>
 );

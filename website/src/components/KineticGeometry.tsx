@@ -359,9 +359,6 @@ export const KineticGeometry = ({
             <div className="absolute -right-1.5 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border-2 border-black bg-navy" />
             <div className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black" />
           </motion.div>
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 font-mono text-[10px] font-bold uppercase tracking-widest text-navy">
-            R : R/2
-          </span>
         </div>
       )}
 
@@ -478,9 +475,6 @@ export const KineticGeometry = ({
               L
             </text>
           </svg>
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] font-bold tracking-widest text-navy">
-            dL/dt = τ
-          </span>
         </div>
       )}
 
@@ -507,9 +501,6 @@ export const KineticGeometry = ({
               />
             </motion.g>
           </svg>
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-widest text-navy">
-            3₁ knot
-          </span>
         </div>
       )}
 
@@ -543,9 +534,6 @@ export const KineticGeometry = ({
               />
             </motion.g>
           </svg>
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-widest text-navy">
-            Lk = 1
-          </span>
         </div>
       )}
     </div>
