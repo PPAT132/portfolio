@@ -40,6 +40,7 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    overflow-anchor: none;
     background-color: rgb(var(--color-background));
     color: rgb(var(--color-foreground));
     font-family: "Helvetica Neue", Arial, sans-serif;
@@ -172,9 +173,8 @@
     background-size: 36px 36px;
   }
 
-  .hero-name {
-    color: #000;
-    text-shadow: 2px 2px 0 rgb(var(--color-sky));
+  .expand-stable {
+    overflow-anchor: none;
   }
 
   .animate-float {

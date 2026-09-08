@@ -207,7 +207,7 @@ export const AboutSection = () => (
                   className="text-accent-purple"
                   size={28}
                 />
-                <span className="text-2xl">My_Story.txt</span>
+                <span className="text-2xl">My_Story</span>
               </span>
             }
             collapsedLabel="READ"

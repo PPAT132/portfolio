@@ -1,26 +1,19 @@
-export const promoteExpandedPair = <T>(
+export const promoteExpanded = <T>(
   items: readonly T[],
   expandedIndex: number | null,
-): T[] => {
+): { item: T; originalIndex: number }[] => {
+  const indexed = items.map((item, originalIndex) => ({ item, originalIndex }));
+
   if (
     expandedIndex === null ||
     expandedIndex < 0 ||
     expandedIndex >= items.length
   ) {
-    return [...items];
+    return indexed;
   }
 
-  const pairStart = expandedIndex - (expandedIndex % 2);
-  const pairEnd = Math.min(pairStart + 2, items.length);
-  const expanded = items[expandedIndex];
-  const sibling = items
-    .slice(pairStart, pairEnd)
-    .filter((_, offset) => pairStart + offset !== expandedIndex);
+  const expanded = indexed[expandedIndex];
+  const rest = indexed.filter((_, index) => index !== expandedIndex);
 
-  return [
-    ...items.slice(0, pairStart),
-    expanded,
-    ...sibling,
-    ...items.slice(pairEnd),
-  ];
+  return [expanded, ...rest];
 };

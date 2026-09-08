@@ -33,12 +33,18 @@ export const itemVariants: Variants = {
 };
 
 export const panelVariants: Variants = {
-  collapsed: { height: 0, opacity: 0 },
-  expanded: {
-    height: 'auto',
-    opacity: 1,
+  collapsed: {
+    gridTemplateRows: '0fr',
     transition: {
-      duration: 0.25,
+      duration: 0.28,
+      ease: 'easeOut',
+    },
+  },
+  expanded: {
+    gridTemplateRows: '1fr',
+    transition: {
+      duration: 0.28,
+      ease: 'easeOut',
     },
   },
 };

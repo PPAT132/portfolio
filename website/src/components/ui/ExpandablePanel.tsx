@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useId, useState, type HTMLAttributes, type ReactNode } from 'react';
 
@@ -91,30 +91,29 @@ export const ExpandablePanel = ({
         </div>
       )}
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            id={contentId}
-            initial="collapsed"
-            animate="expanded"
-            exit="collapsed"
-            variants={panelVariants}
-            className="overflow-hidden"
+      <motion.div
+        id={contentId}
+        initial={false}
+        animate={isOpen ? 'expanded' : 'collapsed'}
+        variants={panelVariants}
+        className="grid overflow-hidden"
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div
+            className={cn(
+              'border-t-2 p-4',
+              contentTone === 'inset'
+                ? 'border-line bg-panel text-body'
+                : 'border-border text-muted',
+              contentClassName,
+            )}
           >
-            <div
-              className={cn(
-                'border-t-2 p-4',
-                contentTone === 'inset'
-                  ? 'border-line bg-panel text-body'
-                  : 'border-border text-muted',
-                contentClassName,
-              )}
-            >
-              {props.children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {props.children}
+          </div>
+        </div>
+      </motion.div>
     </Card>
   );
 };
